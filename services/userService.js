@@ -43,9 +43,40 @@ class UserService {
         return user;
     }
 
+    // findOne email
+    async findUserEmail({email}) {
+        const user = await User.findOne({email});
+        if(!user){
+            const result = {
+                result : "fail",
+                reason : "이메일로 조회된 회원이 없습니다."
+            };
+            return result;
+        }
+        return user;
+    }
+
     // find and update
     async findUpdate({__id}, query){
         const user = await User.findOne({__id});
+        if(!user){
+            const result = {
+                result : "fail",
+                reason : "조회된 회원이 없습니다."
+            };
+            return result;
+        } else {
+            await User.updateOne(user, query);
+            const result = {
+                result : "ok"
+            };
+            return result;
+        }
+    }
+
+    // find email and update
+    async findUpdateEmail({email}, query){
+        const user = await User.findOne({email});
         if(!user){
             const result = {
                 result : "fail",
@@ -79,6 +110,23 @@ class UserService {
         }
     }
 
+    // find email and delete
+    async findDeleteEmail({email}) {
+        const user = await User.findOne({email});
+        if(!user){
+            const result = {
+                result : "fail",
+                reason : "조회된 회원이 없습니다."
+            };
+            return result;
+        } else {
+            await User.deleteOne(user);
+            const result = {
+                result : "ok"
+            };
+            return result;
+        }
+    }
 }
 
 const userService = new UserService();
