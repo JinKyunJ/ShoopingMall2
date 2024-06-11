@@ -15,19 +15,12 @@ const commentSchema = new Schema({
     // 작성 시간
     createAt: {
         type: String,
-        default: () => { return newDate() },
-        require: true
+        default: () => { return newDate() }
     },
     // 수정 시간
     updateAt: {
         type: String,
-        default: () => { return newDate() },
-        require: true
-    },
-    // 좋아요 (true: 좋아요, false: 아쉬워요)
-    like: {
-        type: Boolean,
-        require: true
+        default: () => { return newDate() }
     }
 }, {
     timestamps: true
@@ -38,23 +31,33 @@ const productSchema = new Schema({
     __id: {
         type: String,
         default: () => { return nanoid() },
-        require: true,
+        required: true,
         index: true
     },
     // 가격
     price: {
-        type: String,
-        require: true
+        type: Number,
+        required: true
     },
-    // 상품 이미지
+    // 리스트에서 보여지는 상품 이미지
     image: {
         type: String,
-        require: true
+        required: true
+    },
+    // 상품 세부정보 이미지들
+    detailImage: {
+        type: [String],
+        required: false
+    },
+    // 상품 세부정보 설명
+    detailContent: {
+        type: String,
+        required: false
     },
     // 배송 방법
     delivery: {
         type: String,
-        require: true
+        required: true
     },
     // 상품 이름
     title: {
@@ -67,30 +70,32 @@ const productSchema = new Schema({
         required: true
     },
     // 판매자
-    seller: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
+    maker: {
+        type: String,
         required: true
     },
     // 상품 등록 시간
     createAt: {
         type: String,
-        default: () => { return newDate() },
-        require: true
+        default: () => { return newDate() }
     },
     // 상품 업데이트 시간
     updateAt: {
         type: String,
-        default: () => { return newDate() },
-        require: true
+        default: () => { return newDate() }
     },
-    // 상품 상세 정보
-    detailContent: {
-        type: String,
-        require: true
+    // 찜 횟수
+    like: {
+        type: Number,
+        default: 0
     },
     // 상품 한줄평
-    comments: [commentSchema]
+    comments: [commentSchema],
+    // 상품 카테고리
+    category: {
+        type: Schema.Types.ObjectId,
+        ref: 'Category'
+    }
 },{
     timestamps: true
 });

@@ -4,6 +4,11 @@ const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const mongoose = require('mongoose');
 const mainRouter = require('./routes');
+const userRouter = require('./routes/userRouter');
+const categoryRouter = require('./routes/categoryRouter');
+const orderRouter = require('./routes/orderRouter');
+const productRouter = require('./routes/productRouter');
+const testRouter = require('./routes/test');
 
 // dotenv
 const app = express();
@@ -29,6 +34,10 @@ mongoose.connection.on('err', (err) => {
 });
 
 app.use('/', mainRouter);
+app.use('/user', userRouter);
+app.use('/product', productRouter);
+app.use('/order', orderRouter);
+app.use('/category', categoryRouter);
 
 app.use((err,req,res,next) => {
     console.log(err.message + " 내부 error 발생");
