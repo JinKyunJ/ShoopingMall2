@@ -39,6 +39,11 @@ const productSchema = new Schema({
         type: Number,
         required: true
     },
+    // 할인율
+    sale: {
+        type: Number,
+        required: false
+    },
     // 리스트에서 보여지는 상품 이미지
     image: {
         type: String,
