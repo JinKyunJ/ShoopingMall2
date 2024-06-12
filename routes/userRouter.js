@@ -6,8 +6,8 @@ const router = Router();
 
 // create
 router.post('/', asyncHandler(async (req, res) => {
-    const {email, name, password, address, birthday, gender} = req.body;
-    const result = await userService.createUser({email, name, password, address, birthday, gender});
+    const query = req.body;
+    const result = await userService.createUser(query);
     res.json(result);
 }));
 
