@@ -2,7 +2,8 @@ const {User} = require('../models');
 
 class UserService {
     // create
-    async createUser({email, name, password, address, birthday, gender}){
+    async createUser(query){
+        const {email} = query;
         const user = await User.findOne({email});
         if(user){
             const result = {
@@ -11,7 +12,7 @@ class UserService {
             }
             return result;
         } else {
-            const result = await User.create({email, name, password, address, birthday, gender});
+            const result = await User.create(query);
             console.log(result);
             return result;
         }
