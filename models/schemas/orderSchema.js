@@ -11,7 +11,7 @@ const orderSchema = new Schema({
     // 주문 고유 번호
     __id: {
         type: String,
-        default: () => {nanoid()},
+        default: () => {return nanoid()},
         required: true,
         index: true
     },
