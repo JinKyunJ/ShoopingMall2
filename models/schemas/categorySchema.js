@@ -15,11 +15,11 @@ const categorySchema = new Schema({
         required: true
     },
     createAt: {
-        type: Date,
+        type: String,
         default: () => {return newDate()}
     },
     updateAt: {
-        type: Date,
+        type: String,
         default: () => {return newDate()}
     }
 }, {
