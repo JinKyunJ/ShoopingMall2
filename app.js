@@ -8,7 +8,7 @@ const userRouter = require('./routes/userRouter');
 const categoryRouter = require('./routes/categoryRouter');
 const orderRouter = require('./routes/orderRouter');
 const productRouter = require('./routes/productRouter');
-const testRouter = require('./routes/test');
+
 
 // dotenv
 const app = express();
