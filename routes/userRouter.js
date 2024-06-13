@@ -4,9 +4,13 @@ const userService = require('../services/userService');
 
 const router = Router();
 
-// create
+/* create (bodyData : required: true -> email, name, password, address
+                    / required: false -> birthday, gender)
+*/
 router.post('/', asyncHandler(async (req, res) => {
     const bodyData = req.body;
+    // 지정 할 수 없는 nanoid property 는 bodyData 에서 제거
+    Reflect.deleteProperty(bodyData, "nanoid");
     const result = await userService.createUser(bodyData);
     if(result.value === "fail"){
         return res.status(400).json(result);
@@ -25,7 +29,7 @@ router.get('/', asyncHandler(async (req, res) => {
     }
 }));
 
-// findOne
+// findOne by nanoid
 router.get('/:nanoid', asyncHandler(async (req, res) => {
     const {nanoid} = req.params;
     const result = await userService.findById({nanoid});
@@ -36,7 +40,7 @@ router.get('/:nanoid', asyncHandler(async (req, res) => {
     }
 }));
 
-// findOne email
+// findOne by email
 router.post('/email', asyncHandler(async (req, res) => {
     const {email} = req.body;
     const result = await userService.findByEmail({email});
@@ -47,10 +51,13 @@ router.post('/email', asyncHandler(async (req, res) => {
     }
 }));
 
-// find and update
+// update by nanoid (bodyData : name or password or address or birthday or gender)
 router.put('/:nanoid', asyncHandler(async (req, res) => {
     const {nanoid} = req.params;
     const bodyData = req.body;
+    // 수정할 수 없는 email, nanoid property 는 bodyData 에서 제거
+    Reflect.deleteProperty(bodyData, "email");
+    Reflect.deleteProperty(bodyData, "nanoid");
     const result = await userService.updateById({nanoid}, bodyData);
     if(result.value === "fail"){
         return res.status(404).json(result);
@@ -59,11 +66,13 @@ router.put('/:nanoid', asyncHandler(async (req, res) => {
     }
 }));
 
-// find email and update
+// update by email (bodyData : name or password or address or birthday or gender)
 router.put('/', asyncHandler(async (req, res) => {
     const {email} = req.body;
     const bodyData = req.body;
-    console.log(Reflect.deleteProperty(bodyData, "email"));
+    // 수정할 수 없는 email, nanoid property 는 bodyData 에서 제거
+    Reflect.deleteProperty(bodyData, "email");
+    Reflect.deleteProperty(bodyData, "nanoid");
     const result = await userService.updateByEmail({email}, bodyData);
     if(result.value === "fail"){
         return res.status(404).json(result);
@@ -72,7 +81,7 @@ router.put('/', asyncHandler(async (req, res) => {
     }
 }));
 
-// find and delete
+// delete by nanoid
 router.delete('/:nanoid', asyncHandler(async (req,res) => {
     const {nanoid} = req.params;
     const result = await userService.deleteById({nanoid});
@@ -83,7 +92,7 @@ router.delete('/:nanoid', asyncHandler(async (req,res) => {
     }
 }));
 
-// find email and delete
+// delete by email
 router.post('/deleteByEmail', asyncHandler(async (req,res) => {
     const {email} = req.body;
     const result = await userService.deleteByEmail({email});

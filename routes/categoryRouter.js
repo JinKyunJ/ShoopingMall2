@@ -4,9 +4,11 @@ const categoryService = require('../services/categoryService');
 
 const router = Router();
 
-// create
+// create (bodyData : name)
 router.post('/', asyncHandler(async (req, res) => {
     const bodyData = req.body;
+    // 지정 할 수 없는 nanoid property 는 bodyData 에서 제거
+    Reflect.deleteProperty(bodyData, "nanoid");
     const result = await categoryService.createCategory(bodyData);
     if(result.value === "fail"){
         return res.status(400).json(result);
@@ -36,10 +38,12 @@ router.get('/:nanoid', asyncHandler(async (req, res) => {
     }
 }));
 
-// update
+// update (bodyData : name)
 router.put('/:nanoid', asyncHandler(async (req, res) => {
     const {nanoid} = req.params;
     const bodyData = req.body;
+    // 수정할 수 없는 nanoid property 는 bodyData 에서 제거
+    Reflect.deleteProperty(bodyData, "nanoid");
     const result = await categoryService.updateById({nanoid}, bodyData);
     if(result.value === "fail"){
         return res.status(404).json(result);

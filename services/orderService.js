@@ -1,7 +1,7 @@
 const {Order} = require('../models');
 
 class OrderService {
-    // create
+    // create (bodyData : required -> address, total_price / not required -> delivery_request)
     async createOrder(bodyData){
             const newOrder = await Order.create(bodyData);
             const result = {
@@ -11,10 +11,7 @@ class OrderService {
             return result;
         }
     
-            
-    
-
-    // find
+    // find all
     async findAllOrder(){
         const orders = await Order.find();
         if(orders.length === 0){
@@ -32,7 +29,7 @@ class OrderService {
     }
         
     
-    // findOne 스키마 
+    // findOne
     async findById({nanoid}){
         const order = await Order.findOne({nanoid});
         if(!order){
@@ -49,7 +46,7 @@ class OrderService {
         return result;
     }
   
-// find and update
+    // update (bodyData : address or total_price or delivery_request)
     async updateById({nanoid}, bodyData) {
         const order = await Order.findOne({nanoid});
         if (!order) {
@@ -67,7 +64,7 @@ class OrderService {
         }
 
     }
-    // find and delete
+    // delete
     async deleteById({nanoid}) {
         const order = await Order.findOne({nanoid});
         if (!order) {
