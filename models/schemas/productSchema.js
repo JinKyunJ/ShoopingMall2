@@ -89,11 +89,6 @@ const productSchema = new Schema({
         type: String,
         default: () => { return newDate() }
     },
-    // 찜 횟수
-    like: {
-        type: Number,
-        default: 0
-    },
     // 상품 한줄평
     comments: [commentSchema],
     // 상품 카테고리
