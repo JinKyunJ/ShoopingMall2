@@ -25,7 +25,7 @@ router.get('/:nanoid', asyncHandler(async (req, res) => {
 }));
 
 // findOne email
-router.post('/find', asyncHandler(async (req, res) => {
+router.post('/email', asyncHandler(async (req, res) => {
     const {email} = req.body;
     const result = await userService.findByEmail({email});
     res.json(result);
@@ -56,7 +56,7 @@ router.delete('/:nanoid', asyncHandler(async (req,res) => {
 }));
 
 // find email and delete
-router.post('/delete', asyncHandler(async (req,res) => {
+router.post('/deleteByEmail', asyncHandler(async (req,res) => {
     const {email} = req.body;
     const result = await userService.deleteByEmail({email});
     res.json(result);
