@@ -37,7 +37,7 @@ router.put('/:nanoid', asyncHandler(async (req, res) => {
 // delete
 router.delete('/:nanoid', asyncHandler(async (req,res) => {
     const {nanoid} = req.params;
-    const result = await orderService.deleteOrderById({nanoid});
+    const result = await orderService.deleteById({nanoid});
     res.json(result);
 }));
 
