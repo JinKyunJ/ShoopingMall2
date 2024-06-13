@@ -43,11 +43,6 @@ const userSchema = new Schema({
         type: String,
         required: false
     },
-    // 적립금
-    cash: {
-        type: Number,
-        default: 1000
-    },
     // 유저 생성일
     create_at: {
         type: String,
