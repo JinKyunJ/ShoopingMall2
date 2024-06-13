@@ -1,7 +1,9 @@
 const {User} = require('../models');
 
 class UserService {
-    // create
+    /* create (bodyData : required: true -> email, name, password, address
+                        / required: false -> birthday, gender)
+    */
     async createUser(bodyData){
         const {email} = bodyData;
         const user = await User.findOne({email});
@@ -38,7 +40,7 @@ class UserService {
         return result;
     }
 
-    // findOne
+    // findOne by nanoid
     async findById({nanoid}) {
         const user = await User.findOne({nanoid});
         if(!user){
@@ -55,7 +57,7 @@ class UserService {
         return result;
     }
 
-    // findOne email
+    // findOne by email
     async findByEmail({email}) {
         const user = await User.findOne({email});
         if(!user){
@@ -72,7 +74,7 @@ class UserService {
         return result;
     }
 
-    // find and update
+    // update by nanoid (bodyData : name or password or address or birthday or gender)
     async updateById({nanoid}, bodyData){
         const user = await User.findOne({nanoid});
         if(!user){
@@ -91,7 +93,7 @@ class UserService {
         }
     }
 
-    // find email and update
+    // update by email (bodyData : name or password or address or birthday or gender)
     async updateByEmail({email}, bodyData){
         const user = await User.findOne({email});
         if(!user){
@@ -110,7 +112,7 @@ class UserService {
         }
     }
 
-    // find and delete
+    // delete by nanoid
     async deleteById({nanoid}) {
         const user = await User.findOne({nanoid});
         if(!user){
@@ -129,7 +131,7 @@ class UserService {
         }
     }
 
-    // find email and delete
+    // delete by email
     async deleteByEmail({email}) {
         const user = await User.findOne({email});
         if(!user){

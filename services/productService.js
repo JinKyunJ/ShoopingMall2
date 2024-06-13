@@ -1,7 +1,9 @@
 const {Product} = require('../models');
 
 class ProductService {
-    // create
+    /* create (bodyData : required: true -> price, image, delivery, title, ad, seller 
+                        / required: false -> sale, detail_image, detail_content)
+    */
     async createProduct(bodyData){
         const newProduct = await Product.create(bodyData);
         const result = {
@@ -47,8 +49,9 @@ class ProductService {
         }
     }
 
-
-    // find and update
+    /* update (bodyData : price or image or delivery or title or ad or seller 
+                or sale or detail_image or detail_content)
+    */
     async updateById({nanoid}, bodyData){
         const product = await Product.findOne({nanoid});
         if(!product){
@@ -68,7 +71,7 @@ class ProductService {
     }
 
 
-    // find and delete
+    // delete
     async deleteById({nanoid}) {
         const product = await Product.findOne({nanoid});
         if(!product){

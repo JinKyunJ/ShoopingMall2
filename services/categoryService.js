@@ -1,7 +1,7 @@
 const {Category} = require('../models');
 
 class CategoryService {
-    // create
+    // create (bodyData : name)
     async createCategory(bodyData){
         const category = await Category.findOne(bodyData);
         if(category){
@@ -20,7 +20,7 @@ class CategoryService {
         }
     }
 
-    // find
+    // find all
     async findAllCategory(){
         const categories = await Category.find();
         if(categories.length === 0){
@@ -52,7 +52,7 @@ class CategoryService {
         };
         return result;
     }
-    // find and update
+    // update (bodyData : name)
     async updateById({nanoid}, bodyData){
         const category = await Category.findOne({nanoid});
         if(!category){
@@ -70,7 +70,7 @@ class CategoryService {
             return result;
         }
     }
-    // find and delete
+    // delete
     async deleteById({nanoid}) {
         const category = await Category.findOne({nanoid});
         if(!category){
