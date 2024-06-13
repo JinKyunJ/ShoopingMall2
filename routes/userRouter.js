@@ -9,9 +9,9 @@ router.post('/', asyncHandler(async (req, res) => {
     const bodyData = req.body;
     const result = await userService.createUser(bodyData);
     if(result.value === "fail"){
-        res.status(400).json(result);
+        return res.status(400).json(result);
     } else {
-        res.status(201).json(result);
+        return res.status(201).json(result);
     }
 }));
 
@@ -19,9 +19,9 @@ router.post('/', asyncHandler(async (req, res) => {
 router.get('/', asyncHandler(async (req, res) => {
     const result = await userService.findAllUser();
     if(result.value === "fail"){
-        res.status(404).json(result);
+        return res.status(404).json(result);
     } else {
-        res.status(200).json(result);
+        return res.status(200).json(result);
     }
 }));
 
@@ -30,9 +30,9 @@ router.get('/:nanoid', asyncHandler(async (req, res) => {
     const {nanoid} = req.params;
     const result = await userService.findById({nanoid});
     if(result.value === "fail"){
-        res.status(404).json(result);
+        return res.status(404).json(result);
     } else {
-        res.status(200).json(result);
+        return res.status(200).json(result);
     }
 }));
 
@@ -41,9 +41,9 @@ router.post('/email', asyncHandler(async (req, res) => {
     const {email} = req.body;
     const result = await userService.findByEmail({email});
     if(result.value === "fail"){
-        res.status(404).json(result);
+        return res.status(404).json(result);
     } else {
-        res.status(200).json(result);
+        return res.status(200).json(result);
     }
 }));
 
@@ -53,9 +53,9 @@ router.put('/:nanoid', asyncHandler(async (req, res) => {
     const bodyData = req.body;
     const result = await userService.updateById({nanoid}, bodyData);
     if(result.value === "fail"){
-        res.status(404).json(result);
+        return res.status(404).json(result);
     } else {
-        res.status(200).json(result);
+        return res.status(200).json(result);
     }
 }));
 
@@ -66,9 +66,9 @@ router.put('/', asyncHandler(async (req, res) => {
     console.log(Reflect.deleteProperty(bodyData, "email"));
     const result = await userService.updateByEmail({email}, bodyData);
     if(result.value === "fail"){
-        res.status(404).json(result);
+        return res.status(404).json(result);
     } else {
-        res.status(200).json(result);
+        return res.status(200).json(result);
     }
 }));
 
@@ -77,9 +77,9 @@ router.delete('/:nanoid', asyncHandler(async (req,res) => {
     const {nanoid} = req.params;
     const result = await userService.deleteById({nanoid});
     if(result.value === "fail"){
-        res.status(404).json(result);
+        return res.status(404).json(result);
     } else {
-        res.status(200).json(result);
+        return res.status(200).json(result);
     }
 }));
 
@@ -88,9 +88,9 @@ router.post('/deleteByEmail', asyncHandler(async (req,res) => {
     const {email} = req.body;
     const result = await userService.deleteByEmail({email});
     if(result.value === "fail"){
-        res.status(404).json(result);
+        return res.status(404).json(result);
     } else {
-        res.status(200).json(result);
+        return res.status(200).json(result);
     }
 }));
 
