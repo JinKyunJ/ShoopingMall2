@@ -7,13 +7,16 @@ class UserService {
         const user = await User.findOne({email});
         if(user){
             const result = {
-                result : "fail",
-                reason : "이미 회원가입 되어 있는 이메일입니다."
-            }
+                value : "fail",
+                data : "이미 회원가입 되어 있는 이메일입니다."
+            };
             return result;
         } else {
-            const result = await User.create(bodyData);
-            console.log(result);
+            const data = await User.create(bodyData);
+            const result = {
+                value : "ok",
+                data : data
+            };
             return result;
         }
     }
@@ -23,12 +26,16 @@ class UserService {
         const users = await User.find();
         if(users.length === 0){
             const result = {
-                result : "fail",
-                reason : "조회된 회원이 없습니다."
+                value : "fail",
+                data : "조회된 회원이 없습니다."
             };
             return result;
         }
-        return users;
+        const result = {
+            value : "ok",
+            data : users
+        };
+        return result;
     }
 
     // findOne
@@ -36,12 +43,16 @@ class UserService {
         const user = await User.findOne({nanoid});
         if(!user){
             const result = {
-                result : "fail",
-                reason : "조회된 회원이 없습니다."
+                value : "fail",
+                data : "조회된 회원이 없습니다."
             };
             return result;
         }
-        return user;
+        const result = {
+            value : "ok",
+            data : user
+        };
+        return result;
     }
 
     // findOne email
@@ -49,12 +60,16 @@ class UserService {
         const user = await User.findOne({email});
         if(!user){
             const result = {
-                result : "fail",
-                reason : "이메일로 조회된 회원이 없습니다."
+                value : "fail",
+                data : "이메일로 조회된 회원이 없습니다."
             };
             return result;
         }
-        return user;
+        const result = {
+            value : "ok",
+            data : user
+        };
+        return result;
     }
 
     // find and update
@@ -62,14 +77,15 @@ class UserService {
         const user = await User.findOne({nanoid});
         if(!user){
             const result = {
-                result : "fail",
-                reason : "조회된 회원이 없습니다."
+                value : "fail",
+                data : "조회된 회원이 없습니다."
             };
             return result;
         } else {
             await User.updateOne(user, bodyData);
             const result = {
-                result : "ok"
+                value : "ok",
+                data : `${nanoid} 사용자 수정 동작 완료`
             };
             return result;
         }
@@ -80,14 +96,15 @@ class UserService {
         const user = await User.findOne({email});
         if(!user){
             const result = {
-                result : "fail",
-                reason : "조회된 회원이 없습니다."
+                value : "fail",
+                data : "조회된 회원이 없습니다."
             };
             return result;
         } else {
             await User.updateOne(user, bodyData);
             const result = {
-                result : "ok"
+                value : "ok",
+                data : `${email} 사용자 수정 동작 완료`
             };
             return result;
         }
@@ -98,14 +115,15 @@ class UserService {
         const user = await User.findOne({nanoid});
         if(!user){
             const result = {
-                result : "fail",
-                reason : "조회된 회원이 없습니다."
+                value : "fail",
+                data : "조회된 회원이 없습니다."
             };
             return result;
         } else {
             await User.deleteOne(user);
             const result = {
-                result : "ok"
+                value : "ok",
+                data : `${nanoid} 사용자 삭제 동작 완료`
             };
             return result;
         }
@@ -116,14 +134,15 @@ class UserService {
         const user = await User.findOne({email});
         if(!user){
             const result = {
-                result : "fail",
-                reason : "조회된 회원이 없습니다."
+                value : "fail",
+                data : "조회된 회원이 없습니다."
             };
             return result;
         } else {
             await User.deleteOne(user);
             const result = {
-                result : "ok"
+                value : "ok",
+                data : `${email} 사용자 삭제 동작 완료`
             };
             return result;
         }
