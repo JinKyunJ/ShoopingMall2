@@ -40,6 +40,8 @@ router.get('/:user_nanoid', asyncHandler(async (req, res) => {
 router.put('/:user_nanoid', asyncHandler(async (req, res) => {
     const {user_nanoid} = req.params;
     const bodyData = req.body;
+    // 수정할 수 없는 user_nanoid 는 bodyData 프로퍼티에서 제거
+    Reflect.deleteProperty(bodyData, "user_nanoid")
     const result = await cashService.updateById({user_nanoid}, bodyData);
     if(result.value === "fail"){
         return res.status(404).json(result);
