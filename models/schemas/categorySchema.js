@@ -5,7 +5,7 @@ const {nanoid} = require('nanoid');
 const newDate = require('../../utils/newDate');
 
 const categorySchema = new Schema({
-    __id: {
+    nanoid: {
         type: String,
         default: () => {return nanoid()},        
         required: true
@@ -14,11 +14,11 @@ const categorySchema = new Schema({
         type: String,
         required: true
     },
-    createAt: {
+    create_at: {
         type: String,
         default: () => {return newDate()}
     },
-    updateAt: {
+    update_at: {
         type: String,
         default: () => {return newDate()}
     }
