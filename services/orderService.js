@@ -4,9 +4,14 @@ class OrderService {
     // create
     async createOrder(bodyData){
             const newOrder = await Order.create(bodyData);
-            return newOrder;
+            const result = {
+                value: "ok",
+                data: newOrder
+            };
+            return result;
+        }
     
-            }
+            
     
 
     // find
@@ -14,12 +19,16 @@ class OrderService {
         const orders = await Order.find();
         if(orders.length === 0){
             const result = {
-                result : "fail",
-                reason : "주문내역이 없습니다."
+                value : "fail",
+                data : "주문내역이 없습니다."
             };
             return result;
         }
-        return orders;
+        const result = {
+            value : "ok",
+            data : orders
+        };
+        return result;
     }
         
     
@@ -28,12 +37,16 @@ class OrderService {
         const order = await Order.findOne({nanoid});
         if(!order){
             const result = {
-                result : "fail",
-                reason : "주문내역이 없습니다."
+                value : "fail",
+                data : "주문내역이 없습니다."
             };
             return result;
         }
-        return order;
+        const result = {
+            value : "ok",
+            data : order
+        };
+        return result;
     }
   
 // find and update
@@ -41,12 +54,15 @@ class OrderService {
         const order = await Order.findOne({nanoid});
         if (!order) {
             return {
-            result: "fail",
-            reason: "주문 내역이 없습니다."
+            value: "fail",
+            data: "주문 내역이 없습니다."
         };
     }   else {
             await Order.updateOne(order, bodyData); 
-            const result = { result : "ok" }; 
+            const result = { 
+                value : "ok",
+                data : `${nanoid} 주문 수정 동작 완료`
+            }; 
             return result; 
         }
 
@@ -56,12 +72,15 @@ class OrderService {
         const order = await Order.findOne({nanoid});
         if (!order) {
             return {
-                result: "fail",
-                reason: "주문 내역이 없습니다."
+                value: "fail",
+                data: "주문 내역이 없습니다."
             };
         } else {
             await Order.deleteOne(order);
-            const result = { result : "ok" }; 
+            const result = { 
+                result : "ok",
+                data : `${nanoid} 주문 삭제 동작 완료` 
+            }; 
             return result;
         }
     }
