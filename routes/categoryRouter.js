@@ -6,8 +6,8 @@ const router = Router();
 
 // create
 router.post('/', asyncHandler(async (req, res) => {
-    const query = req.body;
-    const result = await categoryService.createCategory(query);
+    const bodyData = req.body;
+    const result = await categoryService.createCategory(bodyData);
     res.json(result);
 }));
 
@@ -18,24 +18,24 @@ router.get('/', asyncHandler(async (req, res) => {
 }));
 
 // findOne
-router.get('/:__id', asyncHandler(async (req, res) => {
-    const {__id} = req.params;
-    const result = await categoryService.findCategory({__id});
+router.get('/:nanoid', asyncHandler(async (req, res) => {
+    const {nanoid} = req.params;
+    const result = await categoryService.findById({nanoid});
     res.json(result);
 }));
 
 // update
-router.post('/update/:__id', asyncHandler(async (req, res) => {
-    const {__id} = req.params;
-    const query = req.body;
-    const result = await categoryService.findUpdate({__id}, query);
+router.put('/:nanoid', asyncHandler(async (req, res) => {
+    const {nanoid} = req.params;
+    const bodyData = req.body;
+    const result = await categoryService.updateById({nanoid}, bodyData);
     res.json(result);
 }));
 
 // delete
-router.delete('/delete/:__id', asyncHandler(async (req,res) => {
-    const {__id} = req.params;
-    const result = await categoryService.findDelete({__id});
+router.delete('/:nanoid', asyncHandler(async (req,res) => {
+    const {nanoid} = req.params;
+    const result = await categoryService.deleteById({nanoid});
     res.json(result);
 }));
 

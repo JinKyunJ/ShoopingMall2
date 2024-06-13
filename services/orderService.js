@@ -2,15 +2,15 @@ const {Order} = require('../models');
 
 class OrderService {
     // create
-    async createOrder(query){
-            const newOrder = await Order.create(query);
+    async createOrder(bodyData){
+            const newOrder = await Order.create(bodyData);
             return newOrder;
     
             }
     
 
     // find
-    async selectAllOrder(){
+    async findAllOrder(){
         const orders = await Order.find();
         if(orders.length === 0){
             const result = {
@@ -24,8 +24,8 @@ class OrderService {
         
     
     // findOne 스키마 
-    async findOrder({__id}){
-        const order = await Order.findOne({__id});
+    async findById({nanoid}){
+        const order = await Order.findOne({nanoid});
         if(!order){
             const result = {
                 result : "fail",
@@ -37,39 +37,34 @@ class OrderService {
     }
   
 // find and update
-    async findUpdate({__id}, query) {
-        const order = await Order.findOne({__id});
+    async updateById({nanoid}, bodyData) {
+        const order = await Order.findOne({nanoid});
         if (!order) {
             return {
             result: "fail",
             reason: "주문 내역이 없습니다."
         };
     }   else {
-            await Order.updateOne(order, query); 
+            await Order.updateOne(order, bodyData); 
             const result = { result : "ok" }; 
             return result; 
         }
 
-}
-
-
-
-
-
-// find and delete
-async deleteOrderById({__id}) {
-    const order = await Order.findOne({__id});
-    if (!order) {
-        return {
-            result: "fail",
-            reason: "주문 내역이 없습니다."
-        };
-    } else {
-        await Order.deleteOne(order);
-        const result = { result : "ok" }; 
-        return result;
     }
-}
+    // find and delete
+    async deleteById({nanoid}) {
+        const order = await Order.findOne({nanoid});
+        if (!order) {
+            return {
+                result: "fail",
+                reason: "주문 내역이 없습니다."
+            };
+        } else {
+            await Order.deleteOne(order);
+            const result = { result : "ok" }; 
+            return result;
+        }
+    }
 };
  
 

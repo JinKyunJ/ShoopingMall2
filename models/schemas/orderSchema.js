@@ -9,41 +9,41 @@ const productSchema = require('./productSchema');
 
 const orderSchema = new Schema({
     // 주문 고유 번호
-    __id: {
+    nanoid: {
         type: String,
         default: () => {return nanoid()},
         required: true,
         index: true
     },
     // 주문 상품 정보
-    orderProduct: [productSchema],
+    order_products: [productSchema],
     // 주문자 정보
-    orderer: {
+    user: {
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
     // 배송지 정보
-    toAddress: {
+    address: {
         type: String,
         required: true
     },
     // 배송 요청 사항
-    deliveryRequest: {
+    delivery_request: {
         type: String,
         required: false
     },
     // 주문 총액(할인 가격 계산 포함)
-    total: {
+    total_price: {
         type: Number,
         required: true
     },
     // 주문 등록 시간
-    createAt: {
+    create_at: {
         type: String,
         default: () => { return newDate() }
     },
     // 주문 업데이트 시간
-    updateAt: {
+    update_at: {
         type: String,
         default: () => { return newDate() }
     },

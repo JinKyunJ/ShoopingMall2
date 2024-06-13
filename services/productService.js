@@ -2,8 +2,8 @@ const {Product} = require('../models');
 
 class ProductService {
     // create
-    async createProduct(query){
-        const result = await Product.create(query);
+    async createProduct(bodyData){
+        const result = await Product.create(bodyData);
         console.log(result);
         return result;
     }
@@ -22,8 +22,8 @@ class ProductService {
     }
 
     // findOne
-    async findProduct({__id}){
-        const product = await Product.findOne({__id});
+    async findById({nanoid}){
+        const product = await Product.findOne({nanoid});
         if(!product) {
             const result = {
                 result : "fail",
@@ -36,8 +36,8 @@ class ProductService {
 
 
     // find and update
-    async findUpdate({__id}, query){
-        const product = await Product.findOne({__id});
+    async updateById({nanoid}, bodyData){
+        const product = await Product.findOne({nanoid});
         if(!product){
             const result = {
                 result : "fail",
@@ -45,7 +45,7 @@ class ProductService {
             };
             return result;
         } else {
-            await Product.updateOne(product, query);
+            await Product.updateOne(product, bodyData);
             const result = {
                 result : "ok"
             };
@@ -55,8 +55,8 @@ class ProductService {
 
 
     // find and delete
-    async findDelete({__id}) {
-        const product = await Product.findOne({__id});
+    async deleteById({nanoid}) {
+        const product = await Product.findOne({nanoid});
         if(!product){
             const result = {
                 result : "fail",
