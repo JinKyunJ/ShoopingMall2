@@ -12,10 +12,10 @@ class UserService {
             };
             return result;
         } else {
-            const data = await User.create(bodyData);
+            const newUser = await User.create(bodyData);
             const result = {
                 value : "ok",
-                data : data
+                data : newUser
             };
             return result;
         }

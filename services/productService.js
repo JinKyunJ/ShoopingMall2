@@ -3,10 +3,10 @@ const {Product} = require('../models');
 class ProductService {
     // create
     async createProduct(bodyData){
-        const data = await Product.create(bodyData);
+        const newProduct = await Product.create(bodyData);
         const result = {
             value: "ok",
-            data: data
+            data: newProduct
         };
         return result;
     }

@@ -11,10 +11,10 @@ class CategoryService {
             }
             return result;
         } else {
-            const data = await Category.create(bodyData);
+            const newCategory = await Category.create(bodyData);
             const result = {
                 value : "ok",
-                data : data
+                data : newCategory
             };
             return result;
         }
