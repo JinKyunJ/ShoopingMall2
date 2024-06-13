@@ -2,8 +2,8 @@ const {Category} = require('../models');
 
 class CategoryService {
     // create
-    async createCategory(query){
-        const category = await Category.findOne(query);
+    async createCategory(bodyData){
+        const category = await Category.findOne(bodyData);
         if(category){
             const result = {
                 result : "fail",
@@ -11,7 +11,7 @@ class CategoryService {
             }
             return result;
         } else {
-            const result = await Category.create(query);
+            const result = await Category.create(bodyData);
             console.log(result);
             return result;
         }
@@ -30,8 +30,8 @@ class CategoryService {
         return categories;
     }
     // findOne
-    async findCategory({__id}) {
-        const category = await Category.findOne({__id});
+    async findById({nanoid}) {
+        const category = await Category.findOne({nanoid});
         if(!category){
             const result = {
                 result : "fail",
@@ -42,8 +42,8 @@ class CategoryService {
         return category;
     }
     // find and update
-    async findUpdate({__id}, query){
-        const category = await Category.findOne({__id});
+    async updateById({nanoid}, bodyData){
+        const category = await Category.findOne({nanoid});
         if(!category){
             const result = {
                 result : "fail",
@@ -51,7 +51,7 @@ class CategoryService {
             };
             return result;
         } else {
-            await Category.updateOne(category, query);
+            await Category.updateOne(category, bodyData);
             const result = {
                 result : "ok"
             };
@@ -59,8 +59,8 @@ class CategoryService {
         }
     }
     // find and delete
-    async findDelete({__id}) {
-        const category = await Category.findOne({__id});
+    async deleteById({nanoid}) {
+        const category = await Category.findOne({nanoid});
         if(!category){
             const result = {
                 result : "fail",

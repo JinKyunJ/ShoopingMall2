@@ -2,8 +2,8 @@ const {User} = require('../models');
 
 class UserService {
     // create
-    async createUser(query){
-        const {email} = query;
+    async createUser(bodyData){
+        const {email} = bodyData;
         const user = await User.findOne({email});
         if(user){
             const result = {
@@ -12,14 +12,14 @@ class UserService {
             }
             return result;
         } else {
-            const result = await User.create(query);
+            const result = await User.create(bodyData);
             console.log(result);
             return result;
         }
     }
 
     // find all
-    async selectAllUser(){
+    async findAllUser(){
         const users = await User.find();
         if(users.length === 0){
             const result = {
@@ -32,8 +32,8 @@ class UserService {
     }
 
     // findOne
-    async findUser({__id}) {
-        const user = await User.findOne({__id});
+    async findById({nanoid}) {
+        const user = await User.findOne({nanoid});
         if(!user){
             const result = {
                 result : "fail",
@@ -45,7 +45,7 @@ class UserService {
     }
 
     // findOne email
-    async findUserEmail({email}) {
+    async findByEmail({email}) {
         const user = await User.findOne({email});
         if(!user){
             const result = {
@@ -58,8 +58,8 @@ class UserService {
     }
 
     // find and update
-    async findUpdate({__id}, query){
-        const user = await User.findOne({__id});
+    async updateById({nanoid}, bodyData){
+        const user = await User.findOne({nanoid});
         if(!user){
             const result = {
                 result : "fail",
@@ -67,7 +67,7 @@ class UserService {
             };
             return result;
         } else {
-            await User.updateOne(user, query);
+            await User.updateOne(user, bodyData);
             const result = {
                 result : "ok"
             };
@@ -76,7 +76,7 @@ class UserService {
     }
 
     // find email and update
-    async findUpdateEmail({email}, query){
+    async updateByEmail({email}, bodyData){
         const user = await User.findOne({email});
         if(!user){
             const result = {
@@ -85,7 +85,7 @@ class UserService {
             };
             return result;
         } else {
-            await User.updateOne(user, query);
+            await User.updateOne(user, bodyData);
             const result = {
                 result : "ok"
             };
@@ -94,8 +94,8 @@ class UserService {
     }
 
     // find and delete
-    async findDelete({__id}) {
-        const user = await User.findOne({__id});
+    async deleteById({nanoid}) {
+        const user = await User.findOne({nanoid});
         if(!user){
             const result = {
                 result : "fail",
@@ -112,7 +112,7 @@ class UserService {
     }
 
     // find email and delete
-    async findDeleteEmail({email}) {
+    async deleteByEmail({email}) {
         const user = await User.findOne({email});
         if(!user){
             const result = {

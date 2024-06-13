@@ -13,12 +13,12 @@ const commentSchema = new Schema({
         ref: 'User'
     },
     // 작성 시간
-    createAt: {
+    create_at: {
         type: String,
         default: () => { return newDate() }
     },
     // 수정 시간
-    updateAt: {
+    update_at: {
         type: String,
         default: () => { return newDate() }
     }
@@ -28,7 +28,7 @@ const commentSchema = new Schema({
 
 const productSchema = new Schema({
     // 상품 고유 번호
-    __id: {
+    nanoid: {
         type: String,
         default: () => { return nanoid() },
         required: true,
@@ -50,12 +50,12 @@ const productSchema = new Schema({
         required: true
     },
     // 상품 세부정보 이미지들
-    detailImage: {
+    detail_image: {
         type: [String],
         required: false
     },
     // 상품 세부정보 설명
-    detailContent: {
+    detail_content: {
         type: String,
         required: false
     },
@@ -75,17 +75,17 @@ const productSchema = new Schema({
         required: true
     },
     // 판매자
-    maker: {
+    seller: {
         type: String,
         required: true
     },
     // 상품 등록 시간
-    createAt: {
+    create_at: {
         type: String,
         default: () => { return newDate() }
     },
     // 상품 업데이트 시간
-    updateAt: {
+    update_at: {
         type: String,
         default: () => { return newDate() }
     },

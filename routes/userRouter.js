@@ -6,59 +6,59 @@ const router = Router();
 
 // create
 router.post('/', asyncHandler(async (req, res) => {
-    const query = req.body;
-    const result = await userService.createUser(query);
+    const bodyData = req.body;
+    const result = await userService.createUser(bodyData);
     res.json(result);
 }));
 
 // find all
 router.get('/', asyncHandler(async (req, res) => {
-    const result = await userService.selectAllUser();
+    const result = await userService.findAllUser();
     res.json(result);
 }));
 
 // findOne
-router.get('/:__id', asyncHandler(async (req, res) => {
-    const {__id} = req.params;
-    const result = await userService.findUser({__id});
+router.get('/:nanoid', asyncHandler(async (req, res) => {
+    const {nanoid} = req.params;
+    const result = await userService.findById({nanoid});
     res.json(result);
 }));
 
 // findOne email
 router.post('/find', asyncHandler(async (req, res) => {
     const {email} = req.body;
-    const result = await userService.findUserEmail({email});
+    const result = await userService.findByEmail({email});
     res.json(result);
 }));
 
 // find and update
-router.post('/update/:__id', asyncHandler(async (req, res) => {
-    const {__id} = req.params;
-    const query = req.body;
-    const result = await userService.findUpdate({__id}, query);
+router.put('/:nanoid', asyncHandler(async (req, res) => {
+    const {nanoid} = req.params;
+    const bodyData = req.body;
+    const result = await userService.updateById({nanoid}, bodyData);
     res.json(result);
 }));
 
 // find email and update
-router.post('/update', asyncHandler(async (req, res) => {
+router.put('/', asyncHandler(async (req, res) => {
     const {email} = req.body;
-    const query = req.body;
-    console.log(Reflect.deleteProperty(query, "email"));
-    const result = await userService.findUpdateEmail({email}, query);
+    const bodyData = req.body;
+    console.log(Reflect.deleteProperty(bodyData, "email"));
+    const result = await userService.updateByEmail({email}, bodyData);
     res.json(result);
 }));
 
 // find and delete
-router.delete('/delete/:__id', asyncHandler(async (req,res) => {
-    const {__id} = req.params;
-    const result = await userService.findDelete({__id});
+router.delete('/:nanoid', asyncHandler(async (req,res) => {
+    const {nanoid} = req.params;
+    const result = await userService.deleteById({nanoid});
     res.json(result);
 }));
 
 // find email and delete
 router.post('/delete', asyncHandler(async (req,res) => {
     const {email} = req.body;
-    const result = await userService.findDeleteEmail({email});
+    const result = await userService.deleteByEmail({email});
     res.json(result);
 }));
 

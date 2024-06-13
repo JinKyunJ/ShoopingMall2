@@ -6,7 +6,7 @@ const newDate = require('../../utils/newDate');
 
 const userSchema = new Schema({
     // 유저 고유 번호
-    __id: {
+    nanoid: {
         type: String,
         default: () => { return nanoid() },
         required: true,
@@ -49,12 +49,12 @@ const userSchema = new Schema({
         default: 1000
     },
     // 유저 생성일
-    createAt: {
+    create_at: {
         type: String,
         default: () => { return newDate() }
     },
     // 유저 업데이트일
-    updateAt: {
+    update_at: {
         type: String,
         default: () => { return newDate() }
     },
