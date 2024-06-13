@@ -8,7 +8,8 @@ const userRouter = require('./routes/userRouter');
 const categoryRouter = require('./routes/categoryRouter');
 const orderRouter = require('./routes/orderRouter');
 const productRouter = require('./routes/productRouter');
-
+const cashRouter = require('./routes/cashRouter');
+const likeRouter = require('./routes/likeRouter');
 
 // dotenv
 const app = express();
@@ -38,6 +39,8 @@ app.use('/user', userRouter);
 app.use('/product', productRouter);
 app.use('/order', orderRouter);
 app.use('/category', categoryRouter);
+app.use('/cash', cashRouter);
+app.use('/like', likeRouter);
 
 app.use((err,req,res,next) => {
     console.log(err.message + " 내부 error 발생");
