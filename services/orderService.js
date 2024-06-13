@@ -78,7 +78,7 @@ class OrderService {
         } else {
             await Order.deleteOne(order);
             const result = { 
-                result : "ok",
+                value : "ok",
                 data : `${nanoid} 주문 삭제 동작 완료` 
             }; 
             return result;

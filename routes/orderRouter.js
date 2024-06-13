@@ -9,9 +9,9 @@ router.post('/', asyncHandler(async (req, res) => {
     const bodyData = req.body;
     const result = await orderService.createOrder(bodyData);
     if(result.value === "fail"){
-        res.status(400).json(result);
+        return res.status(400).json(result);
     } else {
-        res.status(201).json(result);
+        return res.status(201).json(result);
     }
 }));
 
@@ -19,9 +19,9 @@ router.post('/', asyncHandler(async (req, res) => {
 router.get('/', asyncHandler(async (req, res) => {
     const result = await orderService.findAllOrder();
     if(result.value === "fail"){
-        res.status(404).json(result);
+        return res.status(404).json(result);
     } else {
-        res.status(200).json(result);
+        return res.status(200).json(result);
     }
 }));
 
@@ -30,9 +30,9 @@ router.get('/:nanoid', asyncHandler(async (req, res) => {
     const {nanoid} = req.params;
     const result = await orderService.findById({nanoid});
     if(result.value === "fail"){
-        res.status(404).json(result);
+        return res.status(404).json(result);
     } else {
-        res.status(200).json(result);
+        return res.status(200).json(result);
     }
 }));
 
@@ -42,9 +42,9 @@ router.put('/:nanoid', asyncHandler(async (req, res) => {
     const bodyData = req.body;
     const result = await orderService.updateById({nanoid}, bodyData);
     if(result.value === "fail"){
-        res.status(404).json(result);
+        return res.status(404).json(result);
     } else {
-        res.status(200).json(result);
+        return res.status(200).json(result);
     }
 }));
 
@@ -54,9 +54,9 @@ router.delete('/:nanoid', asyncHandler(async (req,res) => {
     const {nanoid} = req.params;
     const result = await orderService.deleteById({nanoid});
     if(result.value === "fail"){
-        res.status(404).json(result);
+        return res.status(404).json(result);
     } else {
-        res.status(200).json(result);
+        return res.status(200).json(result);
     }
 }));
 
