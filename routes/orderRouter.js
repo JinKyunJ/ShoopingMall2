@@ -8,11 +8,7 @@ const router = Router();
 router.post('/', asyncHandler(async (req, res) => {
     const bodyData = req.body;
     const result = await orderService.createOrder(bodyData);
-    if(result.value === "fail"){
-        return res.status(400).json(result);
-    } else {
-        return res.status(201).json(result);
-    }
+    return res.status(201).json(result);
 }));
 
 // find all
