@@ -10,6 +10,10 @@ const orderRouter = require('./routes/orderRouter');
 const productRouter = require('./routes/productRouter');
 const cashRouter = require('./routes/cashRouter');
 const likeRouter = require('./routes/likeRouter');
+const jwtMiddleware = require('./middlewares/jwtMiddleware');
+const local = require('./strategy/loginStrategy');
+const jwtlocal = require('./strategy/jwtStrategy');
+const loginRouter = require('./routes/loginRouter');
 
 // dotenv
 const app = express();
@@ -18,17 +22,22 @@ dotenv.config();
 // body parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+app.use(express.static('publics'));
 // cookie parser
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
 // passport initialize
 app.use(passport.initialize());
+passport.use(local);
+passport.use(jwtlocal);
+app.use(jwtMiddleware);
 
 // mongoose connect
 mongoose.connect(process.env.MONGO_URI,{
     dbName: "eliceShopping"
 })
-.then( res => console.log("mongoDB test collection connected"))
+.then( res => console.log("mongoDB eliceShopping collection connected"))
 .catch( err => console.log(err));
 mongoose.connection.on('err', (err) => {
     console.log("mongoDB err");
@@ -41,9 +50,10 @@ app.use('/order', orderRouter);
 app.use('/category', categoryRouter);
 app.use('/cash', cashRouter);
 app.use('/like', likeRouter);
+app.use('/login', loginRouter);
 
 app.use((err,req,res,next) => {
-    console.log(err.message + " 내부 error 발생");
+    console.log("내부 error 발생 : " + err);
     res.json(err.message);
 });
 
