@@ -76,7 +76,7 @@ router.put('/:nanoid', reqUserCheck, asyncHandler(async (req, res) => {
 }));
 
 // update by email (bodyData : name or password or address or birthday or gender)
-router.put('/', asyncHandler(async (req, res) => {
+router.put('/', reqUserCheck, asyncHandler(async (req, res) => {
     const {email} = req.body;
     const bodyData = req.body;
 
@@ -98,7 +98,7 @@ router.put('/', asyncHandler(async (req, res) => {
 }));
 
 // delete by nanoid
-router.delete('/:nanoid', asyncHandler(async (req,res) => {
+router.delete('/:nanoid', reqUserCheck, asyncHandler(async (req,res) => {
     const {nanoid} = req.params;
 
     // 접근한 사용자의 nanoid 와 delete 를 요청하는 nanoid 값이 다르므로 요청을 거절함
@@ -116,7 +116,7 @@ router.delete('/:nanoid', asyncHandler(async (req,res) => {
 }));
 
 // delete by email
-router.post('/deleteByEmail', asyncHandler(async (req,res) => {
+router.post('/deleteByEmail', reqUserCheck, asyncHandler(async (req,res) => {
     const {email} = req.body;
 
     // 접근한 사용자의 email 과 delete 를 요청하는 email 값이 다르므로 요청을 거절함

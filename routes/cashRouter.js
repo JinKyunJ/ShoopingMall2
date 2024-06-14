@@ -1,12 +1,16 @@
 const {Router} = require('express');
 const asyncHandler = require('../utils/async-handler');
 const cashService = require('../services/cashService');
+// 현재 사용자가 로그인했는지 체크하는 미들웨어 적용
+const reqUserCheck = require('../middlewares/reqUserCheck');
 
 const router = Router();
 
 // create (bodyData : user_nanoid)
 router.post('/', asyncHandler(async (req, res) => {
     const bodyData = req.body;
+    // 지정할 수 없는 cash 는 bodyData 프로퍼티에서 제거
+    Reflect.deleteProperty(bodyData, "cash")
     const result = await cashService.createCash(bodyData);
     if(result.value === "fail"){
         return res.status(400).json(result);
@@ -37,7 +41,7 @@ router.get('/:user_nanoid', asyncHandler(async (req, res) => {
 }));
 
 // update (bodyData : cash)
-router.put('/:user_nanoid', asyncHandler(async (req, res) => {
+router.put('/:user_nanoid', reqUserCheck, asyncHandler(async (req, res) => {
     const {user_nanoid} = req.params;
 
     // 접근한 사용자가 is_admin === true 일 경우 가능함.
@@ -59,7 +63,7 @@ router.put('/:user_nanoid', asyncHandler(async (req, res) => {
 }));
 
 // delete
-router.delete('/:user_nanoid', asyncHandler(async (req,res) => {
+router.delete('/:user_nanoid', reqUserCheck, asyncHandler(async (req,res) => {
     const {user_nanoid} = req.params;
 
     // 접근한 사용자가 is_admin === true 일 경우 가능함.
