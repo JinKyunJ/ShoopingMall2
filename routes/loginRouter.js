@@ -28,21 +28,9 @@ router.post('/auth', loginCheck, doubleLoginCheck, passport.authenticate('local'
     setUserToken(res, req.user);
     console.log("login 후 서버에서 req.user 체크");
     console.log(req.user);
-    // 비밀번호 찾기를 통한 첫 로그인에 성공한 유저의 passwordReset 값이 true 이면 패스워드 초기화 진행
-    if(req.user && req.user.passwordReset){
-        const result = {
-            value: "ok_reset",
-            data: "임시 비밀번호로 로그인한 사용자입니다. 패스워드 초기화가 필요합니다."
-        };
-        return res.json(result);  
-    }
 
     // 일반 로그인 성공 알림
-    const result = {
-        value: "ok",
-        data: "로그인에 성공하였습니다."
-    };
-    return res.json(result);
+    return res.json("로그인에 성공하였습니다.");
 });
 
 

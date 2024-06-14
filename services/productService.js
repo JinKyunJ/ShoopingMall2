@@ -5,29 +5,16 @@ class ProductService {
                         / required: false -> sale, detail_image, detail_content)
     */
     async createProduct(bodyData){
-        const newProduct = await Product.create(bodyData);
-        const result = {
-            value: "ok",
-            data: newProduct
-        };
-        return result;
+        return await Product.create(bodyData);
     }
 
     // find all
     async findAllProduct(){
         const products = await Product.find();
         if(products.length === 0){
-            const result = {
-                value : "fail",
-                data : "조회된 상품이 없습니다."
-            };
-            return result;
+            throw new Error("조회된 상품이 없습니다.");
         } else {
-            const result = {
-                value : "ok",
-                data : products
-            };
-            return result;
+            return products;
         }
     }
 
@@ -35,17 +22,9 @@ class ProductService {
     async findById({nanoid}){
         const product = await Product.findOne({nanoid});
         if(!product) {
-            const result = {
-                value : "fail",
-                data : "조회된 상품이 없습니다."
-            };
-            return result;
+            throw new Error("조회된 상품이 없습니다.");
         } else {
-            const result = {
-                value : "ok",
-                data : product
-            };
-            return result;
+            return product;
         }
     }
 
@@ -55,18 +34,10 @@ class ProductService {
     async updateById({nanoid}, bodyData){
         const product = await Product.findOne({nanoid});
         if(!product){
-            const result = {
-                value : "fail",
-                data : "조회된 상품이 없습니다."
-            };
-            return result;
+            throw new Error("조회된 상품이 없습니다.");
         } else {
             await Product.updateOne(product, bodyData);
-            const result = {
-                value : "ok",
-                data : `${nanoid} 상품 수정 완료`
-            };
-            return result;
+            return `${nanoid} 상품 수정 완료`;
         }
     }
 
@@ -75,18 +46,10 @@ class ProductService {
     async deleteById({nanoid}) {
         const product = await Product.findOne({nanoid});
         if(!product){
-            const result = {
-                value : "fail",
-                data : "조회된 상품이 없습니다."
-            };
-            return result;
+            throw new Error("조회된 상품이 없습니다.");
         } else {
             await Product.deleteOne(product);
-            const result = {
-                value : "ok",
-                data : `${nanoid} 상품 삭제 완료`
-            };
-            return result;
+            return `${nanoid} 상품 삭제 완료`;
         }
     }
 }
