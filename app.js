@@ -54,7 +54,7 @@ app.use('/login', loginRouter);
 
 app.use((err,req,res,next) => {
     console.log("내부 error 발생 : " + err);
-    res.json(err.message);
+    res.status(400).json(err.message);
 });
 
 app.listen(process.env.PORT, () => {

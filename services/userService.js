@@ -8,18 +8,9 @@ class UserService {
         const {email} = bodyData;
         const user = await User.findOne({email});
         if(user){
-            const result = {
-                value : "fail",
-                data : "이미 회원가입 되어 있는 이메일입니다."
-            };
-            return result;
+            throw new Error("이미 회원가입 되어 있는 이메일입니다.");
         } else {
-            const newUser = await User.create(bodyData);
-            const result = {
-                value : "ok",
-                data : newUser
-            };
-            return result;
+            return await User.create(bodyData);
         }
     }
 
@@ -27,69 +18,37 @@ class UserService {
     async findAllUser(){
         const users = await User.find();
         if(users.length === 0){
-            const result = {
-                value : "fail",
-                data : "조회된 회원이 없습니다."
-            };
-            return result;
+            throw new Error("조회된 회원이 없습니다.");
         }
-        const result = {
-            value : "ok",
-            data : users
-        };
-        return result;
+        return users;
     }
 
     // findOne by nanoid
     async findById({nanoid}) {
         const user = await User.findOne({nanoid});
         if(!user){
-            const result = {
-                value : "fail",
-                data : "조회된 회원이 없습니다."
-            };
-            return result;
+            throw new Error("조회된 회원이 없습니다.");
         }
-        const result = {
-            value : "ok",
-            data : user
-        };
-        return result;
+        return user;
     }
 
     // findOne by email
     async findByEmail({email}) {
         const user = await User.findOne({email});
         if(!user){
-            const result = {
-                value : "fail",
-                data : "이메일로 조회된 회원이 없습니다."
-            };
-            return result;
+            throw new Error("이메일로 조회된 회원이 없습니다.");
         }
-        const result = {
-            value : "ok",
-            data : user
-        };
-        return result;
+        return user;
     }
 
     // update by nanoid (bodyData : name or password or address or birthday or gender)
     async updateById({nanoid}, bodyData){
         const user = await User.findOne({nanoid});
         if(!user){
-            const result = {
-                value : "fail",
-                data : "조회된 회원이 없습니다."
-            };
-            return result;
+            throw new Error("조회된 회원이 없습니다.");
         } else {
             await User.updateOne(user, bodyData);
-            const result = {
-                value : "ok",
-                data : `${nanoid} 사용자 수정 동작 완료`
-            };
-            return result;
+            return `${nanoid} 사용자 수정 동작 완료`;
         }
     }
 
@@ -97,18 +56,10 @@ class UserService {
     async updateByEmail({email}, bodyData){
         const user = await User.findOne({email});
         if(!user){
-            const result = {
-                value : "fail",
-                data : "조회된 회원이 없습니다."
-            };
-            return result;
+            throw new Error("조회된 회원이 없습니다.");
         } else {
             await User.updateOne(user, bodyData);
-            const result = {
-                value : "ok",
-                data : `${email} 사용자 수정 동작 완료`
-            };
-            return result;
+            return `${email} 사용자 수정 동작 완료`;
         }
     }
 
@@ -116,18 +67,10 @@ class UserService {
     async deleteById({nanoid}) {
         const user = await User.findOne({nanoid});
         if(!user){
-            const result = {
-                value : "fail",
-                data : "조회된 회원이 없습니다."
-            };
-            return result;
+            throw new Error("조회된 회원이 없습니다.");
         } else {
             await User.deleteOne(user);
-            const result = {
-                value : "ok",
-                data : `${nanoid} 사용자 삭제 동작 완료`
-            };
-            return result;
+            return `${nanoid} 사용자 삭제 동작 완료`;
         }
     }
 
@@ -135,18 +78,10 @@ class UserService {
     async deleteByEmail({email}) {
         const user = await User.findOne({email});
         if(!user){
-            const result = {
-                value : "fail",
-                data : "조회된 회원이 없습니다."
-            };
-            return result;
+            throw new Error("조회된 회원이 없습니다.");
         } else {
             await User.deleteOne(user);
-            const result = {
-                value : "ok",
-                data : `${email} 사용자 삭제 동작 완료`
-            };
-            return result;
+            return `${email} 사용자 삭제 동작 완료`;
         }
     }
 }

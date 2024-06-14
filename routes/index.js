@@ -1,6 +1,6 @@
 const {Router} = require('express');
 const path = require('path');
-const asyncHandler = require('../utils/async-handler');
+const asyncHandler = require('../middlewares/async-handler');
 const {User} = require('../models');
 const reqUserCheck = require('../middlewares/reqUserCheck');
 const router = Router();
