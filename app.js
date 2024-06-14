@@ -35,7 +35,7 @@ app.use(jwtMiddleware);
 
 // mongoose connect
 mongoose.connect(process.env.MONGO_URI,{
-    dbName: "eliceShopping"
+    dbName: process.env.MONGO_DBNAME
 })
 .then( res => console.log("mongoDB eliceShopping collection connected"))
 .catch( err => console.log(err));
@@ -44,12 +44,12 @@ mongoose.connection.on('err', (err) => {
 });
 
 app.use('/', mainRouter);
-app.use('/user', userRouter);
-app.use('/product', productRouter);
-app.use('/order', orderRouter);
-app.use('/category', categoryRouter);
-app.use('/cash', cashRouter);
-app.use('/like', likeRouter);
+app.use('/users', userRouter);
+app.use('/products', productRouter);
+app.use('/orders', orderRouter);
+app.use('/categories', categoryRouter);
+app.use('/cashes', cashRouter);
+app.use('/likes', likeRouter);
 app.use('/login', loginRouter);
 
 app.use((err,req,res,next) => {

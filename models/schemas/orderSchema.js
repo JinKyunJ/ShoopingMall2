@@ -16,7 +16,7 @@ const orderSchema = new Schema({
         index: true
     },
     // 주문 상품 정보
-    order_products: [productSchema],
+    products: [productSchema],
     // 주문자 정보
     user: {
         type: Schema.Types.ObjectId,
@@ -35,6 +35,11 @@ const orderSchema = new Schema({
     // 주문 총액(할인 가격 계산 포함)
     total_price: {
         type: Number,
+        required: true
+    },
+    // 주문 상태
+    status: {
+        type: String,
         required: true
     },
     // 주문 등록 시간
