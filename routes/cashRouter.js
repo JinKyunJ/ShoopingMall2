@@ -39,6 +39,12 @@ router.get('/:user_nanoid', asyncHandler(async (req, res) => {
 // update (bodyData : cash)
 router.put('/:user_nanoid', asyncHandler(async (req, res) => {
     const {user_nanoid} = req.params;
+
+    // 접근한 사용자가 is_admin === true 일 경우 가능함.
+    if(req.user.is_admin === false){
+        throw new Error("접근할 수 없는 요청입니다.");
+    }
+    
     const bodyData = req.body;
     // 수정할 수 없는 user_nanoid 는 bodyData 프로퍼티에서 제거
     Reflect.deleteProperty(bodyData, "user_nanoid")
@@ -55,6 +61,12 @@ router.put('/:user_nanoid', asyncHandler(async (req, res) => {
 // delete
 router.delete('/:user_nanoid', asyncHandler(async (req,res) => {
     const {user_nanoid} = req.params;
+
+    // 접근한 사용자가 is_admin === true 일 경우 가능함.
+    if(req.user.is_admin === false){
+        throw new Error("접근할 수 없는 요청입니다.");
+    }
+
     const result = await cashService.deleteById({user_nanoid});
     if(result.value === "fail"){
         return res.status(404).json(result);

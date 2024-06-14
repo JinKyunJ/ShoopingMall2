@@ -1,11 +1,13 @@
 const {Router} = require('express');
 const asyncHandler = require('../utils/async-handler');
 const likeService = require('../services/likeService');
+// 현재 사용자가 로그인했는지 체크하는 미들웨어 적용
+const reqUserCheck = require('../middlewares/reqUserCheck');
 
 const router = Router();
 
 // createOrDelete (bodyData : user_nanoid & prod_nanoid)
-router.post('/', asyncHandler(async (req, res) => {
+router.post('/', reqUserCheck, asyncHandler(async (req, res) => {
     const bodyData = req.body;
     const result = await likeService.createOrDelete(bodyData);
     if(result.value === "ok_delete"){
