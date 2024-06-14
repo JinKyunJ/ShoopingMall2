@@ -40,7 +40,7 @@ const orderSchema = new Schema({
     // 주문 상태
     status: {
         type: String,
-        required: true
+        default: "주문 완료"
     },
     // 주문 등록 시간
     create_at: {

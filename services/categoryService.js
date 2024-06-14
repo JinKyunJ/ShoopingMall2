@@ -5,18 +5,9 @@ class CategoryService {
     async createCategory(bodyData){
         const category = await Category.findOne(bodyData);
         if(category){
-            const result = {
-                value : "fail",
-                data : "이미 생성된 카테고리입니다."
-            }
-            return result;
+            throw new Error("이미 생성된 카테고리입니다.")
         } else {
-            const newCategory = await Category.create(bodyData);
-            const result = {
-                value : "ok",
-                data : newCategory
-            };
-            return result;
+            return await Category.create(bodyData);
         }
     }
 
@@ -24,68 +15,39 @@ class CategoryService {
     async findAllCategory(){
         const categories = await Category.find();
         if(categories.length === 0){
-            const result = {
-                value : "fail",
-                data : "조회된 카테고리가 없습니다."
-            };
-            return result;
+            throw new Error("조회된 카테고리가 없습니다.");
         }
-        const result = {
-            value : "ok",
-            data : categories
-        };
-        return result;
+        return categories;
     }
+
     // findOne
     async findById({nanoid}) {
         const category = await Category.findOne({nanoid});
         if(!category){
-            const result = {
-                value : "fail",
-                data : "조회된 카테고리가 없습니다."
-            };
-            return result;
+            throw new Error("조회된 카테고리가 없습니다.");
         }
-        const result = {
-            value : "ok",
-            data : category
-        };
-        return result;
+        return category;
     }
+
     // update (bodyData : name)
     async updateById({nanoid}, bodyData){
         const category = await Category.findOne({nanoid});
         if(!category){
-            const result = {
-                value : "fail",
-                data : "조회된 카테고리가 없습니다."
-            };
-            return result;
+            throw new Error("조회된 카테고리가 없습니다.");
         } else {
             await Category.updateOne(category, bodyData);
-            const result = {
-                value : "ok",
-                data : `${nanoid} 카테고리 수정 동작 완료`
-            };
-            return result;
+            return `${nanoid} 카테고리 수정 동작 완료`;
         }
     }
+
     // delete
     async deleteById({nanoid}) {
         const category = await Category.findOne({nanoid});
         if(!category){
-            const result = {
-                value : "fail",
-                data : "조회된 카테고리가 없습니다."
-            };
-            return result;
+           throw new Error("조회된 카테고리가 없습니다.");
         } else {
             await Category.deleteOne(category);
-            const result = {
-                value : "ok",
-                data : `${nanoid} 카테고리 삭제 동작 완료`
-            };
-            return result;
+            return `${nanoid} 카테고리 삭제 동작 완료`;
         }
     }
 }
