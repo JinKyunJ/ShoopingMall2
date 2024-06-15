@@ -14,7 +14,7 @@ const jwtMiddleware = require('./middlewares/jwtMiddleware');
 const local = require('./strategy/loginStrategy');
 const jwtlocal = require('./strategy/jwtStrategy');
 const loginRouter = require('./routes/loginRouter');
-
+const errorHandler = require('./middlewares/errorHandler');
 // dotenv
 const app = express();
 dotenv.config();
@@ -52,10 +52,7 @@ app.use('/cashes', cashRouter);
 app.use('/likes', likeRouter);
 app.use('/login', loginRouter);
 
-app.use((err,req,res,next) => {
-    console.log("내부 error 발생 : " + err);
-    res.status(400).json(err.message);
-});
+app.use(errorHandler);
 
 app.listen(process.env.PORT, () => {
     console.log(`${process.env.PORT} port connected`);
