@@ -1,2 +1,5 @@
 .env
 node_modules
+routes/test.js
+package.json
+package-lock.json
