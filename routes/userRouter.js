@@ -5,8 +5,15 @@ const userService = require('../services/userService');
 const reqUserCheck = require('../middlewares/reqUserCheck');
 const isAdminNanoid = require('../middlewares/isAdminNanoid');
 const isAdminEmail = require('../middlewares/isAdminEmail');
+// 하위 라우터로 cash, order Router 추가
+const orderRouter = require('./orderRouter');
+const cashRouter = require('./cashRouter');
 
 const router = Router();
+
+// 하위 라우터로 cash, order Router 추가
+router.use('/orders', orderRouter);
+router.use('/cashes', cashRouter);
 
 /* create (bodyData : required: true -> email, name, password, address
                     / required: false -> birthday, gender)
