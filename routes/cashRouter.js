@@ -3,6 +3,7 @@ const asyncHandler = require('../middlewares/async-handler');
 const cashService = require('../services/cashService');
 // 현재 사용자가 로그인했는지 체크하는 미들웨어 적용
 const reqUserCheck = require('../middlewares/reqUserCheck');
+const isAdmin = require('../middlewares/isAdmin');
 
 const router = Router();
 
@@ -27,27 +28,17 @@ router.get('/:user_nanoid', asyncHandler(async (req, res) => {
 }));
 
 // update (bodyData : cash)
-router.put('/:user_nanoid', reqUserCheck, asyncHandler(async (req, res) => {
+router.put('/:user_nanoid', reqUserCheck, isAdmin, asyncHandler(async (req, res) => {
     const {user_nanoid} = req.params;
 
-    // 접근한 사용자가 is_admin === true 일 경우 가능함.
-    if(req.user.is_admin === false){
-        throw new Error("접근할 수 없는 요청입니다.");
-    }
-    
     const bodyData = req.body;
     const result = await cashService.updateById({user_nanoid}, bodyData);
     return res.status(200).json(result);
 }));
 
 // delete
-router.delete('/:user_nanoid', reqUserCheck, asyncHandler(async (req,res) => {
+router.delete('/:user_nanoid', reqUserCheck, isAdmin, asyncHandler(async (req,res) => {
     const {user_nanoid} = req.params;
-
-    // 접근한 사용자가 is_admin === true 일 경우 가능함.
-    if(req.user.is_admin === false){
-        throw new Error("접근할 수 없는 요청입니다.");
-    }
 
     const result = await cashService.deleteById({user_nanoid});
     return res.status(200).json(result);
