@@ -30,7 +30,7 @@ router.post('/auth', loginCheck, doubleLoginCheck, passport.authenticate('local'
     console.log(req.user);
 
     // 일반 로그인 성공 알림
-    return res.json("로그인에 성공하였습니다.");
+    return res.status(200).json("로그인에 성공하였습니다.");
 });
 
 

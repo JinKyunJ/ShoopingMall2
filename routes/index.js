@@ -20,11 +20,7 @@ router.get('/logout', reqUserCheck, async (req, res, next) => {
     res.cookie('token', null, {
         maxAge: 0
     });
-    const result = {
-        value: "ok",
-        data: "정상적으로 로그아웃 되었습니다."
-    };
-    return res.json(result);
+    return res.status(200).json("정상적으로 로그아웃 되었습니다.");
 });
 
 module.exports = router;

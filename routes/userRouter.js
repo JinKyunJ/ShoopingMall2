@@ -42,9 +42,6 @@ router.put('/:nanoid', reqUserCheck, isAdminNanoid, asyncHandler(async (req, res
     const {nanoid} = req.params;
 
     const bodyData = req.body;
-    // 수정할 수 없는 email, nanoid property 는 bodyData 에서 제거
-    Reflect.deleteProperty(bodyData, "email");
-    Reflect.deleteProperty(bodyData, "nanoid");
     const result = await userService.updateById({nanoid}, bodyData);
     return res.status(200).json(result);
 }));
