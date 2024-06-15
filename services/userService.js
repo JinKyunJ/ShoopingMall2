@@ -1,4 +1,6 @@
 const {User} = require('../models');
+const {Cash} = require('../models');
+const {Like} = require('../models');
 
 class UserService {
     /* create (bodyData : required: true -> email, name, password, address
@@ -10,7 +12,12 @@ class UserService {
         if(user){
             throw new Error("이미 회원가입 되어 있는 이메일입니다.");
         } else {
-            return await User.create(bodyData);
+            const newUser = await User.create(bodyData);
+            await Cash.create({
+                user_nanoid: newUser.nanoid,
+                cash: 0
+            });
+            return newUser;
         }
     }
 
@@ -69,6 +76,8 @@ class UserService {
         if(!user){
             throw new Error("조회된 회원이 없습니다.");
         } else {
+            await Like.deleteMany({user_nanoid: user.nanoid});
+            await Cash.deleteOne({user_nanoid: user.nanoid});
             await User.deleteOne(user);
             return `${nanoid} 사용자 삭제 동작 완료`;
         }
@@ -80,6 +89,8 @@ class UserService {
         if(!user){
             throw new Error("조회된 회원이 없습니다.");
         } else {
+            await Like.deleteMany({user_nanoid: user.nanoid});
+            await Cash.deleteOne({user_nanoid: user.nanoid});
             await User.deleteOne(user);
             return `${email} 사용자 삭제 동작 완료`;
         }
