@@ -1,11 +1,16 @@
-const {Router} = require('express');
+const {Router, application} = require('express');
 const asyncHandler = require('../middlewares/async-handler');
 const productService = require('../services/productService');
 // 현재 사용자가 로그인했는지 체크하는 미들웨어 적용
 const reqUserCheck = require('../middlewares/reqUserCheck');
 const isAdmin = require('../middlewares/isAdmin');
+// 하위 라우터로 categoryrouter 추가
+const categoryRouter = require('./categoryRouter');
 
 const router = Router();
+
+// 하위 라우터로 categoryrouter 추가
+router.use('/categories', categoryRouter);
 
 /* create (bodyData : required: true -> price, image, delivery, title, ad, seller 
                     / required: false -> sale, detail_image, detail_content)

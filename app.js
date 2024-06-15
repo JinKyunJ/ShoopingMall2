@@ -5,10 +5,7 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const mainRouter = require('./routes');
 const userRouter = require('./routes/userRouter');
-const categoryRouter = require('./routes/categoryRouter');
-const orderRouter = require('./routes/orderRouter');
 const productRouter = require('./routes/productRouter');
-const cashRouter = require('./routes/cashRouter');
 const likeRouter = require('./routes/likeRouter');
 const jwtMiddleware = require('./middlewares/jwtMiddleware');
 const local = require('./strategy/loginStrategy');
@@ -46,9 +43,6 @@ mongoose.connection.on('err', (err) => {
 app.use('/', mainRouter);
 app.use('/users', userRouter);
 app.use('/products', productRouter);
-app.use('/orders', orderRouter);
-app.use('/categories', categoryRouter);
-app.use('/cashes', cashRouter);
 app.use('/likes', likeRouter);
 app.use('/login', loginRouter);
 
