@@ -10,7 +10,7 @@ const router = Router();
 // create (bodyData : required -> address, total_price / not required -> delivery_request)
 router.post('/', reqUserCheck, asyncHandler(async (req, res) => {
     const bodyData = req.body;
-    const result = await orderService.createOrder(bodyData);
+    const result = await orderService.createOrder(req.user, bodyData);
     return res.status(201).json(result);
 }));
 
