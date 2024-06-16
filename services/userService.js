@@ -1,6 +1,8 @@
 const {User} = require('../models');
 const {Cash} = require('../models');
 const {Like} = require('../models');
+// sha256 단방향 해시 비밀번호 사용
+const crypto = require('crypto');
 
 class UserService {
     /* create (bodyData : required: true -> email, name, password, address
@@ -12,7 +14,16 @@ class UserService {
         if(user){
             throw new Error("이미 회원가입 되어 있는 이메일입니다.");
         } else {
-            const newUser = await User.create(bodyData);
+            // sha256 단방향 해시 비밀번호 사용
+            const hash = crypto.createHash('sha256').update(bodyData.password).digest('hex');
+            const newUser = await User.create({
+                email: bodyData.email,
+                name: bodyData.name,
+                password: hash,
+                address: bodyData.address,
+                birthday: bodyData.birthday,
+                gender: bodyData.gender
+            });
             await Cash.create({
                 user_nanoid: newUser.nanoid,
                 cash: 0
