@@ -22,7 +22,9 @@ class UserService {
                 password: hash,
                 address: bodyData.address,
                 birthday: bodyData.birthday,
-                gender: bodyData.gender
+                gender: bodyData.gender,
+                is_admin: false,
+                is_passwordReset: false
             });
             await Cash.create({
                 user_nanoid: newUser.nanoid,
