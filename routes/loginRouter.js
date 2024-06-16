@@ -3,8 +3,6 @@ const path = require('path');
 const passport = require('passport');
 const dotenv = require('dotenv');
 dotenv.config();
-// 이미 로그인되어 있으나 중복해서 로그인하려 하는 동작 방지
-const doubleLoginCheck = require('../middlewares/doubleLoginCheck');
 // 이메일 형식 및 입력되었는지 체크
 const loginCheck = require('../middlewares/loginCheck');
 const jwt = require('jsonwebtoken');
@@ -23,7 +21,7 @@ router.get('/', (req, res) => {
 });
 
 // login
-router.post('/auth', loginCheck, doubleLoginCheck, passport.authenticate('local', {session: false}), (req, res, next) => {
+router.post('/auth', loginCheck, passport.authenticate('local', {session: false}), (req, res, next) => {
     // 로그인 성공 했을 때 클라이언트에 줄 토큰에다가 signature(secret) 으로 서명 후 전달함.
     setUserToken(res, req.user);
     console.log("login 후 서버에서 req.user 체크");
