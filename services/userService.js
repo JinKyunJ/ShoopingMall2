@@ -24,9 +24,6 @@ class UserService {
     // find all
     async findAllUser(){
         const users = await User.find();
-        if(users.length === 0){
-            throw new Error("조회된 회원이 없습니다.");
-        }
         return users;
     }
 
@@ -55,7 +52,7 @@ class UserService {
             throw new Error("조회된 회원이 없습니다.");
         } else {
             await User.updateOne(user, bodyData);
-            return `${nanoid} 사용자 수정 동작 완료`;
+            return {message: `${nanoid} 사용자 수정 동작 완료`};
         }
     }
 
@@ -66,7 +63,7 @@ class UserService {
             throw new Error("조회된 회원이 없습니다.");
         } else {
             await User.updateOne(user, bodyData);
-            return `${email} 사용자 수정 동작 완료`;
+            return {message: `${email} 사용자 수정 동작 완료`};
         }
     }
 
@@ -79,7 +76,7 @@ class UserService {
             await Like.deleteMany({user_nanoid: user.nanoid});
             await Cash.deleteOne({user_nanoid: user.nanoid});
             await User.deleteOne(user);
-            return `${nanoid} 사용자 삭제 동작 완료`;
+            return {message: `${nanoid} 사용자 삭제 동작 완료`};
         }
     }
 
@@ -92,7 +89,7 @@ class UserService {
             await Like.deleteMany({user_nanoid: user.nanoid});
             await Cash.deleteOne({user_nanoid: user.nanoid});
             await User.deleteOne(user);
-            return `${email} 사용자 삭제 동작 완료`;
+            return {message: `${email} 사용자 삭제 동작 완료`};
         }
     }
 }

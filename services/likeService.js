@@ -6,7 +6,7 @@ class LikeService {
         const like = await Like.findOne(bodyData);
         if(like){
             await Like.deleteOne(like);
-            return "찜이 해제되었습니다.";
+            return {message: "찜이 해제되었습니다."};
         } else {
             return await Like.create(bodyData);
         }
@@ -15,9 +15,6 @@ class LikeService {
     // find
     async findAllLike(){
         const likes = await Like.find();
-        if(likes.length === 0){
-            throw new Error("조회된 찜 데이터가 없습니다.");
-        }
         return likes;
     }
 

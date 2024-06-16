@@ -14,9 +14,6 @@ class CashService {
     // find
     async findAllCash(){
         const cashes = await Cash.find();
-        if(cashes.length === 0){
-            throw new Error("조회된 적립금 데이터가 없습니다.");
-        }
         return cashes;
     }
 
@@ -38,7 +35,7 @@ class CashService {
             await Cash.updateOne(cash, {
                 $inc: {cash: bodyData.cash}
             });
-            return `${user_nanoid} 적립금 변경 동작 완료`;
+            return {message: `${user_nanoid} 적립금 변경 동작 완료`};
         }
     }
 
@@ -49,7 +46,7 @@ class CashService {
             throw new Error("조회된 적립금 데이터가 없습니다.");
         } else {
             await Cash.deleteOne(cash);
-            return `${user_nanoid} 적립금 삭제 동작 완료`;
+            return {message: `${user_nanoid} 적립금 삭제 동작 완료`};
         }
     }
 }
