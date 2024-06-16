@@ -38,9 +38,6 @@ class OrderService {
     // find all
     async findAllOrder(){
         const orders = await Order.find().populate('user');
-        if(orders.length === 0){
-            throw new Error("주문내역이 없습니다.");
-        }
         return orders;
     }
         
@@ -60,7 +57,7 @@ class OrderService {
             throw new Error("주문내역이 없습니다.");
     }   else {
             await Order.updateOne(order, bodyData); 
-            return `${nanoid} 주문 수정 동작 완료`; 
+            return {message: `${nanoid} 주문 수정 동작 완료`}; 
         }
 
     }
@@ -71,7 +68,7 @@ class OrderService {
             throw new Error("주문내역이 없습니다.");
         } else {
             await Order.deleteOne(order);
-            return `${nanoid} 주문 삭제 동작 완료` ;
+            return {message: `${nanoid} 주문 삭제 동작 완료`};
         }
     }
 };
