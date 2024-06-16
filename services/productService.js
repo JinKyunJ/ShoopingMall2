@@ -28,16 +28,11 @@ class ProductService {
     // find all
     async findAllProduct(){
         const products = await Product.find().populate('category');
-
-        if(products.length === 0){
-            throw new Error("조회된 상품이 없습니다.");
-        } else {
-            // 후기 내용 read 추가
-            await Product.populate(products.comments, {
-                path: 'author'
-            });
-            return products;
-        }
+        // 후기 내용 read 추가
+        await Product.populate(products.comments, {
+            path: 'author'
+        });
+        return products;
     }
 
     // findOne
@@ -94,7 +89,7 @@ class ProductService {
             throw new Error("조회된 상품이 없습니다.");
         } else {
             await Product.updateOne(product, bodyData);
-            return `${nanoid} 상품 수정 완료`;
+            return {message: `${nanoid} 상품 수정 완료`};
         }
     }
 
@@ -138,7 +133,7 @@ class ProductService {
             throw new Error("조회된 상품이 없습니다.");
         } else {
             await Product.deleteOne(product);
-            return `${nanoid} 상품 삭제 완료`;
+            return {message: `${nanoid} 상품 삭제 완료`};
         }
     }
 
