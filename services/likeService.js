@@ -21,18 +21,12 @@ class LikeService {
     // findOne By user_nanoid
     async findByUser({user_nanoid}) {
         const likes = await Like.find({user_nanoid});
-        if(likes.length === 0){
-            throw new Error("해당 유저는 찜한 상품이 없습니다.");
-        }
         return likes;
     }
 
     // findOne By user_nanoid
     async findByProd({prod_nanoid}) {
         const likes = await Like.find({prod_nanoid});
-        if(likes.length === 0){
-            throw new Error("해당 상품에는 찜한 사용자가 없습니다.");
-        }
         return likes;
     }
 }
