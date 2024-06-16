@@ -1,6 +1,8 @@
 const {Product} = require('../models');
 const {User} = require('../models');
 const {Category} = require('../models');
+// 상품 조회 시 like 한 사람 데이터까지 모두 전달 (prodData)
+const likeService = require('../services/likeService')
 
 class ProductService {
     /* create (bodyData : required: true -> price, image, delivery, title, ad, seller 
@@ -32,7 +34,16 @@ class ProductService {
         await Product.populate(products.comments, {
             path: 'author'
         });
-        return products;
+        // 전체 상품 조회 시 like 한 사람을 모두 전달 (prodsData)
+        const prodsData = {};
+        for(let i=0;i<products.length;i++){
+            const prodData = {product: products[i]};
+            const prod_nanoid = products[i].nanoid;
+            const likeUser = await likeService.findByProd({prod_nanoid});
+            prodData.likeUser = likeUser;
+            prodsData[`prodData${i}`] = prodData;
+        }
+        return prodsData;
     }
 
     // findOne
@@ -45,7 +56,12 @@ class ProductService {
             await Product.populate(product.comments, {
                 path: 'author'
             });
-            return product;
+            // 상품 조회 시 like 한 사람 데이터까지 모두 전달 (prodData)
+            const prodData = {product};
+            const prod_nanoid = product.nanoid;
+            const likeUser = await likeService.findByProd({prod_nanoid});
+            prodData.likeUser = likeUser;
+            return prodData;
         }
     }
 
