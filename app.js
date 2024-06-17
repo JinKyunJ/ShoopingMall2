@@ -34,7 +34,7 @@ app.use(jwtMiddleware);
 mongoose.connect(process.env.MONGO_URI,{
     dbName: process.env.MONGO_DBNAME
 })
-.then( res => console.log("mongoDB eliceShopping collection connected"))
+.then( res => console.log(`mongoDB ${process.env.MONGO_DBNAME} collection connected`))
 .catch( err => console.log(err));
 mongoose.connection.on('err', (err) => {
     console.log("mongoDB err");
