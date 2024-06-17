@@ -1,4 +1,4 @@
-const {User, Product} = require('../models');
+const {User, Product, Like} = require('../models');
 const {Cash} = require('../models');
 const cashService = require('../services/cashService');
 const likeService = require('../services/likeService');
@@ -115,6 +115,13 @@ class UserService {
         } else {
             // 유저 수정 시 적립금에 변동이 있을 경우, 해당 유저의 적립금 데이터 수정
             const user_nanoid = user.nanoid;
+            if(bodyData.password){
+                // sha256 단방향 해시 비밀번호 사용
+                const hash = crypto.createHash('sha256').update(bodyData.password).digest('hex');
+                bodyData.password = hash
+            }
+            Reflect.deleteProperty(bodyData, "email");
+            Reflect.deleteProperty(bodyData, "nanoid");
             await User.updateOne(user, bodyData);
             await cashService.updateById({user_nanoid}, bodyData);
             return {message: `${nanoid} 사용자 수정 동작 완료`};
@@ -131,6 +138,14 @@ class UserService {
         } else {
             // 유저 수정 시 적립금에 변동이 있을 경우, 해당 유저의 적립금 데이터 수정
             const user_nanoid = user.nanoid;
+            // sha256 단방향 해시 비밀번호 사용
+            if(bodyData.password){
+                // sha256 단방향 해시 비밀번호 사용
+                const hash = crypto.createHash('sha256').update(bodyData.password).digest('hex');
+                bodyData.password = hash
+            }
+            Reflect.deleteProperty(bodyData, "email");
+            Reflect.deleteProperty(bodyData, "nanoid");
             await User.updateOne(user, bodyData);
             await cashService.updateById({user_nanoid}, bodyData);
             return {message: `${email} 사용자 수정 동작 완료`};

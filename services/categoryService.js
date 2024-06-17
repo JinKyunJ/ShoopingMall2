@@ -39,6 +39,7 @@ class CategoryService {
             throw error;
             
         } else {
+            Reflect.deleteProperty(bodyData, "nanoid");
             await Category.updateOne(category, bodyData);
             return {message: `${nanoid} 카테고리 수정 동작 완료`};
         }
