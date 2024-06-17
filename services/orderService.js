@@ -22,7 +22,9 @@ class OrderService {
         prod_nanoid.forEach(async (v) => {
             const product = await Product.findOne({nanoid: v});
             if(!product){
-                throw new Error("load 되는 nanoid로 조회된 상품이 없습니다.");
+                const error = new Error();
+                Object.assign(error, {code: 404, message: "load 되는 nanoid로 조회된 상품이 없습니다."})
+                throw error;
             } else {
                 // $push 오퍼레이터 : 주문서에 추가되는 상품 요청 처리
                 await Order.updateOne(
@@ -45,7 +47,9 @@ class OrderService {
     async findById({nanoid}){
         const order = await Order.findOne({nanoid}).populate('user');
         if(!order){
-            throw new Error("주문내역이 없습니다.");
+            const error = new Error();
+            Object.assign(error, {code: 404, message: "주문내역이 없습니다."})
+            throw error;
         }
         return order;
     }
@@ -54,7 +58,9 @@ class OrderService {
     async updateById({nanoid}, bodyData) {
         const order = await Order.findOne({nanoid});
         if (!order) {
-            throw new Error("주문내역이 없습니다.");
+            const error = new Error();
+            Object.assign(error, {code: 404, message: "주문내역이 없습니다."})
+            throw error;
     }   else {
             await Order.updateOne(order, bodyData); 
             return {message: `${nanoid} 주문 수정 동작 완료`}; 
@@ -65,7 +71,9 @@ class OrderService {
     async deleteById({nanoid}) {
         const order = await Order.findOne({nanoid});
         if (!order) {
-            throw new Error("주문내역이 없습니다.");
+            const error = new Error();
+            Object.assign(error, {code: 404, message: "주문내역이 없습니다."})
+            throw error;
         } else {
             await Order.deleteOne(order);
             return {message: `${nanoid} 주문 삭제 동작 완료`};

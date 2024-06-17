@@ -13,7 +13,9 @@ class UserService {
         const {email} = bodyData;
         const user = await User.findOne({email});
         if(user){
-            throw new Error("이미 회원가입 되어 있는 이메일입니다.");
+            const error = new Error();
+            Object.assign(error, {code: 400, message: "이미 회원가입 되어 있는 이메일입니다."})
+            throw error;
         } else {
             // sha256 단방향 해시 비밀번호 사용
             const hash = crypto.createHash('sha256').update(bodyData.password).digest('hex');
@@ -56,7 +58,9 @@ class UserService {
     async findById({nanoid}) {
         const user = await User.findOne({nanoid});
         if(!user){
-            throw new Error("조회된 회원이 없습니다.");
+            const error = new Error();
+            Object.assign(error, {code: 404, message: "조회된 회원이 없습니다."})
+            throw error;
         }
         // 유저 조회 시 적립금, like 한 제품을 모두 전달 (userData)
         const userData = {user};
@@ -72,7 +76,9 @@ class UserService {
     async findByEmail({email}) {
         const user = await User.findOne({email});
         if(!user){
-            throw new Error("이메일로 조회된 회원이 없습니다.");
+            const error = new Error();
+            Object.assign(error, {code: 404, message: "이메일로 조회된 회원이 없습니다."})
+            throw error;
         }
         // 유저 조회 시 적립금, like 한 제품을 모두 전달 (userData)
         const userData = {user};
@@ -88,7 +94,9 @@ class UserService {
     async updateById({nanoid}, bodyData){
         const user = await User.findOne({nanoid});
         if(!user){
-            throw new Error("조회된 회원이 없습니다.");
+            const error = new Error();
+            Object.assign(error, {code: 404, message: "조회된 회원이 없습니다."})
+            throw error;
         } else {
             // 유저 수정 시 적립금에 변동이 있을 경우, 해당 유저의 적립금 데이터 수정
             const user_nanoid = user.nanoid;
@@ -102,7 +110,9 @@ class UserService {
     async updateByEmail({email}, bodyData){
         const user = await User.findOne({email});
         if(!user){
-            throw new Error("조회된 회원이 없습니다.");
+            const error = new Error();
+            Object.assign(error, {code: 404, message: "이메일로 조회된 회원이 없습니다."})
+            throw error;
         } else {
             // 유저 수정 시 적립금에 변동이 있을 경우, 해당 유저의 적립금 데이터 수정
             const user_nanoid = user.nanoid;
@@ -116,7 +126,9 @@ class UserService {
     async deleteById({nanoid}) {
         const user = await User.findOne({nanoid});
         if(!user){
-            throw new Error("조회된 회원이 없습니다.");
+            const error = new Error();
+            Object.assign(error, {code: 404, message: "조회된 회원이 없습니다."})
+            throw error;
         } else {
             await Like.deleteMany({user_nanoid: user.nanoid});
             await Cash.deleteOne({user_nanoid: user.nanoid});
@@ -129,7 +141,9 @@ class UserService {
     async deleteByEmail({email}) {
         const user = await User.findOne({email});
         if(!user){
-            throw new Error("조회된 회원이 없습니다.");
+            const error = new Error();
+            Object.assign(error, {code: 404, message: "이메일로 조회된 회원이 없습니다."})
+            throw error;
         } else {
             await Like.deleteMany({user_nanoid: user.nanoid});
             await Cash.deleteOne({user_nanoid: user.nanoid});
