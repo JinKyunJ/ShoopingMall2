@@ -28,7 +28,7 @@ router.get('/find', reqUserCheck, asyncHandler(async (req, res) => {
 }));
 
 // update (bodyData : cash)
-router.put('/update', reqUserCheck, isAdmin, asyncHandler(async (req, res) => {
+router.put('/update', reqUserCheck, asyncHandler(async (req, res) => {
     const user_nanoid = req.user.nanoid;
     const bodyData = req.body;
     const result = await cashService.updateById({user_nanoid}, bodyData);

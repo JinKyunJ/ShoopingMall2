@@ -13,8 +13,7 @@ class OrderService {
             address: bodyData.address,
             delivery_request: bodyData.delivery_request,
             total_price: bodyData.total_price,
-            detail_content: bodyData.detail_content,
-            delivery: bodyData.delivery
+            status: "주문 완료"
         });
         // 주문 상품 load ( bodyData 에서 상품 고유 번호들을 전달 받아야 함 )
         // bodyData.prod_nanoid 배열
@@ -24,7 +23,7 @@ class OrderService {
             Object.assign(error, {code: 404, message: "load 되는 주문 상품이 없습니다. 다시 주문하신 상품을 확인해주세요."})
             throw error;
         }
-        prod_nanoid.forEach(async (v) => {
+        await prod_nanoid.forEach(async (v) => {
             const product = await Product.findOne({nanoid: v});
             if(!product){
                 const error = new Error();
@@ -67,6 +66,7 @@ class OrderService {
             Object.assign(error, {code: 404, message: "주문내역이 없습니다."})
             throw error;
     }   else {
+            Reflect.deleteProperty(bodyData, "user");
             Reflect.deleteProperty(bodyData, "nanoid");
             await Order.updateOne(order, bodyData); 
             return {message: `${nanoid} 주문 수정 동작 완료`}; 
