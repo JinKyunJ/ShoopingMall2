@@ -7,7 +7,7 @@ class CategoryService {
         if(category){
             const error = new Error();
             Object.assign(error, {code: 400, message: "이미 생성된 카테고리입니다."})
-            throw Error;
+            throw error;
         } else {
             return await Category.create(bodyData);
         }
@@ -24,8 +24,8 @@ class CategoryService {
         const category = await Category.findOne({nanoid});
         if(!category){
             const error = new Error();
-            Object.assign(error, {code: 400, message: "조회된 카테고리가 없습니다."})
-            throw Error;
+            Object.assign(error, {code: 404, message: "조회된 카테고리가 없습니다."})
+            throw error;
         }
         return category;
     }
@@ -35,8 +35,8 @@ class CategoryService {
         const category = await Category.findOne({nanoid});
         if(!category){
             const error = new Error();
-            Object.assign(error, {code: 400, message: "조회된 카테고리가 없습니다."})
-            throw Error;
+            Object.assign(error, {code: 404, message: "조회된 카테고리가 없습니다."})
+            throw error;
             
         } else {
             await Category.updateOne(category, bodyData);
@@ -49,8 +49,8 @@ class CategoryService {
         const category = await Category.findOne({nanoid});
         if(!category){
             const error = new Error();
-            Object.assign(error, {code: 400, message: "조회된 카테고리가 없습니다."})
-            throw Error;
+            Object.assign(error, {code: 404, message: "조회된 카테고리가 없습니다."})
+            throw error;
            
         } else {
             await Category.deleteOne(category);

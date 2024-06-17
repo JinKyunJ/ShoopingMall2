@@ -7,7 +7,7 @@ class CashService {
         if(cash){
             const error = new Error();
             Object.assign(error, {code: 400, message: "이미 생성된 적립금 데이터입니다."})
-            throw Error;
+            throw error;
             
         } else {
             return await Cash.create(bodyData);
@@ -25,8 +25,8 @@ class CashService {
         const cash = await Cash.findOne({user_nanoid});
         if(!cash){
             const error = new Error();
-            Object.assign(error, {code: 400, message: "조회된 적립금 데이터가 없습니다."})
-            throw Error;
+            Object.assign(error, {code: 404, message: "조회된 적립금 데이터가 없습니다."})
+            throw error;
         }
         return cash;
     }
@@ -36,8 +36,8 @@ class CashService {
         const cash = await Cash.findOne({user_nanoid});
         if(!cash){
             const error = new Error();
-            Object.assign(error, {code: 400, message: "조회된 적립금 데이터가 없습니다."})
-            throw Error;
+            Object.assign(error, {code: 404, message: "조회된 적립금 데이터가 없습니다."})
+            throw error;
             
         } else {
             await Cash.updateOne(cash, {
@@ -52,8 +52,8 @@ class CashService {
         const cash = await Cash.findOne({user_nanoid});
         if(!cash){
             const error = new Error();
-            Object.assign(error, {code: 400, message: "조회된 적립금 데이터가 없습니다."})
-            throw Error;
+            Object.assign(error, {code: 404, message: "조회된 적립금 데이터가 없습니다."})
+            throw error;
             
         } else {
             await Cash.deleteOne(cash);
