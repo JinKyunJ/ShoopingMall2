@@ -40,10 +40,14 @@ class CashService {
             throw error;
             
         } else {
-            await Cash.updateOne(cash, {
-                $inc: {cash: bodyData.cash}
-            });
-            return {message: `${user_nanoid} 적립금 변경 동작 완료`};
+            // bodyData.cash 가 있는 경우에만 update
+            if(bodyData.cash){
+                await Cash.updateOne(cash, {
+                    $inc: {cash: bodyData.cash}
+                });
+                return {message: `${user_nanoid} 적립금 변경 동작 완료`};
+            }
+            return {message: `${user_nanoid} 적립금 변경 없음`};
         }
     }
 
