@@ -12,7 +12,6 @@ class ProductService {
         const category = await Category.findOne({
             name: bodyData.category
         });
-        console.log(category)
         return await Product.create({
             price: bodyData.price,
             sale: bodyData.sale,
@@ -124,7 +123,22 @@ class ProductService {
             Object.assign(error, {code: 404, message: "조회된 상품이 없습니다."})
             throw error;
         } else {
-            await Product.updateOne(product, bodyData);
+            const categoryName = bodyData.category;
+            const category = await Category.findOne({
+                name: categoryName
+            });
+            await Product.updateOne(product, {
+                price: bodyData.price,
+                sale: bodyData.sale,
+                image: bodyData.image,
+                detail_image: bodyData.detail_image,
+                detail_content: bodyData.detail_content,
+                delivery: bodyData.delivery,
+                title: bodyData.title,
+                ad: bodyData.ad,
+                seller: bodyData.seller,
+                category: category
+            });
             return {message: `${nanoid} 상품 수정 완료`};
         }
     }

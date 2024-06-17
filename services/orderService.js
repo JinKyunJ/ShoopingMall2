@@ -19,6 +19,11 @@ class OrderService {
         // 주문 상품 load ( bodyData 에서 상품 고유 번호들을 전달 받아야 함 )
         // bodyData.prod_nanoid 배열
         const prod_nanoid = bodyData.prod_nanoid;
+        if(!prod_nanoid){
+            const error = new Error();
+            Object.assign(error, {code: 404, message: "load 되는 주문 상품이 없습니다. 다시 주문하신 상품을 확인해주세요."})
+            throw error;
+        }
         prod_nanoid.forEach(async (v) => {
             const product = await Product.findOne({nanoid: v});
             if(!product){
@@ -62,6 +67,7 @@ class OrderService {
             Object.assign(error, {code: 404, message: "주문내역이 없습니다."})
             throw error;
     }   else {
+            Reflect.deleteProperty(bodyData, "nanoid");
             await Order.updateOne(order, bodyData); 
             return {message: `${nanoid} 주문 수정 동작 완료`}; 
         }
