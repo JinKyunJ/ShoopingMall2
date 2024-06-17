@@ -33,7 +33,7 @@ class UserService {
                 user_nanoid: newUser.nanoid,
                 cash: 0
             });
-            return newUser;
+            return {message: `${bodyData.email} 계정으로 회원가입이 성공하였습니다.`};
         }
     }
 
