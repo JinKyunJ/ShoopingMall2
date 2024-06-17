@@ -46,9 +46,14 @@ class UserService {
             const userData = {user: users[i]};
             const user_nanoid = users[i].nanoid;
             const cash = await cashService.findById({user_nanoid});
-            const likeProd = await likeService.findByUser({user_nanoid});
             userData.cash = cash;
-            userData.likeProd = likeProd;
+            const likeProd = await likeService.findByUser({user_nanoid});
+            for(let j=0;j<likeProd.length;j++){
+                const nanoid = await likeProd[j].prod_nanoid;
+                // productService 에서 findbyid 시 throw error 될 수 있음. 여기선 일단 없어도 다음 prod를 계속 조회해야 함
+                const likeProdData = await Product.findOne({nanoid});
+                userData[`likeProd${j}`] = likeProdData;
+            }
             usersData[`userData${i}`] = userData;
         }
         return usersData;
@@ -66,9 +71,14 @@ class UserService {
         const userData = {user};
         const user_nanoid = user.nanoid;
         const cash = await cashService.findById({user_nanoid});
-        const likeProd = await likeService.findByUser({user_nanoid});
         userData.cash = cash;
-        userData.likeProd = likeProd;
+        const likeProd = await likeService.findByUser({user_nanoid});
+        for(let j=0;j<likeProd.length;j++){
+            const nanoid = await likeProd[j].prod_nanoid;
+            // productService 에서 findbyid 시 throw error 될 수 있음. 여기선 일단 없어도 다음 prod를 계속 조회해야 함
+            const likeProdData = await Product.findOne({nanoid});
+            userData[`likeProd${j}`] = likeProdData;
+        }
         return userData;
     }
 
@@ -84,9 +94,14 @@ class UserService {
         const userData = {user};
         const user_nanoid = user.nanoid;
         const cash = await cashService.findById({user_nanoid});
-        const likeProd = await likeService.findByUser({user_nanoid});
         userData.cash = cash;
-        userData.likeProd = likeProd;
+        const likeProd = await likeService.findByUser({user_nanoid});
+        for(let j=0;j<likeProd.length;j++){
+            const nanoid = await likeProd[j].prod_nanoid;
+            // productService 에서 findbyid 시 throw error 될 수 있음. 여기선 일단 없어도 다음 prod를 계속 조회해야 함
+            const likeProdData = await Product.findOne({nanoid});
+            userData[`likeProd${j}`] = likeProdData;
+        }
         return userData;
     }
 

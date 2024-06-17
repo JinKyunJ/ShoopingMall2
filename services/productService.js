@@ -2,7 +2,7 @@ const {Product} = require('../models');
 const {User} = require('../models');
 const {Category} = require('../models');
 // 상품 조회 시 like 한 사람 데이터까지 모두 전달 (prodData)
-const likeService = require('../services/likeService')
+const likeService = require('../services/likeService');
 
 class ProductService {
     /* create (bodyData : required: true -> price, image, delivery, title, ad, seller 
@@ -40,7 +40,12 @@ class ProductService {
             const prodData = {product: products[i]};
             const prod_nanoid = products[i].nanoid;
             const likeUser = await likeService.findByProd({prod_nanoid});
-            prodData.likeUser = likeUser;
+            for(let j=0;j<likeUser.length;j++){
+                const nanoid = await likeUser[j].user_nanoid;
+                // userService 에서 findbyid 시 throw error 될 수 있음. 여기선 일단 없어도 다음 user를 계속 조회해야 함
+                const likeUserData = await User.findOne({nanoid});
+                prodData[`likeUser${j}`] = likeUserData;
+            }
             prodsData[`prodData${i}`] = prodData;
         }
         return prodsData;
@@ -62,7 +67,12 @@ class ProductService {
             const prodData = {product};
             const prod_nanoid = product.nanoid;
             const likeUser = await likeService.findByProd({prod_nanoid});
-            prodData.likeUser = likeUser;
+            for(let j=0;j<likeUser.length;j++){
+                const nanoid = await likeUser[j].user_nanoid;
+                // userService 에서 findbyid 시 throw error 될 수 있음. 여기선 일단 없어도 다음 user를 계속 조회해야 함
+                const likeUserData = await User.findOne({nanoid});
+                prodData[`likeUser${j}`] = likeUserData;
+            }
             return prodData;
         }
     }
