@@ -12,9 +12,13 @@ const local = require('./strategy/loginStrategy');
 const jwtlocal = require('./strategy/jwtStrategy');
 const loginRouter = require('./routes/loginRouter');
 const errorHandler = require('./middlewares/errorHandler');
+const cors = require('cors');
 // dotenv
 const app = express();
 dotenv.config();
+
+// 모든 도메인에서 cors 허용
+app.use(cors());
 
 // body parser
 app.use(express.json());
