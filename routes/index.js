@@ -6,7 +6,7 @@ const reqUserCheck = require('../middlewares/reqUserCheck');
 const router = Router();
 
 router.get('/', (req, res) => {
-    return res.json("main");
+    return res.sendFile(path.join(__dirname + "/../public/index.html"));
 });
 
 // (테스트용) 로그인한 정보 확인 시 전달 라우터
