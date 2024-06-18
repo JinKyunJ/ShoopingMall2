@@ -2,13 +2,16 @@ const {Like} = require('../models');
 
 class LikeService {
     // createOrDelete (bodyData : user_nanoid & prod_nanoid)
-    async createOrDelete(bodyData){
+    async createOrDelete(bodyData, user){
         const like = await Like.findOne(bodyData);
         if(like){
             await Like.deleteOne(like);
             return {message: "찜이 해제되었습니다."};
         } else {
-            return await Like.create(bodyData);
+            return await Like.create({
+                user_nanoid: user.nanoid,
+                prod_nanoid: bodyData.prod_nanoid
+            });
         }
     }
 

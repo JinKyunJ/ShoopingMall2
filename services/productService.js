@@ -34,18 +34,21 @@ class ProductService {
             path: 'author'
         });
         // 전체 상품 조회 시 like 한 사람을 모두 전달 (prodsData)
-        const prodsData = {};
+        // 유저 나 상품 조회 시 like 를 객체 배열 전달로 수정하고 
+        // likeProd 일 경우 그에 대한 상품 정보를, likeUser 일 경우 그에 대한 유저 정보를 넘김
+        const prodsData = [];
         for(let i=0;i<products.length;i++){
             const prodData = {product: products[i]};
             const prod_nanoid = products[i].nanoid;
-            const likeUser = await likeService.findByProd({prod_nanoid});
-            for(let j=0;j<likeUser.length;j++){
-                const nanoid = await likeUser[j].user_nanoid;
-                // userService 에서 findbyid 시 throw error 될 수 있음. 여기선 일단 없어도 다음 user를 계속 조회해야 함
-                const likeUserData = await User.findOne({nanoid});
-                prodData[`likeUser${j}`] = likeUserData;
+            const likes = await likeService.findByProd({prod_nanoid});
+            const likeUser = [];
+            for(let j =0;j< likes.length;j++){
+                const nanoid = likes[j].user_nanoid;
+                const data = await User.findOne({nanoid: nanoid});
+                likeUser.push(data);
             }
-            prodsData[`prodData${i}`] = prodData;
+            prodData.likeUser = likeUser;
+            prodsData[i] = prodData;
         }
         return prodsData;
     }
@@ -63,15 +66,18 @@ class ProductService {
                 path: 'author'
             });
             // 상품 조회 시 like 한 사람 데이터까지 모두 전달 (prodData)
-            const prodData = {product};
+            const prodData = {product: product};
             const prod_nanoid = product.nanoid;
-            const likeUser = await likeService.findByProd({prod_nanoid});
-            for(let j=0;j<likeUser.length;j++){
-                const nanoid = await likeUser[j].user_nanoid;
-                // userService 에서 findbyid 시 throw error 될 수 있음. 여기선 일단 없어도 다음 user를 계속 조회해야 함
-                const likeUserData = await User.findOne({nanoid});
-                prodData[`likeUser${j}`] = likeUserData;
+            // 유저 나 상품 조회 시 like 를 객체 배열 전달로 수정하고 
+            // likeProd 일 경우 그에 대한 상품 정보를, likeUser 일 경우 그에 대한 유저 정보를 넘김
+            const likes = await likeService.findByProd({prod_nanoid});
+            const likeUser = [];
+            for(let j =0;j< likes.length;j++){
+                const nanoid = likes[j].user_nanoid;
+                const data = await User.findOne({nanoid: nanoid});
+                likeUser.push(data);
             }
+            prodData.likeUser = likeUser;
             return prodData;
         }
     }

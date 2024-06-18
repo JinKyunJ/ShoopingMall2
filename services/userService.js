@@ -41,20 +41,23 @@ class UserService {
     async findAllUser(){
         const users = await User.find();
         // 전체 유저 조회 시 적립금, like 한 제품을 모두 전달 (usersData)
-        const usersData = {};
-        for(let i=0;i<users.length;i++){
+        // 유저 나 상품 조회 시 like 를 객체 배열 전달로 수정하고 
+        // likeProd 일 경우 그에 대한 상품 정보를, likeUser 일 경우 그에 대한 유저 정보를 넘김
+        const usersData = [];
+        for(let i = 0;i < users.length;i++){
             const userData = {user: users[i]};
             const user_nanoid = users[i].nanoid;
             const cash = await cashService.findById({user_nanoid});
             userData.cash = cash;
-            const likeProd = await likeService.findByUser({user_nanoid});
-            for(let j=0;j<likeProd.length;j++){
-                const nanoid = await likeProd[j].prod_nanoid;
-                // productService 에서 findbyid 시 throw error 될 수 있음. 여기선 일단 없어도 다음 prod를 계속 조회해야 함
-                const likeProdData = await Product.findOne({nanoid});
-                userData[`likeProd${j}`] = likeProdData;
+            const likes = await likeService.findByUser({user_nanoid});
+            const likeProd = [];
+            for(let j =0;j< likes.length;j++){
+                const nanoid = likes[j].prod_nanoid;
+                const data = await Product.findOne({nanoid: nanoid});
+                likeProd.push(data);
             }
-            usersData[`userData${i}`] = userData;
+            userData.likeProd = likeProd;
+            usersData[i] = userData;
         }
         return usersData;
     }
@@ -68,17 +71,20 @@ class UserService {
             throw error;
         }
         // 유저 조회 시 적립금, like 한 제품을 모두 전달 (userData)
-        const userData = {user};
+        const userData = {user: user};
         const user_nanoid = user.nanoid;
         const cash = await cashService.findById({user_nanoid});
         userData.cash = cash;
-        const likeProd = await likeService.findByUser({user_nanoid});
-        for(let j=0;j<likeProd.length;j++){
-            const nanoid = await likeProd[j].prod_nanoid;
-            // productService 에서 findbyid 시 throw error 될 수 있음. 여기선 일단 없어도 다음 prod를 계속 조회해야 함
-            const likeProdData = await Product.findOne({nanoid});
-            userData[`likeProd${j}`] = likeProdData;
+        // 유저 나 상품 조회 시 like 를 객체 배열 전달로 수정하고 
+        // likeProd 일 경우 그에 대한 상품 정보를, likeUser 일 경우 그에 대한 유저 정보를 넘김
+        const likes = await likeService.findByUser({user_nanoid});
+        const likeProd = [];
+        for(let i=0;i<likes.length;i++){
+            const nanoid = likes[i].prod_nanoid;
+            const data = await Product.findOne({nanoid: nanoid});
+            likeProd.push(data);
         }
+        userData.likeProd = likeProd;
         return userData;
     }
 
@@ -91,17 +97,20 @@ class UserService {
             throw error;
         }
         // 유저 조회 시 적립금, like 한 제품을 모두 전달 (userData)
-        const userData = {user};
+        const userData = {user: user};
         const user_nanoid = user.nanoid;
         const cash = await cashService.findById({user_nanoid});
         userData.cash = cash;
-        const likeProd = await likeService.findByUser({user_nanoid});
-        for(let j=0;j<likeProd.length;j++){
-            const nanoid = await likeProd[j].prod_nanoid;
-            // productService 에서 findbyid 시 throw error 될 수 있음. 여기선 일단 없어도 다음 prod를 계속 조회해야 함
-            const likeProdData = await Product.findOne({nanoid});
-            userData[`likeProd${j}`] = likeProdData;
+        // 유저 나 상품 조회 시 like 를 객체 배열 전달로 수정하고 
+        // likeProd 일 경우 그에 대한 상품 정보를, likeUser 일 경우 그에 대한 유저 정보를 넘김
+        const likes = await likeService.findByUser({user_nanoid});
+        const likeProd = [];
+        for(let i=0;i<likes.length;i++){
+            const nanoid = likes[i].prod_nanoid;
+            const data = await Product.findOne({nanoid: nanoid});
+            likeProd.push(data);
         }
+        userData.likeProd = likeProd;
         return userData;
     }
 

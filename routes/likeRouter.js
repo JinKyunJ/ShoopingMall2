@@ -9,7 +9,7 @@ const router = Router();
 // createOrDelete (bodyData : user_nanoid & prod_nanoid)
 router.post('/', reqUserCheck, asyncHandler(async (req, res) => {
     const bodyData = req.body;
-    const result = await likeService.createOrDelete(bodyData);
+    const result = await likeService.createOrDelete(bodyData, req.user);
     return res.status(200).json(result);
 }));
 
