@@ -1,7 +1,9 @@
-const {User, Product, Like} = require('../models');
-const {Cash} = require('../models');
+const {User, Product, Like, Verify, Cash} = require('../models');
 const cashService = require('../services/cashService');
 const likeService = require('../services/likeService');
+const code = require('../utils/data/code');
+const generateRandomValue = require('../utils/generate-random-value');
+const sendEmail = require('../utils/nodemailer');
 // sha256 단방향 해시 비밀번호 사용
 const crypto = require('crypto');
 
@@ -14,9 +16,25 @@ class UserService {
         const user = await User.findOne({email});
         if(user){
             const error = new Error();
-            Object.assign(error, {code: 400, message: "이미 회원가입 되어 있는 이메일입니다."})
+            Object.assign(error, {code: 400, message: "이미 회원가입 되어 있는 이메일입니다."});
             throw error;
         } else {
+            // 이메일 인증이 정상적으로 되었는지(is_verified === true) 검사
+            const verify = await Verify.findOne({data: email, code: code.VERIFYCODE});
+            if(!verify){
+                const error = new Error();
+                Object.assign(error, {code: 401, message: "이메일 인증을 먼저 진행해주세요."});
+                throw error;
+            }
+            if(!verify.is_verified){
+                const error = new Error();
+                Object.assign(error, {code: 401, message: "이메일 인증이 되지 않았습니다. 메일에서 인증 코드를 확인해주세요."});
+                throw error;
+            }
+
+            // 이메일 인증이 되었고 회원가입을 진행하므로 더 이상 쓸모가 없으므로 제거
+            await Verify.deleteMany(verify);
+
             // sha256 단방향 해시 비밀번호 사용
             const hash = crypto.createHash('sha256').update(bodyData.password).digest('hex');
             const newUser = await User.create({
@@ -34,6 +52,78 @@ class UserService {
                 cash: 0
             });
             return {message: `${bodyData.email} 계정으로 회원가입이 성공하였습니다.`};
+        }
+    }
+
+    // 회원 가입 메일 인증 코드 발급
+    async joinVerify({email}){
+        // 이메일 형식 체크
+        if(!/^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(email)){
+            const error = new Error();
+            Object.assign(error, {code: 400, message: "이메일 형식을 다시 확인해주세요."})
+            throw error;
+        }
+        // 인증 코드 받는 이메일이 이미 존재하는지 검사
+        // 이메일 인증이 정식으로 들어갈 때 createUser 에 있는 이메일 존재 검사는 필요없음.
+        const user = await User.findOne({email});
+        if(user){
+            const error = new Error();
+            Object.assign(error, {code: 400, message: "이미 회원가입 되어 있는 이메일입니다."});
+            throw error;
+        }
+
+        // 기존 verify 데이터가 있을 시 새 secret 으로 변경
+        const newSecret = generateRandomValue(code.VERIFYCODE);
+        const verify = await Verify.findOne({data: email, code: code.VERIFYCODE});
+        if(verify){
+            await Verify.updateOne({data: email, code: code.VERIFYCODE, secret: newSecret});
+        }
+        else{
+            // 기존 verify 가 없을 때 새 verify document 생성
+            await Verify.create({data: email, code: code.VERIFYCODE, secret: newSecret});
+        }
+
+        // 이메일 전송
+        const subject = "1조 쇼핑몰 회원가입 이메일 인증 코드를 확인해주세요.";
+        const text = `이메일 인증 코드 : ${newSecret}`;
+        const result = await sendEmail(email, subject, text);
+        if(result === 1){
+            return {message: "인증 코드가 정상 발송되었습니다."};
+        }
+        else{
+            const error = new Error();
+            Object.assign(error, {code: 400, message: "메일 인증 코드가 발송되지 않았습니다."})
+            throw error;
+        }
+    }
+
+    // 회원 가입 이메일 인증 코드 확인 요청
+    async joinVerifyConfirm({email, secret}){
+        // 이메일 형식 체크
+        if(!/^[a-zA-Z0-9+-\_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(email)){
+            const error = new Error();
+            Object.assign(error, {code: 400, message: "이메일 형식을 다시 확인해주세요."})
+            throw error;
+        }
+
+        // verify document find
+        const verify = await Verify.findOne({data: email, code: code.VERIFYCODE});
+        if(!verify){
+            const error = new Error();
+            Object.assign(error, {code: 400, message: "이메일 인증을 먼저 진행해주세요."});
+            throw error;
+        }
+
+        // 인증 코드 비교 진행( 정상 인증 코드로 판단 시 is_verified 를 true 로 변경하여 회원가입 절차가 가능하도록 함)
+        if(secret === verify.secret){
+            await Verify.updateOne({data: email, code: code.VERIFYCODE},{
+                is_verified: true
+            });
+            return {message: "이메일 인증 코드가 정상적으로 확인되었습니다."}
+        } else {
+            const error = new Error();
+            Object.assign(error, {code: 400, message: "이메일 인증 코드를 다시 확인해주세요."});
+            throw error;
         }
     }
 
