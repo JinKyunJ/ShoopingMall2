@@ -23,5 +23,59 @@ router.get('/logout', reqUserCheck, async (req, res, next) => {
     return res.status(200).json("정상적으로 로그아웃 되었습니다.");
 });
 
+// page sendfile (여기에 없는 주소 ->  메인 : '/' , 로그인 : '/login')
+router.get('/admin', (req, res) => {
+    return res.sendFile(path.join(__dirname + "/../public/Admin/admin.html"));
+});
+router.get('/admin/member', (req, res) => {
+    return res.sendFile(path.join(__dirname + "/../public/Admin/Admin-member/admin-member_Management.html"));
+});
+router.get('/admin/memberdetail', (req, res) => {
+    return res.sendFile(path.join(__dirname + "/../public/Admin/Admin-member/member-detail.html"));
+});
+router.get('/admin/product', (req, res) => {
+    return res.sendFile(path.join(__dirname + "/../public/Admin/product/produc-view.html"));
+});
+router.get('/admin/product/view', (req, res) => {
+    return res.sendFile(path.join(__dirname + "/../public/Admin/product/product-list.html"));
+});
+router.get('/category', (req, res) => {
+    return res.sendFile(path.join(__dirname + "/../public/Category/Category.html"));
+});
+router.get('/productdetails', (req, res) => {
+    return res.sendFile(path.join(__dirname + "/../public/ProductDetails/Productdetails.html.html"));
+});
+router.get('/profileedit', (req, res) => {
+    return res.sendFile(path.join(__dirname + "/../public/ProfileEdit/ProfileEdit.html"));
+});
+router.get('/productlist', (req, res) => {
+    return res.sendFile(path.join(__dirname + "/../public/product/product_list.html"));
+});
+router.get('/cart', (req, res) => {
+    return res.sendFile(path.join(__dirname + "/../public/Cart/AddCartPage.html"));
+});
+router.get('/MyPageRedirect', (req, res) => {
+    return res.sendFile(path.join(__dirname + "/../public/MyPageRedirect/MyPage_Redirect.html"));
+});
+router.get('/ProductList', (req, res) => {
+    return res.sendFile(path.join(__dirname + "/../public/ProductList/Search-Product.html"));
+});
+router.get('/signup', (req, res) => {
+    return res.sendFile(path.join(__dirname + "/../public/Signup/Signup.html"));
+});
+router.get('/order', (req, res) => {
+    return res.sendFile(path.join(__dirname + "/../public/order/order.html"));
+});
+router.get('/orderEnd', (req, res) => {
+    return res.sendFile(path.join(__dirname + "/../public/order/orderEnd.html"));
+});
+router.get('/search', (req, res) => {
+    return res.sendFile(path.join(__dirname + "/../public/search/search.html"));
+});
+
+
+
+
+
 module.exports = router;
 
