@@ -13,7 +13,9 @@ class OrderService {
             address: bodyData.address,
             delivery_request: bodyData.delivery_request,
             total_price: bodyData.total_price,
-            status: "주문 완료"
+            status: "주문 완료",
+            get_user: bodyData.get_user,
+            get_phone: bodyData.get_phone
         });
         // 주문 상품 load ( bodyData 에서 상품 고유 번호들을 전달 받아야 함 )
         // bodyData.prod_nanoid 배열

@@ -22,6 +22,16 @@ const orderSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
+    // 수령자 이름
+    get_user: {
+        type: String,
+        default: ""
+    },
+    // 수령자 연락처
+    get_phone: {
+        type: String,
+        default: "010-0000-0000"
+    },
     // 배송지 정보
     address: {
         type: String,
