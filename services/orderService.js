@@ -68,7 +68,7 @@ class OrderService {
     }   else {
             Reflect.deleteProperty(bodyData, "user");
             Reflect.deleteProperty(bodyData, "nanoid");
-            await Order.updateOne(order, bodyData); 
+            await Order.updateOne({nanoid: order.nanoid}, bodyData); 
             return {message: `${nanoid} 주문 수정 동작 완료`}; 
         }
 
@@ -81,7 +81,7 @@ class OrderService {
             Object.assign(error, {code: 404, message: "주문내역이 없습니다."})
             throw error;
         } else {
-            await Order.deleteOne(order);
+            await Order.deleteOne({nanoid: order.nanoid});
             return {message: `${nanoid} 주문 삭제 동작 완료`};
         }
     }
