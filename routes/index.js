@@ -54,9 +54,12 @@ router.get('/productlist', (req, res) => {
 router.get('/cart', (req, res) => {
     return res.sendFile(path.join(__dirname + "/../public/Cart/AddCartPage.html"));
 });
-router.get('/MyPageRedirect', (req, res) => {
+router.get('/mypage', (req, res) => {
     return res.sendFile(path.join(__dirname + "/../public/MyPageRedirect/MyPage_Redirect.html"));
 });
+router.get('/mypage/in', (req, res) => {
+    return res.sendFile(path.join(__dirname + "/../public/MyPage/MyPage.html"));
+})
 router.get('/ProductList', (req, res) => {
     return res.sendFile(path.join(__dirname + "/../public/ProductList/Search-Product.html"));
 });
