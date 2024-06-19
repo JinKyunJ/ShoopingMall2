@@ -28,9 +28,11 @@ router.get('/', (req, res) => {
 router.post('/auth', loginCheck, passport.authenticate('local', {session: false}), (req, res, next) => {
     // 로그인 성공 했을 때 클라이언트에 줄 토큰에다가 signature(secret) 으로 서명 후 전달함.
     setUserToken(res, req.user);
-
+    if(req.user && req.user.is_admin){
+        return res.status(200).json({message: "관리자 로그인에 성공하였습니다.", href: "/admin"});
+    }
     // 일반 로그인 성공 알림
-    return res.status(200).json("로그인에 성공하였습니다.");
+    return res.status(200).json({message: "로그인에 성공하였습니다.", href: "/"});
 });
 
 // 비밀번호 찾기 페이지에서 찾으려는 이메일을 입력 후 임시 비밀번호 발송
