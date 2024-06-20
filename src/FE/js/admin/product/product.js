@@ -1,6 +1,6 @@
 async function fetchProductList() {
   const productList = document.getElementById("product-list");
-  const response = fetch("http://localhost:3002/products");
+  const response = fetch("/products");
   const data = await response.json();
   const html = data.map(createProductHtml).join("");
 

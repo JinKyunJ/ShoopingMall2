@@ -14,12 +14,12 @@ menuBtn.addEventListener('click', () => {
 
 /** 전체 회원 정보 가져오기 */
 async function fetchMembers() {
-    return await fetchData('http://localhost:3002/users');
+    return await fetchData('/users');
 }
 
 /** 전체 주문 정보 가져오기 */
 async function fetchOrders() {
-    return await fetchData('http://localhost:3002/users/orders');
+    return await fetchData('/users/orders');
 }
 
 /** 가져온 회원정보 화면에 보여주기 */

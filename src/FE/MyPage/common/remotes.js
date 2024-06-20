@@ -24,7 +24,7 @@ export async function fetchAndNavigate(url, event) {
 /** 사용자 이름 가져오기 API 함수 */
 export async function fetchUserName() {
     try {
-        const response = await fetch('http://localhost:3002/users', {
+        const response = await fetch('/users', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -78,7 +78,7 @@ export async function logoutUser() {
         // JWT 토큰을 로컬 스토리지에서 가져옴
         const token = localStorage.getItem('jwtToken');
 
-        const response = await fetch('http://localhost:3002/logout', {
+        const response = await fetch('/logout', {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

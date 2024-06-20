@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 // 제품 데이터를 가져오는 함수
 function fetchProducts() {
-  return fetch("http://localhost:3002/products", {
+  return fetch("/products", {
     method: "GET",
     headers: {
       "Content-Type": "application/json", // JSON 형태로 데이터 수신을 명시
@@ -51,7 +51,7 @@ function renderProducts(products) {
   products.forEach(function (product) {
     const imgPath = `../img/TextImage/${product.image}`;
     const productElement = document.createElement("a");
-    productElement.href = "/src/FE/ProductDetails/Productdetails.html";
+    productElement.href = "/productdetails";
     productElement.className = "swiper-slide";
     productElement.innerHTML = `
       <div class="Goods-Image">

@@ -1,7 +1,7 @@
 /** 로그인 통신 API 함수 */
 export async function loginUser(email, password) {
     try {
-        const response = await fetch('http://localhost:3002/login/auth', {
+        const response = await fetch('/login/auth', {
             method: 'POST',
             body: JSON.stringify({ email, password }),
             headers: {

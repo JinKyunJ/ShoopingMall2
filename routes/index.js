@@ -43,7 +43,7 @@ router.get('/category', (req, res) => {
     return res.sendFile(path.join(__dirname + "/../src/FE/Category/Category.html"));
 });
 router.get('/productdetails', (req, res) => {
-    return res.sendFile(path.join(__dirname + "/../src/FE/ProductDetails/Productdetails.html.html"));
+    return res.sendFile(path.join(__dirname + "/../src/FE/ProductDetails/Productdetails.html"));
 });
 router.get('/profileedit', (req, res) => {
     return res.sendFile(path.join(__dirname + "/../src/FE/ProfileEdit/ProfileEdit.html"));

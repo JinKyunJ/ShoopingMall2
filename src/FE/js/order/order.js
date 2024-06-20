@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const formData = new FormData(this);
     const jsonData = JSON.stringify(Object.fromEntries(formData.entries()));
 
-    const response = await fetch("http://localhost:3002/users/orders/", {
+    const response = await fetch("/users/orders/", {
       method: "POST",
       body: jsonData,
       headers: {
