@@ -444,7 +444,18 @@
       </div>
   </div>
     <footer></footer>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        // 로컬 스토리지에서 jwtToken 가져오기
+        const token = localStorage.getItem('jwtToken');
 
+        if (token) {
+          console.log('JWT 토큰:', token);
+        } else {
+          console.log('JWT 토큰이 존재하지 않습니다.');
+        }
+      });
+    </script>
    <!-- <script defer type="text/javascript" src="./js/include.js"></script>-->
     <script src="./js/Category/HeaderLayout.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

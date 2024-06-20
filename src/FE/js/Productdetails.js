@@ -14,23 +14,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // '상세정보' 버튼
     const detailsBtnClick = document.querySelector('.Category-Nav-btn:nth-child(2)');
 
-    /*
-    // '상품설명' 버튼 클릭 시
-    infoBtnClick.addEventListener('click', () => {
-        OnScrollSection('product-info');
-    });
-
-    // '상세정보' 버튼 클릭 시
-    detailsBtnClick.addEventListener('click', () => {
-        OnScrollSection('more-details');
-    });*/
 });
 document.addEventListener("DOMContentLoaded", () => {
     // 로컬스토리지에서 제품 정보를 읽어옴
     const productDetails = JSON.parse(localStorage.getItem("selectedProduct"));
     
     if (productDetails) {
-        renderProductDetails(productDetails);
+        renderProductDetails(productDetails); //제품 화면에 출력
     } else {
         console.error("No product details found in localStorage.");
     }

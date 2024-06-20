@@ -262,16 +262,21 @@ main, .Category-List {
     padding: 20px; /* 두 배로 확대 */
 }
 
-/* 이미지의 크기를 부모 요소에 맞추기 위해 수정합니다. */
+/* Goods-Image 요소의 크기를 414x414로 고정 */
 .Goods-Image {
-    width: 100%;
+    width: 414px; /* 고정된 너비 */
+    height: 414px; /* 고정된 높이 */
     overflow: hidden; /* 넘치는 부분 숨기기 */
+    display: flex;
+    justify-content: center; /* 이미지가 부모 안에서 중앙에 위치하도록 설정 */
+    align-items: center; /* 이미지가 부모 안에서 중앙에 위치하도록 설정 */
 }
 
+/* 이미지의 크기를 부모 요소에 맞추도록 설정 */
 .Goods-Image img {
     width: 100%;
-    height: auto; /* 비율을 유지하면서 넓이를 100%로 맞춤 */
-    display: block;
+    height: 100%;
+    object-fit: cover; /* 이미지가 영역을 채우도록 설정, 비율을 유지하면서 */
 }
 
 /* 버튼을 부모 요소의 너비에 맞추도록 설정합니다. */
@@ -343,7 +348,7 @@ main, .Category-List {
 
 /* 제품 가격을 할인가격 옆에 표시 */
 #ModalProductPrice {
-    font-size: 3em; 
+    font-size: 3em;
     text-decoration: line-through;
     color: rgb(181, 181, 181);
 }

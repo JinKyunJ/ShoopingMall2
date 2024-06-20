@@ -1,7 +1,7 @@
 /** 이메일 인증번호 전송 API 함수 */
 export async function sendEmailCerification(email) {
     try {
-        const response = await fetch('http://localhost:3002/users/verify', {
+        const response = await fetch('/users/verify', {
             method: 'POST',
             body: JSON.stringify({ email }),
             headers: {
@@ -24,7 +24,7 @@ export async function sendEmailCerification(email) {
 /** 이메일 인증번호 확인 API 함수 */
 export async function certificationCode(email, code) {
     try {
-        const response = await fetch('http://localhost:3002/users/verify/confirm', {
+        const response = await fetch('/users/verify/confirm', {
             method: 'POST',
             body: JSON.stringify({ email, secret: code }),
             headers: {
@@ -47,7 +47,7 @@ export async function certificationCode(email, code) {
 /** 주소 검색 API 함수 */
 export async function searchAddress(address) {
     try {
-        const response = await fetch(`http://localhost:3002/users/search-address?q=${address}`);
+        const response = await fetch(`/users/search-address?q=${address}`);
         if (response.ok) {
             return await response.json(); // 변수에 할당 하지 않고 데이터 반환
         } else {
@@ -64,7 +64,7 @@ export async function searchAddress(address) {
 /** 회원가입 API 함수 */
 export async function signupUser(email, password, name, address) {
     try {
-        const response = await fetch('/http://localhost:3002/users', {
+        const response = await fetch('/users', {
             method: 'POST',
             body: JSON.stringify({ email, password, name, address }),
             headers: {

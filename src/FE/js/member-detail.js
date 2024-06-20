@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     /** 각 회원 id API 함수 호출 */
     if (memberNanoid) {
         try {
-            const member = await fetchData(`http://localhost:3002/users/${memberNanoid}`);
+            const member = await fetchData(`/users/${memberNanoid}`);
             if (member) {
                 renderMemberDetail(member); // 회원 정보 화면에 표시
             } else {
