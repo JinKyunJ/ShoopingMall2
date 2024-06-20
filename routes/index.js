@@ -33,11 +33,11 @@ router.get('/admin/member', (req, res) => {
 router.get('/admin/memberdetail', (req, res) => {
     return res.sendFile(path.join(__dirname + "/../src/FE/Admin/Admin-member/member-detail.html"));
 });
-router.get('/admin/product', (req, res) => {
-    return res.sendFile(path.join(__dirname + "/../src/FE/Admin/product/produc-view.html"));
+router.get('/admin/products', (req, res) => {
+    return res.sendFile(path.join(__dirname + "/../src/FE/Admin/product/product-list.html"));
 });
 router.get('/admin/product/view', (req, res) => {
-    return res.sendFile(path.join(__dirname + "/../src/FE/Admin/product/product-list.html"));
+    return res.sendFile(path.join(__dirname + "/../src/FE/Admin/product/product-view.html"));
 });
 router.get('/category', (req, res) => {
     return res.sendFile(path.join(__dirname + "/../src/FE/Category/Category.html"));

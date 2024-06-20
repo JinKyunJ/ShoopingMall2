@@ -45,7 +45,7 @@ class ProductService {
             for(let j =0;j< likes.length;j++){
                 const nanoid = likes[j].user_nanoid;
                 const data = await User.findOne({nanoid: nanoid});
-                likeUser.push(data);
+                likeUser.push({nanoid: data.nanoid, email: data.email, name: data.name});
             }
             prodData.likeUser = likeUser;
             prodsData[i] = prodData;
@@ -75,7 +75,7 @@ class ProductService {
             for(let j =0;j< likes.length;j++){
                 const nanoid = likes[j].user_nanoid;
                 const data = await User.findOne({nanoid: nanoid});
-                likeUser.push(data);
+                likeUser.push({nanoid: data.nanoid, email: data.email, name: data.name});
             }
             prodData.likeUser = likeUser;
             return prodData;

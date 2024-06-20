@@ -144,7 +144,7 @@ class UserService {
             for(let j =0;j< likes.length;j++){
                 const nanoid = likes[j].prod_nanoid;
                 const data = await Product.findOne({nanoid: nanoid});
-                likeProd.push(data);
+                likeProd.push({nanoid: data.nanoid, title: data.title, price: data.price, category: data.category});
             }
             userData.likeProd = likeProd;
             usersData[i] = userData;
@@ -172,7 +172,7 @@ class UserService {
         for(let i=0;i<likes.length;i++){
             const nanoid = likes[i].prod_nanoid;
             const data = await Product.findOne({nanoid: nanoid});
-            likeProd.push(data);
+            likeProd.push({nanoid: data.nanoid, title: data.title, price: data.price, category: data.category});
         }
         userData.likeProd = likeProd;
         return userData;
@@ -198,7 +198,7 @@ class UserService {
         for(let i=0;i<likes.length;i++){
             const nanoid = likes[i].prod_nanoid;
             const data = await Product.findOne({nanoid: nanoid});
-            likeProd.push(data);
+            likeProd.push({nanoid: data.nanoid, title: data.title, price: data.price, category: data.category});
         }
         userData.likeProd = likeProd;
         return userData;
