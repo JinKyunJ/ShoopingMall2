@@ -4,8 +4,8 @@ import { loginUser } from '../Login/common/remotes.js';
 const onCloseButton = document.querySelector('.head-x-button');
 
 onCloseButton.addEventListener('click', () => {
-    // 이전 페이지로 이동
-    window.history.back();
+    // 이전 페이지로 이동 => 메인 페이지로 이동
+    window.location.href = '/';
 });
 
 /** 로그인 버튼 클릭 시 서버에 사용자가 입력한 email, password 전송 */
