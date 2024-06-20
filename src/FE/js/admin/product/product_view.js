@@ -1,23 +1,33 @@
 const goodsId = window.location.search.replace("?=", "");
 const form = document.getElementById("poductInfoForm");
+const imgBoxEl = document.getElementById("img_box");
 const goodsIdEl = document.getElementById("goodsId");
 const goodsNameInput = document.getElementById("goodsName");
 const goodsPriceInput = document.getElementById("goodsPrice");
 const goodsShortText = document.getElementById("ad");
 const detailTextArea = document.getElementById("detail_content");
 const deliveryInput = document.getElementById("delivery");
+const saleInput = document.getElementById("sale");
 
 async function fetchProduct() {
   try {
     const response = await fetch(`/products/${goodsId}`);
     const data = await response.json();
-    const { title, price, detail_content, delivery, ad } = data.product;
-    goodsIdEl.innerText = goodsId;
+    const { image, title, price, detail_content, delivery, ad, sale } =
+      data.product;
+    console.log(data);
+    const img = document.createElement("img");
+    img.src = `/img/TextImage/${image}`;
+    img.title = title;
+    imgBoxEl.append(img);
+    console.log(imgBoxEl);
+    goodsIdEl.value = goodsId;
     goodsNameInput.value = title;
     goodsPriceInput.value = price;
     detailTextArea.value = detail_content;
     deliveryInput.value = delivery;
     goodsShortText.value = ad;
+    saleInput.value = sale;
   } catch (err) {
     console.log(err);
     alert("해당 상품이 없습니다.");

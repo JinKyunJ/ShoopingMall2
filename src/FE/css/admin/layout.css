@@ -11,13 +11,16 @@ header h2 {
   font-size: 16px;
   font-weight: normal;
 }
+header h2 a {
+  display: block;
+}
 
 header button {
   position: absolute;
   left: 15px;
   top: 6px;
 }
-header a {
+header a.shop {
   position: absolute;
   right: 15px;
   top: 6px;

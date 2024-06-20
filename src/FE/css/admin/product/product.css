@@ -105,9 +105,13 @@ table th {
   color: #1a389b;
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="number"] {
   height: 34px;
   width: 100%;
+}
+input:read-only {
+  background: #eee;
 }
 textarea {
   width: 100%;

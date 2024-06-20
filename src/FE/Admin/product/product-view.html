@@ -18,11 +18,13 @@
             <button type="submit">수정</button>
           </div>
           <div class="info_box">
-            <div class="img_box"></div>
+            <div id="img_box" class="img_box"></div>
             <table>
               <tr>
                 <th>상품코드</th>
-                <td id="goodsId"></td>
+                <td>
+                  <input type="text" name="nanoid" id="goodsId" readonly />
+                </td>
               </tr>
               <tr>
                 <th>상품명</th>
@@ -31,6 +33,10 @@
               <tr>
                 <th>판매가</th>
                 <td><input type="text" name="price" id="goodsPrice" /></td>
+              </tr>
+              <tr>
+                <th>할인율</th>
+                <td><input type="number" name="sale" id="sale" /></td>
               </tr>
               <tr>
                 <th>짧은설명</th>
