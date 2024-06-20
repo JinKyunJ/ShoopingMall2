@@ -9,7 +9,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const useAllMileageBtn = document.getElementById("use-all-mileage");
   const mileageInput = document.getElementById("use-mileage-input");
-  let mileage = parseInt(document.getElementById("mileage").value, 10) || 0;
+  //let mileage = parseInt(document.getElementById("mileage").value, 10) || 0;
+  let mileage = 0;
   const userMileageEl = document.getElementById("user-mileage");
   const totalPriceInput = document.getElementById("total_price");
   const deliveryPrice = 3000; // 배송비 고정
@@ -60,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function () {
             )}원</span> | ${quantity}개
           </div>
         </div>
-        <input type="hidden" name="prod_nanoid[]" value="${nanoID}" />
+        <input type="hidden" name="prod_nanoid" value="${nanoID}" />
       </li>
     `;
   };
@@ -135,7 +136,11 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
     totalPriceInput.value = calculateTotalPrice();
     const formData = new FormData(this);
+    const nanoids = formData.getAll("prod_nanoid");
+    formData.delete("prod_nanoid"); // 기존의 개별 prod_nanoid 값을 삭제
+    formData.append("prod_nanoid", JSON.stringify(nanoids)); // 배열을 JSON 문자열로 추가
     const jsonData = JSON.stringify(Object.fromEntries(formData.entries()));
+    console.log(jsonData);
 
     try {
       const response = await fetch("/users/orders/", {
