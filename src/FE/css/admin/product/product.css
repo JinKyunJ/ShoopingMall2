@@ -41,6 +41,9 @@
 }
 
 .product-list li .img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: #ddd;
   width: 70px;
   height: 70px;
@@ -72,6 +75,7 @@
 .info_box {
   display: flex;
   gap: 10px;
+  padding-top: 20px;
 }
 .info_box .img_box {
   height: 120px;
@@ -99,4 +103,14 @@ table td {
 }
 table th {
   color: #1a389b;
+}
+
+input[type="text"] {
+  height: 34px;
+  width: 100%;
+}
+textarea {
+  width: 100%;
+  min-height: 50px;
+  padding: 10px;
 }

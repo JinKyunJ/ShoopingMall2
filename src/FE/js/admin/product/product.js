@@ -34,7 +34,7 @@ function deleteProduct() {
   const checkedInput = input.filter((input) => input.checked);
   checkedInput.forEach(async (input) => {
     await fetch(`/products/${input.value}`, {
-      method: "POST",
+      method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
