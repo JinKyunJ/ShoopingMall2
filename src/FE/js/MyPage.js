@@ -17,7 +17,7 @@ document.querySelectorAll('.dashboard-button').forEach((button) => {
         try {
             await fetchAndNavigate(url, event);
         } catch (error) {
-            alert(error.message);
+            console.error(error);
         }
     });
 });
@@ -30,7 +30,7 @@ document.querySelectorAll('.menu-info-section button').forEach((button) => {
         try {
             await fetchAndNavigate(url, event);
         } catch (error) {
-            alert(error.message);
+            console.error(error);
         }
     });
 });
@@ -41,6 +41,6 @@ onLogoutButton.addEventListener('click', async (event) => {
     try {
         await logoutUser(event);
     } catch (error) {
-        alert(error.message);
+        console.error(error);
     }
 });

@@ -65,7 +65,7 @@ function renderMembers(members, orders) {
     document.querySelectorAll('.member-list li').forEach((li) => {
         li.addEventListener('click', () => {
             const memberNanoid = li.getAttribute('data-nanoid');
-            window.location.href = `member-detail.html?nanoid=${memberNanoid}`;
+            window.location.href = `/admin/memberdetail?nanoid=${memberNanoid}`;
         });
     });
 }
