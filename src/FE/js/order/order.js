@@ -9,44 +9,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const useAllMileageBtn = document.getElementById("use-all-mileage");
   const mileageInput = document.getElementById("use-mileage-input");
-  let mileage = parseInt(document.getElementById("mileage").value, 10) || 0;
-  const userMileage = document.getElementById("user-mileage");
+  //let mileage = parseInt(document.getElementById("mileage").value, 10) || 0;
+  let mileage = 0;
+  const userMileageEl = document.getElementById("user-mileage");
+  const totalPriceInput = document.getElementById("total_price");
   const deliveryPrice = 3000; // 배송비 고정
-
-  // 적립금 모두사용 버튼 눌렀을 때
-  useAllMileageBtn.addEventListener("click", () => {
-    mileageInput.value = mileage;
-    userMileage.innerText = 0;
-    updateFinalPrice();
-  });
-
-  // 사용 적립금 입력 시 사용가능 적립금 반영
-  mileageInput.addEventListener("input", () => {
-    if (!mileageInput.value) {
-      mileageInput.value = 0;
-    }
-
-    if (mileageInput.value < 0) {
-      alert("정수를 입력해주세요.");
-      mileageInput.value = 0;
-      return false;
-    }
-
-    mileageInput.value = mileageInput.value.replace(/^0+/, "");
-
-    let result = mileage - parseInt(mileageInput.value, 10);
-
-    if (result < 0) {
-      result = mileage;
-      mileageInput.value = result;
-    }
-    userMileage.innerText = result;
-    updateFinalPrice();
-  });
+  let totalOrderPrice = 0;
 
   // 로컬 스토리지(장바구니)에서 주문 상품 불러오기
-  const loadOrderProducts = () => {
-    const products = JSON.parse(localStorage.getItem("cart")) || [];
+  function loadOrderProducts() {
+    const Products = JSON.parse(localStorage.getItem("cart")) || [];
     const orderList = document.querySelector(".order-list");
 
     if (Products.length <= 0) {
@@ -55,23 +27,23 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    console.log("Products:", Products);
     orderList.innerHTML = Products.map(createProductHTML).join("");
+    //console.log("Products:", Products);
     updateOrderSummary(Products);
-  };
+  }
 
   // 주문상품 HTML 만들기
   const createProductHTML = function ({
-                                        nanoID, // 로컬 스토리지에 저장된 제품 정보 키 이름
-                                        imageSrc,
-                                        discountPercent, // sale이 아닌 discountPercent로 수정
-                                        nameString,
-                                        originalPrice,
-                                        quantity
-                                      }) {
+    nanoID, // 로컬 스토리지에 저장된 제품 정보 키 이름
+    imageSrc,
+    discountPercent, // sale이 아닌 discountPercent로 수정
+    nameString,
+    originalPrice,
+    quantity,
+  }) {
     // originalPrice가 문자열로 저장되어 있을 가능성 고려하여 정수로 변환
-    const price = parseInt(originalPrice.replace(/[^\d]/g, ''), 10);
-    const discount = parseFloat(discountPercent.replace('%', '')) || 0;  // '%'를 제거하고 숫자로 변환
+    const price = parseInt(originalPrice.replace(/[^\d]/g, ""), 10);
+    const discount = parseFloat(discountPercent.replace("%", "")) || 0; // '%'를 제거하고 숫자로 변환
 
     const salePrice = price * ((100 - discount) / 100);
 
@@ -84,22 +56,22 @@ document.addEventListener("DOMContentLoaded", function () {
           <p class="product-title">${nameString}</p>
           <div>
             <b class="price">${formatPrice(salePrice)}원</b>
-            <span class="fixed-price">${formatPrice(price)}원</span> | ${quantity}개
+            <span class="fixed-price">${formatPrice(
+              price
+            )}원</span> | ${quantity}개
           </div>
         </div>
-        <input type="hidden" name="prod_nanoid[]" value="${nanoID}" />
+        <input type="hidden" name="prod_nanoid" value="${nanoID}" />
       </li>
     `;
   };
 
   // 주문 요약 정보 업데이트 함수
-  const updateOrderSummary = (Products) => {
-    let totalOrderPrice = 0;
+  function updateOrderSummary(Products) {
     let totalSalePrice = 0;
-
-    Products.forEach(item => {
-      const price = parseInt(item.originalPrice.replace(/[^\d]/g, ''), 10);
-      const discount = parseFloat(item.discountPercent.replace('%', '')) || 0;
+    Products.forEach((item) => {
+      const price = parseInt(item.originalPrice.replace(/[^\d]/g, ""), 10);
+      const discount = parseFloat(item.discountPercent.replace("%", "")) || 0;
       const salePrice = price * ((100 - discount) / 100);
 
       totalOrderPrice += salePrice * item.quantity;
@@ -113,18 +85,18 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 적립금 (주문 금액의 1%)
     const mileageEarned = Math.floor(totalSalePrice * 0.01);
-    useMileageEl.innerText = `${formatPrice(mileageEarned)}원`;
+    useMileageEl.innerText = `${formatPrice(mileageUsed)}원`;
 
     // 최종 결제 금액
     const finalPrice = totalOrderPrice + deliveryPrice - mileageUsed;
     totalPriceEl.innerText = `${formatPrice(finalPrice)}원`;
     totalOrderPriceEl.innerText = `${formatPrice(finalPrice)}원`;
-  };
+  }
 
   // 주문자 정보 서버에서 불러오기 (필요 없는 경우 사용하지 않을 수 있습니다)
-  const fetchUserInfo = async () => {
+  async function fetchUserInfo() {
     try {
-      const token = localStorage.getItem('jwtToken');
+      const token = localStorage.getItem("jwtToken");
       if (!token) throw new Error("로그인된 사용자가 없습니다.");
 
       const decodedToken = parseJwt(token);
@@ -136,16 +108,21 @@ document.addEventListener("DOMContentLoaded", function () {
     } catch (error) {
       console.error("Error fetching user information:", error);
     }
-  };
+  }
 
   // JWT 토큰을 디코딩하는 함수
   const parseJwt = (token) => {
     try {
-      const base64Url = token.split('.')[1];
-      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-      const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-      }).join(''));
+      const base64Url = token.split(".")[1];
+      const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split("")
+          .map(function (c) {
+            return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+          })
+          .join("")
+      );
 
       return JSON.parse(jsonPayload);
     } catch (error) {
@@ -157,8 +134,13 @@ document.addEventListener("DOMContentLoaded", function () {
   // 주문 완료 시 서버에 주문 정보 전달
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
+    totalPriceInput.value = calculateTotalPrice();
     const formData = new FormData(this);
+    const nanoids = formData.getAll("prod_nanoid");
+    formData.delete("prod_nanoid"); // 기존의 개별 prod_nanoid 값을 삭제
+    formData.append("prod_nanoid", JSON.stringify(nanoids)); // 배열을 JSON 문자열로 추가
     const jsonData = JSON.stringify(Object.fromEntries(formData.entries()));
+    console.log(jsonData);
 
     try {
       const response = await fetch("/users/orders/", {
@@ -172,8 +154,6 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!response.ok) {
         throw new Error("Failed to place the order.");
       }
-
-      const data = await response.json();
       // 주문 완료 후 처리
       alert("주문이 완료되었습니다!");
       window.location.href = "/order/complete"; // 주문 완료 페이지로 리디렉션
@@ -211,19 +191,25 @@ document.addEventListener("DOMContentLoaded", function () {
     if (result < 0) {
       result = mileage;
       mileageInput.value = result;
+      userMileageEl.innerText = 0;
+    } else {
+      userMileageEl.innerText = formatPrice(result);
     }
-    userMileageEl.innerText = result.toLocaleString("ko-KR");
-    useMileageEl.innerText = result.toLocaleString("ko-KR");
+    useMileageEl.innerText = `${formatPrice(mileageInput.value)}원`;
     calculateTotalPrice();
   });
 
   // 최종 결제 금액 계산
   const calculateTotalPrice = () => {
-    const totalPrice = (totalProductPrice - mileageInput.value).toLocaleString(
-      "ko-KR"
-    );
-    totalPriceEl.innerText = totalPrice;
-    totalOrderPriceEl.innerText = totalPrice;
+    const totalPrice = (
+      totalOrderPrice -
+      mileageInput.value +
+      deliveryPrice
+    ).toLocaleString("ko-KR");
+    totalPriceEl.innerText = `${totalPrice}원`;
+    totalOrderPriceEl.innerText = `${totalPrice}원`;
+
+    return totalPrice;
   };
 
   // 화살표 있는 제목 박스 클릭 시 내용 접기
@@ -234,9 +220,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // loadOrderProducts(); // 주문 상품 불러오기 실행
-  // fetchUserInfo(); // 사용자 정보 불러오기 실행
-  // fetchUserCash(); // 사용자 적립금 불러오기 실행
+  loadOrderProducts(); // 주문 상품 불러오기 실행
+  fetchUserInfo(); // 사용자 정보 불러오기 실행
+  //fetchUserCash(); // 사용자 적립금 불러오기 실행
 });
 
 // 가격을 포맷팅하는 함수
