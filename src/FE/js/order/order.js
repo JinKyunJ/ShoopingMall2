@@ -60,7 +60,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const fetchUserCash = async () => {
     const response = await fetch("/users/cashes/find");
     const data = await response.json();
-    userMileageEl.innerText = data.cash;
+    userMileageEl.innerText = data.cash.toLocaleString("ko-KR");
   };
 
   // 서버에서 사용자 정보 가져오기
@@ -117,14 +117,16 @@ document.addEventListener("DOMContentLoaded", function () {
       result = mileage;
       mileageInput.value = result;
     }
-    userMileageEl.innerText = result;
-    useMileageEl.innerText = result;
+    userMileageEl.innerText = result.toLocaleString("ko-KR");
+    useMileageEl.innerText = result.toLocaleString("ko-KR");
     calculateTotalPrice();
   });
 
   // 최종 결제 금액 계산
   const calculateTotalPrice = () => {
-    const totalPrice = totalProductPrice - mileageInput.value;
+    const totalPrice = (totalProductPrice - mileageInput.value).toLocaleString(
+      "ko-KR"
+    );
     totalPriceEl.innerText = totalPrice;
     totalOrderPriceEl.innerText = totalPrice;
   };
