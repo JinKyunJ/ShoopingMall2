@@ -1,9 +1,11 @@
 import { loginUser } from '../Login/common/remotes.js';
 
-/** X 버튼 클릭 시 */
+/** X 버튼 클릭 시 이전 페이지로 이동 */
 const onCloseButton = document.querySelector('.head-x-button');
+
 onCloseButton.addEventListener('click', () => {
-    window.location.href = '/'; // 홈으로 이동
+    // 이전 페이지로 이동
+    window.history.back();
 });
 
 /** 로그인 버튼 클릭 시 서버에 사용자가 입력한 email, password 전송 */
@@ -12,7 +14,7 @@ const emailInput = document.getElementById('email-input');
 const passwordInput = document.getElementById('password-input');
 
 onLoginForm.addEventListener('submit', async (event) => {
-    event.preventDefault(); /** 기본 폼 제출 방지 */
+    event.preventDefault(); // 기본 폼 제출 방지
 
     const email = emailInput.value;
     const password = passwordInput.value;
@@ -27,6 +29,6 @@ onLoginForm.addEventListener('submit', async (event) => {
 /** 회원가입 버튼 클릭 시 회원가입 페이지로 이동 */
 const onSignupButton = document.querySelector('.signup-button');
 onSignupButton.addEventListener('click', () => {
-    /** 경로 '/회원가입 페이지' */
+    // 회원가입 페이지로 이동
     window.location.href = '../Signup/Signup.html';
 });
