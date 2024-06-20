@@ -98,7 +98,7 @@ export async function logoutUser() {
             });
 
             // 홈 페이지로 이동
-            window.location.href = '/src/FE/index.html';
+            window.location.href = '/';
         } else {
             /** 오류 처리 */
             const errorData = await response.json();
