@@ -1,6 +1,6 @@
 // 페이지별 메뉴 항목 정의
 const pageMenu = {
-    "home": ["추천", "신상품", "베스트", "알뜰쇼핑"],
+    "home": ["안녕하세요. YUMBOX 입니다", "", "", ""],
     "products": ["전자제품", "가구", "의류", "액세서리"],
     "sales": ["오늘의 할인", "주간 특가", "시즌 오퍼", "기획전"],
     "Category": ["밀키트", "샐러드", "..."],
@@ -27,6 +27,7 @@ function CreateMenu(menuItems) {
         const a = document.createElement('a');
         a.href = "#"; // 여기서 필요한 링크로 변경 가능
         a.textContent = item;
+        a.style.cursor = "Default";
         li.appendChild(a);
         menuList.appendChild(li); // 누락된 부분 추가
     });
