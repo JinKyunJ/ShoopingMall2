@@ -46,7 +46,7 @@
     <div class="container order-container">
       <!-- form submit 후 리디렉션 작업은 서버에서 하는지, 프론트에서 하는지 확인 필요 -->
       <form id="order-form" name="order-form">
-        <input type="hidden" name="total_price" value="" />
+        <input type="hidden" name="total_price" id="total_price" value="" />
         <input type="hidden" name="mileage" id="mileage" value="2000" />
         <section class="order-product">
           <div class="title-box toggle-title">
@@ -110,11 +110,19 @@
           <div class="content-box">
             <dl>
               <dt>받는 분</dt>
-              <dd><input type="text" name="get_user" /></dd>
+              <dd><input type="text" name="get_user" required /></dd>
             </dl>
             <dl>
               <dt>연락처</dt>
-              <dd><input type="text" name="get_phone" /></dd>
+              <dd>
+                <input
+                  type="text"
+                  name="get_phone"
+                  maxlength="11"
+                  onKeyup="this.value=this.value.replace(/[^-0-9]/g,'');"
+                  required
+                />
+              </dd>
             </dl>
           </div>
         </section>
@@ -129,7 +137,8 @@
                 id="user-address"
                 name="address"
                 type="text"
-                value="서울 마포구 @@로 @길 11 1층"
+                value=""
+                required
               />
             </p>
           </div>
@@ -171,22 +180,26 @@
         <section class="order-price-box">
           <dl>
             <dt>주문 금액</dt>
-            <dd><strong id="order-price"></strong>원</dd>
+            <dd><strong id="order-price"></strong></dd>
           </dl>
           <dl>
             <dt>적립금</dt>
-            <dd>- <strong id="use-mileage"></strong>원</dd>
+            <dd>- <strong id="use-mileage"></strong></dd>
+          </dl>
+          <dl>
+            <dt>배송비</dt>
+            <dd><strong id="delivery">3,000</strong>원</dd>
           </dl>
           <dl class="total-price-box">
             <dt>최종결제금액</dt>
-            <dd><strong id="total-price"></strong>원</dd>
+            <dd><strong id="total-price"></strong></dd>
           </dl>
         </section>
 
         <section class="order-end">
           <p>위 내용을 확인 하였으며 결제에 동의합니다.</p>
           <button type="submit">
-            <strong id="total-order-price">@@,@@@</strong>원 결제하기
+            <strong id="total-order-price">@@,@@@</strong> 결제하기
           </button>
         </section>
       </form>
