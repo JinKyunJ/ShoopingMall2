@@ -135,20 +135,24 @@ document.addEventListener("DOMContentLoaded", function () {
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
     totalPriceInput.value = calculateTotalPrice();
+
     const formData = new FormData(this);
     const nanoids = formData.getAll("prod_nanoid");
     formData.delete("prod_nanoid"); // 기존의 개별 prod_nanoid 값을 삭제
-    formData.append("prod_nanoid", JSON.stringify(nanoids)); // 배열을 JSON 문자열로 추가
-    const jsonData = JSON.stringify(Object.fromEntries(formData.entries()));
-    console.log(jsonData);
+    formData.append("prod_nanoid", nanoids); // 배열을 JSON 문자열로 추가
+    const jsonData = Object.fromEntries(formData.entries());
+    jsonData.prod_nanoid = jsonData.prod_nanoid.split(",");
+    jsonData.total_price = Math.floor(Number(totalPriceInput.value));
+
+    console.log(JSON.stringify(jsonData));
 
     try {
       const response = await fetch("/users/orders/", {
         method: "POST",
-        body: jsonData,
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify(jsonData),
       });
 
       if (!response.ok) {
@@ -156,7 +160,8 @@ document.addEventListener("DOMContentLoaded", function () {
       }
       // 주문 완료 후 처리
       alert("주문이 완료되었습니다!");
-      window.location.href = "/order/complete"; // 주문 완료 페이지로 리디렉션
+      localStorage.removeItem("jwtToken");
+      window.location.href = "/orderEnd"; // 주문 완료 페이지로 리디렉션
     } catch (error) {
       console.error("Error placing order:", error);
       alert("주문을 완료할 수 없습니다. 다시 시도해주세요.");
@@ -201,13 +206,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // 최종 결제 금액 계산
   const calculateTotalPrice = () => {
-    const totalPrice = (
-      totalOrderPrice -
-      mileageInput.value +
-      deliveryPrice
-    ).toLocaleString("ko-KR");
-    totalPriceEl.innerText = `${totalPrice}원`;
-    totalOrderPriceEl.innerText = `${totalPrice}원`;
+    const totalPrice = totalOrderPrice - mileageInput.value + deliveryPrice;
+    totalPriceEl.innerText = `${totalPrice.toLocaleString("ko-KR")}원`;
+    totalOrderPriceEl.innerText = `${totalPrice.toLocaleString("ko-KR")}원`;
 
     return totalPrice;
   };
