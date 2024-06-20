@@ -1,11 +1,9 @@
 import { loginUser } from '../Login/common/remotes.js';
 
-/** X 버튼 클릭 시 모달 창 닫기 */
+/** X 버튼 클릭 시 */
 const onCloseButton = document.querySelector('.head-x-button');
-const onModalContainer = document.querySelector('.container');
-
 onCloseButton.addEventListener('click', () => {
-    onModalContainer.style.display = 'none';
+    window.location.href = '/'; // 홈으로 이동
 });
 
 /** 로그인 버튼 클릭 시 서버에 사용자가 입력한 email, password 전송 */

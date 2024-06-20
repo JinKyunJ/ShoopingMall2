@@ -5,12 +5,10 @@ export async function getUserInfo() {
         if (response.ok) {
             return await response.json();
         } else {
-            const errorData = await response.json();
             alert('사용자 정보를 불러오는데 실패했습니다.');
-            throw new Error(errorData.message || '사용자 정보 불러오기 실패');
         }
     } catch (error) {
-        alert('오류가 발생했습니다. 나중에 다시 시도해주세요.');
+        console.error(error);
     }
 }
 
@@ -26,7 +24,7 @@ export async function checkPassword(password) {
         });
         return await response.json();
     } catch (error) {
-        alert('오류가 발생했습니다. 나중에 다시 시도해주세요.');
+        console.error(error);
     }
 }
 
@@ -40,12 +38,10 @@ export async function deleteUser() {
             alert('회원 탈퇴가 완료되었습니다.');
             window.location.href = '/home';
         } else {
-            const errorData = await response.json();
             alert('탈퇴 처리에 실패했습니다. 다시 시도해주세요.');
-            throw new Error(errorData.message || '탈퇴 처리 실패');
         }
     } catch (error) {
-        alert('오류가 발생했습니다. 나중에 다시 시도해주세요.');
+        console.error(error);
     }
 }
 
@@ -69,11 +65,9 @@ export async function editUserInfo(email, currentPassword, newPassword, name) {
             alert('사용자 정보가 수정되었습니다.');
             window.location.href = '/home';
         } else {
-            const errorData = await response.json();
             alert('사용자 정보 수정에 실패했습니다. 다시 시도해주세요.');
-            throw new Error(errorData.message || '사용자 정보 수정 실패');
         }
     } catch (error) {
-        alert('오류가 발생했습니다. 나중에 다시 시도해주세요.');
+        console.error(error);
     }
 }
