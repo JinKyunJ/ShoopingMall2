@@ -35,7 +35,8 @@ header + .container {
   margin-top: 91px;
 }
 /*공통 요소 스타일 제거*/
-ul, ol {
+ul,
+ol {
   list-style-type: none;
   padding: 0;
   margin: 0;
@@ -112,4 +113,15 @@ footer .CS-Box .CS {
 }
 .content-header + .container {
   margin-top: 50px;
+}
+
+header ul {
+  position: relative;
+}
+header ul > p {
+  position: absolute;
+  right: -5px;
+  top: -9px;
+  color: #fff;
+  font-weight: bold;
 }

@@ -47,7 +47,6 @@
       <!-- form submit 후 리디렉션 작업은 서버에서 하는지, 프론트에서 하는지 확인 필요 -->
       <form id="order-form" name="order-form">
         <input type="hidden" name="total_price" value="" />
-        <!-- 마일리지 테스트 값 2000 -->
         <input type="hidden" name="mileage" id="mileage" value="2000" />
         <section class="order-product">
           <div class="title-box toggle-title">
@@ -155,7 +154,7 @@
           <div class="content-box">
             <dl>
               <dt>사용가능 적립금</dt>
-              <dd><b id="user-mileage">0</b>원</dd>
+              <dd><b id="user-mileage">2000</b>원</dd>
             </dl>
             <div class="mileage-input-box">
               <input
@@ -172,20 +171,15 @@
         <section class="order-price-box">
           <dl>
             <dt>주문 금액</dt>
-            <dd><strong id="order-price">@@</strong>원</dd>
-          </dl>
-          <!-- 배송비 필요한지 확인 -->
-          <dl>
-            <dt>배송비</dt>
-            <dd>+ <strong id="delivery-price">@@</strong>원</dd>
+            <dd><strong id="order-price"></strong>원</dd>
           </dl>
           <dl>
             <dt>적립금</dt>
-            <dd>- <strong id="use-mileage">@@</strong>원</dd>
+            <dd>- <strong id="use-mileage"></strong>원</dd>
           </dl>
           <dl class="total-price-box">
             <dt>최종결제금액</dt>
-            <dd><strong id="total-price">@@,@@@</strong>원</dd>
+            <dd><strong id="total-price"></strong>원</dd>
           </dl>
         </section>
 

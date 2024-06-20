@@ -44,9 +44,9 @@ document.addEventListener("DOMContentLoaded", function () {
     updateFinalPrice();
   });
 
-  // 주문상품 로컬 스토리지(장바구니)에서 불러오기
+  // 로컬 스토리지(장바구니)에서 주문 상품 불러오기
   const loadOrderProducts = () => {
-    const Products = JSON.parse(localStorage.getItem("cart")) || [];
+    const products = JSON.parse(localStorage.getItem("cart")) || [];
     const orderList = document.querySelector(".order-list");
 
     if (Products.length <= 0) {
@@ -154,7 +154,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   };
 
-  // 주문완료 시 주문정보 서버에 전달
+  // 주문 완료 시 서버에 주문 정보 전달
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
     const formData = new FormData(this);
@@ -183,7 +183,50 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // 화살표 있는 title-box 클릭 시 내용이 접히도록 작업
+  // 적립금 모두 사용 버튼 클릭 시
+  useAllMileageBtn.addEventListener("click", () => {
+    mileageInput.value = mileage;
+    userMileageEl.innerText = 0;
+    useMileageEl.innerText = mileage;
+
+    calculateTotalPrice();
+  });
+
+  // 사용 적립금 입력 시 사용 가능 적립금 반영
+  mileageInput.addEventListener("input", () => {
+    if (!mileageInput.value) {
+      mileageInput.value = 0;
+    }
+
+    if (mileageInput.value < 0) {
+      alert("정수를 입력해주세요.");
+      mileageInput.value = 0;
+      return false;
+    }
+
+    mileageInput.value = mileageInput.value.replace(/^0+/, "");
+
+    let result = parseInt(mileage) - parseInt(mileageInput.value);
+
+    if (result < 0) {
+      result = mileage;
+      mileageInput.value = result;
+    }
+    userMileageEl.innerText = result.toLocaleString("ko-KR");
+    useMileageEl.innerText = result.toLocaleString("ko-KR");
+    calculateTotalPrice();
+  });
+
+  // 최종 결제 금액 계산
+  const calculateTotalPrice = () => {
+    const totalPrice = (totalProductPrice - mileageInput.value).toLocaleString(
+      "ko-KR"
+    );
+    totalPriceEl.innerText = totalPrice;
+    totalOrderPriceEl.innerText = totalPrice;
+  };
+
+  // 화살표 있는 제목 박스 클릭 시 내용 접기
   const titleEl = document.querySelectorAll(".toggle-title");
   titleEl.forEach((el) => {
     el.addEventListener("click", () => {
@@ -191,8 +234,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  loadOrderProducts(); // 주문상품 불러오기 실행
-  fetchUserInfo(); // 주문자 정보 불러오기 실행
+  // loadOrderProducts(); // 주문 상품 불러오기 실행
+  // fetchUserInfo(); // 사용자 정보 불러오기 실행
+  // fetchUserCash(); // 사용자 적립금 불러오기 실행
 });
 
 // 가격을 포맷팅하는 함수
