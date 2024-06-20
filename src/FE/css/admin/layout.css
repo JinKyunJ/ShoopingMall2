@@ -60,3 +60,9 @@ header a.shop {
 .container {
   margin-top: 42px;
 }
+
+nav .btn_box button {
+  margin-top: 15px;
+  padding: 0 20px;
+  color: #2e77ff;
+}
