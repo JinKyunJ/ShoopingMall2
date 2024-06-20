@@ -21,15 +21,17 @@ export async function fetchAndNavigate(url, event) {
 /** 사용자 이름 가져오기 API 함수 */
 export async function fetchUserName() {
     try {
-        const response = await fetch('/users', {
+        const token = localStorage.getItem('jwtToken');
+        const response = await fetch('/getuser', {
             method: 'GET',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}` // JWT 토큰을 헤더에 포함
             }
         });
         if (response.ok) {
             const data = await response.json();
-            const userNameElement = document.getElementById('user-name'); /** 'user-name' ID를 가진 HTML요소 */
+            const userNameElement = document.getElementById('user-name');
             userNameElement.textContent = `${data.name}님`; /** 요소의 텍스트 내용을 `${data.name}님`으로 변경 */
         } else {
             alert('사용자 정보를 가져오는 데 실패했습니다.');
