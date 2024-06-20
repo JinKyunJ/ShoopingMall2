@@ -1,0 +1,115 @@
+:root {
+  --main-color: rgb(251 146 60);
+}
+
+/* header css */
+header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 11;
+  width: 100%;
+  box-sizing: border-box;
+}
+header .Header-Top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--main-color);
+  padding: 4px 1.125rem;
+}
+.Header-Category ul {
+  display: flex;
+  justify-content: space-between;
+  padding: 0px 1.125rem;
+  background: #fff;
+  border-bottom: 1px solid rgb(221, 221, 221);
+}
+.Header-Category ul li a {
+  line-height: 40px;
+}
+
+/* header fixed로 header 높이만큼 내용이 가려져 margin-top으로 가려지는 내용 노출 */
+header + main,
+header + .container {
+  margin-top: 91px;
+}
+/*공통 요소 스타일 제거*/
+ul, ol {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.quick-tool {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 10;
+  width: 100vw;
+  background: #fff;
+  border-top: 1px solid rgb(221, 221, 221);
+}
+
+.quick-tool ul {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 6px 0;
+}
+
+/* footer css */
+.footer {
+  background: rgb(244, 244, 244);
+  margin-bottom: 42px;
+  padding: 10px 1.125rem;
+  font-size: 12px;
+}
+footer .F-Logo {
+  padding-bottom: 5px;
+}
+footer .F-Logo img {
+  width: 50px;
+}
+footer .CS-Box {
+  padding-bottom: 15px;
+}
+footer .CS-Box h3 {
+  font-size: 12px;
+  font-weight: 600;
+}
+footer .CS-Box .CS {
+  color: var(--main-color);
+}
+
+/* content-header */
+.content-header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 11;
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--main-color);
+}
+.content-header h2 {
+  color: #fff;
+  font-size: 16px;
+  font-weight: normal;
+  line-height: 50px;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+.content-header .back {
+  position: absolute;
+  left: 1.125rem;
+  top: 14px;
+}
+.content-header ul {
+  position: absolute;
+  right: 1.125rem;
+  top: 10px;
+}
+.content-header + .container {
+  margin-top: 50px;
+}

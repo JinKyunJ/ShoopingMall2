@@ -21,7 +21,7 @@ const router = Router();
 
 // page sendfile
 router.get('/', (req, res) => {
-    return res.sendFile(path.join(__dirname + "/../public/Login/Login.html"));
+    return res.sendFile(path.join(__dirname + "/../src/FE/Login/Login.html"));
 });
 
 // login

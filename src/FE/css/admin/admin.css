@@ -1,0 +1,68 @@
+.main-container {
+  padding: 10px;
+}
+.order-info {
+  background: #eee;
+  border: 1px solid #dfdfdf;
+  text-align: center;
+  padding: 10px 0 5px;
+  font-size: 12px;
+}
+.order-info .today {
+  color: #999;
+}
+
+.order-info .order-count {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px solid #dfdfdf;
+  padding: 7px 0 15px;
+  margin-bottom: 10px;
+}
+.order-info .order-count strong {
+  font-size: 32px;
+  color: #3d9deb;
+  font-weight: normal;
+}
+.order-price strong {
+  font-size: 24px;
+  font-weight: normal;
+}
+
+.new-list {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 5px 0;
+}
+.new-list li {
+  position: relative;
+}
+.new-list li .count {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: block;
+  height: 18px;
+  background: #1a77e2;
+  color: #fff;
+  border-radius: 9px;
+  font-size: 11px;
+  text-align: center;
+  line-height: 16px;
+  padding: 0 5px;
+}
+.new-list li a {
+  display: block;
+  text-align: center;
+}
+.new-list li .icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #fff;
+  border: 1px solid #55abf1;
+  height: 60px;
+  width: 60px;
+  margin-bottom: 5px;
+}

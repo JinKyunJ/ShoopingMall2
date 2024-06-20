@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>검색 결과</title>
+    <link rel="stylesheet" href="ProductList.css" />
+    <!--rel 외부 리소스와 관계  href 파일-->
+  </head>
+  <body>
+    <!--상단 메뉴 네비게이션 영역 나중에 이거 고정하는거 알아봐야겟음-->
+    <div class="title">
+      <div class="title-div">
+        <p class="title-FontStyle">카테고리</p>
+        <button class="title-div-button">cart</button>
+      </div>
+      <nav class="Category-Nav">
+        <div class="Category-Nav-div">
+          <button class="Category-Nav-btn">
+            <!--나중에 이걸 데이터화 시키면 좋을듯함-->
+            <span>상품설명</span>
+          </button>
+          <button class="Category-Nav-btn">
+            <!--나중에 이걸 데이터화 시키면 좋을듯함-->
+            <span>상세정보</span>
+          </button>
+        </div>
+      </nav>
+      <div class="ProductInformation">
+        <div class="Product-View" id="product-info">
+          <div class="Product-ImageContainer">
+            <img src="../img/TextImage/Bg01.jpg" class="Product-Image" />
+          </div>
+          <div>
+            <p class="large-text">제품 이름 : 나는 능이</p>
+            <p>할인율 : 20%</p>
+            <p class="large-text">가격 : 20,000원</p>
+            <p>할인전 가격 : 50,000원</p>
+            <p>원산지 : 국내산</p>
+          </div>
+
+          <div id="more-details">
+            <p class="large-text">상품 상세정보</p>
+            <div class="Product-ImageContainer">
+              <img src="../img/TextImage/Bg01.jpg" class="Product-Image" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--스크립트 영역-->
+    <script src="ProductList.js"></script>
+  </body>
+</html>

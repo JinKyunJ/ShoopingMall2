@@ -1,0 +1,59 @@
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  text-align: center;
+  background: #2e77ff;
+  color: #fff;
+  padding: 9px 0;
+}
+header h2 {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+header button {
+  position: absolute;
+  left: 15px;
+  top: 6px;
+}
+header a {
+  position: absolute;
+  right: 15px;
+  top: 6px;
+}
+
+#menu {
+  position: absolute;
+  width: 100vw;
+  background: #fff;
+  height: 100%;
+  left: -100%;
+  top: 42px;
+  z-index: 100;
+}
+#menu.active {
+  left: 0;
+}
+#menu ul li {
+  border-bottom: 1px solid #ddd;
+}
+#menu ul li a {
+  display: block;
+  line-height: 40px;
+  padding: 0 15px;
+}
+
+#menu ul.depth2 {
+  background: #f1f1f1;
+}
+#menu ul.depth2 li a {
+  padding-left: 30px;
+}
+#menu ul.depth2 li:last-child {
+  border-bottom: 0;
+}
+
+.container {
+  margin-top: 42px;
+}
