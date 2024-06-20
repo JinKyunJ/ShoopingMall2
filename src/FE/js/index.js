@@ -1,17 +1,34 @@
 document.addEventListener("DOMContentLoaded", function () {
-  /** 메인 슬라이드 */
+  // 초기 카트 카운터 설정
+  updateCartCounter();
+
+  // 상품 "담기" 버튼 이벤트 리스너 등록 (이벤트 위임)
+  document.addEventListener('click', function (event) {
+    if (event.target.classList.contains('cart-btn')) {
+      const productElement = event.target.closest('.swiper-slide');
+      const product = {
+        nanoid: productElement.querySelector('input[name="productNumber"]').value,
+        image: productElement.querySelector('img').getAttribute('src').split('/').pop(),
+        title: productElement.querySelector('.title').textContent,
+        price: parseInt(productElement.querySelector('.price').textContent.replace(/[^0-9]/g, ''), 10),
+        sale: parseInt(productElement.querySelector('.percent').textContent.replace(/[^0-9]/g, ''), 10),
+        comments: []
+      };
+
+      showModal(product);
+    }
+  });
+
+  // 메인 슬라이드
   const swiper = new Swiper(".swiper", {
-    // Optional parameters
     autoplay: true,
     loop: true,
-
-    // If we need pagination
     pagination: {
       el: ".swiper-pagination",
     },
   });
 
-  /** 상품 슬라이드 */
+  // 상품 슬라이드
   const goodsSwiper = new Swiper(".product-box", {
     slidesPerView: 2.2,
     spaceBetween: 10,
@@ -35,14 +52,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     if (type === "comment") {
       result = products
-        .filter(({ product }) => product.comments.length > 0)
-        .sort((a, b) => a.product.comments.length - b.product.comments.length);
+          .filter(({ product }) => product.comments.length > 0)
+          .sort((a, b) => a.product.comments.length - b.product.comments.length);
     }
 
     if (type === "popular") {
       result = products
-        .filter(({ likeUser }) => likeUser.length > 0)
-        .sort((a, b) => a.likeUser.length - b.likeUser.length);
+          .filter(({ likeUser }) => likeUser.length > 0)
+          .sort((a, b) => a.likeUser.length - b.likeUser.length);
     }
 
     if (type === "salad") {
@@ -54,7 +71,7 @@ document.addEventListener("DOMContentLoaded", function () {
     return result;
   }
 
-  /** 세일 상품 불러오기 */
+  // 세일 상품 불러오기
   async function fetchSaleProducts() {
     try {
       const products = await fetchProducts("sale");
@@ -67,14 +84,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  /** 후기 많은 상품 불러오기 */
+  // 후기 많은 상품 불러오기
   async function fetchCommentProducts() {
     try {
       const products = await fetchProducts("comment");
       const commentProducts = products.map(createProductHTML).join("");
 
       const commentProductList = document.getElementById(
-        "comment-product-wrapper"
+          "comment-product-wrapper"
       );
       commentProductList.innerHTML = commentProducts;
     } catch (error) {
@@ -82,14 +99,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  /** 인기 많은 상품 불러오기 */
+  // 인기 많은 상품 불러오기
   async function fetchPopularProducts() {
     try {
       const products = await fetchProducts("popular");
       const popularProducts = products.map(createProductHTML).join("");
 
       const popularProductList = document.getElementById(
-        "popular-product-wrapper"
+          "popular-product-wrapper"
       );
       popularProductList.innerHTML = popularProducts;
     } catch (error) {
@@ -97,8 +114,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  /** 샐러드 카테고리 상품 불러오기 */
-  async function fetchsaladProducts() {
+  // 샐러드 카테고리 상품 불러오기
+  async function fetchSaladProducts() {
     try {
       const products = await fetchProducts("salad");
       const saladProducts = products.map(createProductHTML).join("");
@@ -113,13 +130,13 @@ document.addEventListener("DOMContentLoaded", function () {
   function createProductHTML({ product }) {
     const { price, sale, image, title, comments } = product;
     const salePrice = Math.floor(price * ((100 - sale) / 100));
-    
+
     const imgPath = `./img/TextImage/${image}`;
     console.log(imgPath);
 
     return `<div class="swiper-slide">
                 <div class="goods-image">
-                    <img src="${imgPath}" alt="" />
+                    <img src="${imgPath}" alt="${title}" />
                 </div>
                 <button class="cart-btn" type="button">
                   <svg
@@ -152,11 +169,19 @@ document.addEventListener("DOMContentLoaded", function () {
             `;
   }
 
-  // 페이지 로드 시 상품 리스트를 불러옵니다.
   window.addEventListener("load", () => {
     fetchSaleProducts();
     fetchCommentProducts();
     fetchPopularProducts();
-    fetchsaladProducts();
+    fetchSaladProducts();
   });
 });
+
+function updateCartCounter() {
+  console.log(JSON.parse(localStorage.getItem("cart")));
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const counterElement = document.querySelector(".cart-counter");
+  if (counterElement) {
+    counterElement.textContent = cart.length;
+  }
+}
