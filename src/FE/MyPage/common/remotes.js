@@ -1,6 +1,5 @@
 /** 중복되는 API 호출 및 페이지 이동 함수 */
-export async function fetchAndNavigate(url, event) {
-    event.preventDefault(); /** 기본 동작 막기 */
+export async function fetchAndNavigate(url) {
     try {
         const response = await fetch(url, {
             method: 'GET',
@@ -11,10 +10,10 @@ export async function fetchAndNavigate(url, event) {
         if (response.ok) {
             window.location.href = url;
         } else {
-            alert('페이지 이동에 실패했습니다. 나중에 다시 시도해주세요.');
+            // alert('페이지 이동에 실패했습니다. 나중에 다시 시도해주세요.');
         }
     } catch (error) {
-        console.error(error);
+        // console.error(error);
     }
 }
 

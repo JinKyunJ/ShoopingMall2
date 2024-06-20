@@ -15,12 +15,23 @@ export async function getUserInfo() {
 /** 사용자 탈퇴 API 함수 */
 export async function deleteUser() {
     try {
-        const response = await fetch('/delete-user', {
+        // 현재 사용자 정보 가져오기
+        const userInfo = await getUserInfo();
+        const userNanoid = userInfo.nanoid;
+
+        const response = await fetch(`/users/${userNanoid}`, {
             method: 'DELETE'
         });
         if (response.ok) {
+            // 로컬 스토리지에서 JWT 토큰 제거
+            localStorage.removeItem('jwtToken');
+            // 모든 쿠키 제거
+            document.cookie.split(';').forEach((c) => {
+                document.cookie = c.trim().split('=')[0] + '=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/';
+            });
+
             alert('회원 탈퇴가 완료되었습니다.');
-            window.location.href = '/home';
+            window.location.href = '/';
         } else {
             alert('탈퇴 처리에 실패했습니다. 다시 시도해주세요.');
         }
