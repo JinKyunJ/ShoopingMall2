@@ -15,7 +15,7 @@ function createProductHtml({ product }) {
   return `
         <li>
           <input type="checkbox" name="productCheck" value="${nanoid}" />
-          <a href="/product/view?=${nanoid}">
+          <a href="/admin/product/view?=${nanoid}">
             <div class="img"><img src="/img/TextImage/${image}" alt="${title}" /></div>
             <div class="info">
               <p class="title">${title}</p>
@@ -34,7 +34,7 @@ function deleteProduct() {
   const checkedInput = input.filter((input) => input.checked);
   checkedInput.forEach(async (input) => {
     await fetch(`/products/${input.value}`, {
-      method: "POST",
+      method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },

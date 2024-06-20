@@ -228,12 +228,12 @@ main,
 }
 
 .ButtonModal-content {
-  padding: 40px; /* 두 배로 확대 */
+  padding: 20px; /* 두 배로 확대 */
 }
 
 .ButtonModel-btnClose {
   width: 100%;
-  padding: 40px; /* 두 배로 확대 */
+  padding: 15px; /* 두 배로 확대 */
   color: white;
   border: none;
   border-radius: 10px;
@@ -307,9 +307,9 @@ main,
 }
 
 .modal-product-info img {
-  width: 200px; /* 두 배 크기 */
-  height: 200px;
-  margin-right: 40px; /* 두 배로 확대 */
+  width: 20vw; /* 두 배 크기 */
+  height: 20vw;
+  margin-right: 10px; /* 두 배로 확대 */
   object-fit: cover;
   border-radius: 10px;
 }
@@ -321,8 +321,9 @@ main,
 /* 제품명, 할인가격, 제품가격 크기 조정 (이미지 크기에 맞게 확대) */
 .modal-product-details p {
   margin: 10px 0; /* 두 배로 확대 */
-  font-size: 3em; /* 두 배로 확대 */
+  font-size: 16px; /* 두 배로 확대 */
   text-align: left;
+  font-weight: bold;
 }
 
 .modal-product-pricing {
@@ -333,14 +334,14 @@ main,
 }
 
 #ModalProductDiscountedPrice {
-  font-size: 3em; /* 두 배로 확대 */
+  font-size: 16px; /* 두 배로 확대 */
   font-weight: bold;
   margin-right: 20px; /* 두 배로 확대 */
 }
 
 /* 제품 가격을 할인가격 옆에 표시 */
 #ModalProductPrice {
-  font-size: 3em;
+  font-size: 16px;
   text-decoration: line-through;
   color: rgb(181, 181, 181);
 }
@@ -349,7 +350,7 @@ main,
 .modal-product-details hr {
   border: none;
   border-top: 1px solid #ddd;
-  margin: 20px 0; /* 두 배로 확대 */
+  margin: 0px 0 2px; /* 두 배로 확대 */
 }
 
 /* 수량 조절 버튼 위치 및 크기 조정 */
@@ -357,12 +358,12 @@ main,
   display: flex;
   align-items: center;
   justify-content: flex-end; /* 오른쪽 정렬 */
-  margin-bottom: 40px; /* 두 배로 확대 */
+  margin-bottom: 20px; /* 두 배로 확대 */
 }
 
 .quantity-control button {
-  width: 80px; /* 두 배로 확대 */
-  height: 80px; /* 두 배로 확대 */
+  width: 26px; /* 두 배로 확대 */
+  height: 26px; /* 두 배로 확대 */
   background: #ff8c00;
   color: white;
   border: none;
@@ -374,7 +375,7 @@ main,
 }
 
 .quantity-control div {
-  font-size: 4em; /* 두 배로 확대 */
+  font-size: 16px; /* 두 배로 확대 */
   text-align: center;
   margin: 0 20px; /* 두 배로 확대 */
 }

@@ -11,35 +11,60 @@
     <header></header>
     <nav id="menu"></nav>
     <div class="container product-container view-cont">
-      <div class="info_cont">
-        <div class="title_box">
-          <h2>기본정보</h2>
-          <button type="submit">저장</button>
+      <form id="poductInfoForm">
+        <div class="info_cont">
+          <div class="title_box">
+            <h2>기본정보</h2>
+            <button type="submit">수정</button>
+          </div>
+          <div class="info_box">
+            <div id="img_box" class="img_box"></div>
+            <table>
+              <tr>
+                <th>상품코드</th>
+                <td>
+                  <input type="text" name="nanoid" id="goodsId" readonly />
+                </td>
+              </tr>
+              <tr>
+                <th>상품명</th>
+                <td><input type="text" name="title" id="goodsName" /></td>
+              </tr>
+              <tr>
+                <th>판매가</th>
+                <td><input type="text" name="price" id="goodsPrice" /></td>
+              </tr>
+              <tr>
+                <th>할인율</th>
+                <td><input type="number" name="sale" id="sale" /></td>
+              </tr>
+              <tr>
+                <th>짧은설명</th>
+                <td><input type="text" name="ad" id="ad" /></td>
+              </tr>
+              <tr>
+                <th>상품설명</th>
+                <td>
+                  <textarea
+                    name="detail_content"
+                    id="detail_content"
+                  ></textarea>
+                </td>
+              </tr>
+              <tr>
+                <th>배송방법</th>
+                <td><input type="text" name="delivery" id="delivery" /></td>
+              </tr>
+            </table>
+          </div>
         </div>
-        <div class="info_box">
-          <div class="img_box"></div>
-          <table>
-            <tr>
-              <th>상품코드</th>
-              <td></td>
-            </tr>
-            <tr>
-              <th>상품명</th>
-              <td></td>
-            </tr>
-            <tr>
-              <th>판매가</th>
-              <td></td>
-            </tr>
-            <tr>
-              <th>적립금</th>
-              <td></td>
-            </tr>
-          </table>
-        </div>
-      </div>
+      </form>
     </div>
 
     <script type="text/javascript" src="../../js/admin/include.js"></script>
+    <script
+      type="text/javascript"
+      src="../../js/admin/product/product_view.js"
+    ></script>
   </body>
 </html>
