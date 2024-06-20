@@ -40,6 +40,9 @@ main section.main-slide {
   overflow: hidden;
   width: 100%;
 }
+.main-product .product-box .goods-image {
+  min-height: 37vw;
+}
 .main-product .product-box .goods-image img {
   width: 100%;
   border-radius: 4px;

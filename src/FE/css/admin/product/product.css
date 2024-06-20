@@ -14,7 +14,7 @@
   padding: 5px 0;
   margin-bottom: 2px;
 }
-.product-container .button-cont button {
+.product-container button {
   background: #e96262;
   border-radius: 4px;
   padding: 0 14px;
@@ -50,10 +50,50 @@
   padding: 5px 0;
 }
 .product-list li .info .title {
-  font-size: 12px;
+  font-size: 14px;
   padding-bottom: 3px;
 }
 .product-list li .info .price {
   font-size: 14px;
   font-weight: bold;
+}
+
+.view-cont .title_box {
+  display: flex;
+  justify-content: space-between;
+}
+.view-cont .title_box h2 {
+  font-size: 16px;
+}
+
+.info_box {
+  display: flex;
+  gap: 10px;
+}
+.info_box .img_box {
+  height: 120px;
+  width: 90px;
+  background: #ddd;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.info_box .img_box img {
+  width: 100%;
+}
+
+table {
+  border-collapse: collapse;
+  font-size: 14px;
+  width: calc(100% - 100px);
+}
+table th,
+table td {
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+  padding: 10px 0;
+}
+table th {
+  color: #1a389b;
 }
