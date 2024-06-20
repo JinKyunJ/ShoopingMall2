@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           });
 
           console.log("Parsed products:", products);
-
+          console.log(products);
           renderProducts(products);
         })
         .catch(function (error) {
@@ -40,6 +40,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // 제품 데이터를 사용하여 페이지에 동적으로 제품 요소를 추가하는 함수
   function renderProducts(products)
   {
+
     const container = document.querySelector(".swiper-wrapper");
 
     if (!container)
