@@ -5,7 +5,10 @@ class CashService {
     async createCash(bodyData){
         const cash = await Cash.findOne(bodyData);
         if(cash){
-            throw new Error("이미 생성된 적립금 데이터입니다.");
+            const error = new Error();
+            Object.assign(error, {code: 400, message: "이미 생성된 적립금 데이터입니다."})
+            throw error;
+            
         } else {
             return await Cash.create(bodyData);
         }
@@ -14,9 +17,6 @@ class CashService {
     // find
     async findAllCash(){
         const cashes = await Cash.find();
-        if(cashes.length === 0){
-            throw new Error("조회된 적립금 데이터가 없습니다.");
-        }
         return cashes;
     }
 
@@ -24,7 +24,9 @@ class CashService {
     async findById({user_nanoid}) {
         const cash = await Cash.findOne({user_nanoid});
         if(!cash){
-            throw new Error("조회된 적립금 데이터가 없습니다.");
+            const error = new Error();
+            Object.assign(error, {code: 404, message: "조회된 적립금 데이터가 없습니다."})
+            throw error;
         }
         return cash;
     }
@@ -33,12 +35,19 @@ class CashService {
     async updateById({user_nanoid}, bodyData){
         const cash = await Cash.findOne({user_nanoid});
         if(!cash){
-            throw new Error("조회된 적립금 데이터가 없습니다.");
+            const error = new Error();
+            Object.assign(error, {code: 404, message: "조회된 적립금 데이터가 없습니다."})
+            throw error;
+            
         } else {
-            await Cash.updateOne(cash, {
-                $inc: {cash: bodyData.cash}
-            });
-            return `${user_nanoid} 적립금 변경 동작 완료`;
+            // bodyData.cash 가 있는 경우에만 update
+            if(bodyData.cash){
+                await Cash.updateOne(cash, {
+                    $inc: {cash: bodyData.cash}
+                });
+                return {message: `${user_nanoid} 적립금 변경 동작 완료`};
+            }
+            return {message: `${user_nanoid} 적립금 변경 없음`};
         }
     }
 
@@ -46,10 +55,13 @@ class CashService {
     async deleteById({user_nanoid}) {
         const cash = await Cash.findOne({user_nanoid});
         if(!cash){
-            throw new Error("조회된 적립금 데이터가 없습니다.");
+            const error = new Error();
+            Object.assign(error, {code: 404, message: "조회된 적립금 데이터가 없습니다."})
+            throw error;
+            
         } else {
             await Cash.deleteOne(cash);
-            return `${user_nanoid} 적립금 삭제 동작 완료`;
+            return {message: `${user_nanoid} 적립금 삭제 동작 완료`};
         }
     }
 }

@@ -79,6 +79,11 @@ const productSchema = new Schema({
         type: String,
         required: true
     },
+    // 주문 수량
+    amount: {
+        type: Number,
+        default: 1
+    },
     // 상품 등록 시간
     create_at: {
         type: String,

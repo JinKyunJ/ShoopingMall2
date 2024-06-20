@@ -13,16 +13,24 @@ class OrderService {
             address: bodyData.address,
             delivery_request: bodyData.delivery_request,
             total_price: bodyData.total_price,
-            detail_content: bodyData.detail_content,
-            delivery: bodyData.delivery
+            status: "주문 완료",
+            get_user: bodyData.get_user,
+            get_phone: bodyData.get_phone
         });
         // 주문 상품 load ( bodyData 에서 상품 고유 번호들을 전달 받아야 함 )
         // bodyData.prod_nanoid 배열
         const prod_nanoid = bodyData.prod_nanoid;
-        prod_nanoid.forEach(async (v) => {
+        if(!prod_nanoid){
+            const error = new Error();
+            Object.assign(error, {code: 404, message: "load 되는 주문 상품이 없습니다. 다시 주문하신 상품을 확인해주세요."})
+            throw error;
+        }
+        await prod_nanoid.forEach(async (v) => {
             const product = await Product.findOne({nanoid: v});
             if(!product){
-                throw new Error("load 되는 nanoid로 조회된 상품이 없습니다.");
+                const error = new Error();
+                Object.assign(error, {code: 404, message: "load 되는 nanoid로 조회된 상품이 없습니다."})
+                throw error;
             } else {
                 // $push 오퍼레이터 : 주문서에 추가되는 상품 요청 처리
                 await Order.updateOne(
@@ -38,9 +46,6 @@ class OrderService {
     // find all
     async findAllOrder(){
         const orders = await Order.find().populate('user');
-        if(orders.length === 0){
-            throw new Error("주문내역이 없습니다.");
-        }
         return orders;
     }
         
@@ -48,7 +53,9 @@ class OrderService {
     async findById({nanoid}){
         const order = await Order.findOne({nanoid}).populate('user');
         if(!order){
-            throw new Error("주문내역이 없습니다.");
+            const error = new Error();
+            Object.assign(error, {code: 404, message: "주문내역이 없습니다."})
+            throw error;
         }
         return order;
     }
@@ -57,10 +64,14 @@ class OrderService {
     async updateById({nanoid}, bodyData) {
         const order = await Order.findOne({nanoid});
         if (!order) {
-            throw new Error("주문내역이 없습니다.");
+            const error = new Error();
+            Object.assign(error, {code: 404, message: "주문내역이 없습니다."})
+            throw error;
     }   else {
-            await Order.updateOne(order, bodyData); 
-            return `${nanoid} 주문 수정 동작 완료`; 
+            Reflect.deleteProperty(bodyData, "user");
+            Reflect.deleteProperty(bodyData, "nanoid");
+            await Order.updateOne({nanoid: order.nanoid}, bodyData); 
+            return {message: `${nanoid} 주문 수정 동작 완료`}; 
         }
 
     }
@@ -68,10 +79,12 @@ class OrderService {
     async deleteById({nanoid}) {
         const order = await Order.findOne({nanoid});
         if (!order) {
-            throw new Error("주문내역이 없습니다.");
+            const error = new Error();
+            Object.assign(error, {code: 404, message: "주문내역이 없습니다."})
+            throw error;
         } else {
-            await Order.deleteOne(order);
-            return `${nanoid} 주문 삭제 동작 완료` ;
+            await Order.deleteOne({nanoid: order.nanoid});
+            return {message: `${nanoid} 주문 삭제 동작 완료`};
         }
     }
 };

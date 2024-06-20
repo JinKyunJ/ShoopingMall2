@@ -1,0 +1,77 @@
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>쇼핑몰 관리자</title>
+    <link rel="stylesheet" href="../../css/reset.css" />
+    <link rel="stylesheet" href="../../css/admin/layout.css" />
+    <link rel="stylesheet" href="../../css/admin/product/product.css" />
+  </head>
+  <body>
+    <header></header>
+    <nav id="menu"></nav>
+    <div class="container product-container">
+      <div class="search-box">
+        <input type="text" name="product-search" />
+        <button type="button">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24px"
+            viewBox="0 -960 960 960"
+            width="24px"
+            fill="#5f6368"
+          >
+            <path
+              d="M380.77-335.39q-102.46 0-173.54-71.07-71.07-71.08-71.07-173.54t71.07-173.54q71.08-71.07 173.54-71.07t173.54 71.07q71.07 71.08 71.07 173.54 0 42.85-14.38 81.85-14.39 39-38.39 67.84l230.16 230.16q8.31 8.3 8.5 20.88.19 12.58-8.5 21.27t-21.08 8.69q-12.38 0-21.07-8.69L530.46-388.16q-30 24.77-69 38.77-39 14-80.69 14Zm0-59.99q77.31 0 130.96-53.66 53.66-53.65 53.66-130.96t-53.66-130.96q-53.65-53.66-130.96-53.66t-130.96 53.66Q196.15-657.31 196.15-580t53.66 130.96q53.65 53.66 130.96 53.66Z"
+            />
+          </svg>
+        </button>
+      </div>
+
+      <div class="button-cont">
+        <input type="checkbox" id="allCheck" />
+        <button type="button" id="deleteList">삭제</button>
+      </div>
+      <ul id="product-list" class="product-list">
+        <li>
+          <input type="checkbox" />
+          <a href="#">
+            <div class="img"></div>
+            <div class="info">
+              <p class="title">상품1</p>
+              <p class="price">11,000원</p>
+              <p></p>
+            </div>
+          </a>
+        </li>
+        <li>
+          <input type="checkbox" />
+          <a href="#">
+            <div class="img"></div>
+            <div class="info">
+              <p class="title">상품1</p>
+              <p class="price">11,000원</p>
+              <p></p>
+            </div>
+          </a>
+        </li>
+        <li>
+          <input type="checkbox" />
+          <a href="#">
+            <div class="img"></div>
+            <div class="info">
+              <p class="title">상품1</p>
+              <p class="price">11,000원</p>
+              <p></p>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <script type="text/javascript" src="../../js/admin/include.js"></script>
+    <script
+      type="text/javascript"
+      src="../../js/admin/product/product.js"
+    ></script>
+  </body>
+</html>

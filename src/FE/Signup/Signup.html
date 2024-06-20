@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>회원가입</title>
+        <link rel="stylesheet" href="../css/SignupStyle.css" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="head-container">
+                <button class="head-back-button">X</button>
+                <h1 class="head-title-name">회원가입</h1>
+            </div>
+
+            <form id="signup-form">
+                <!-- 이메일 인증 -->
+                <div class="signup-group">
+                    <div class="signup-label">
+                        <label>이메일 <span>*</span></label>
+                    </div>
+                    <div class="signup-input-wrap">
+                        <div class="signup-input">
+                            <input
+                                class="email-input"
+                                id="email-input"
+                                type="email"
+                                name="email"
+                                placeholder="이메일을 입력해주세요"
+                                required
+                            />
+                        </div>
+                        <button class="email-button" type="button" id="certification-button">이메일 인증</button>
+                    </div>
+                </div>
+
+                <!-- 이메일 인증번호 확인 -->
+                <div class="signup-group">
+                    <div class="signup-label">
+                        <label>이메일 인증번호 <span>*</span></label>
+                    </div>
+                    <div class="signup-input-wrap">
+                        <div class="signup-input">
+                            <input
+                                class="confrim-email-input"
+                                id="confrim-email-input"
+                                type="text"
+                                name="confrim-email"
+                                placeholder="인증번호를 입력해주세요"
+                            />
+                        </div>
+                        <button class="email-button" type="button" id="confirm-button">인증번호 확인</button>
+                    </div>
+                </div>
+
+                <!-- 비밀번호 -->
+                <div class="signup-group">
+                    <div class="signup-label">
+                        <label>비밀번호 <span>*</span></label>
+                    </div>
+                    <div class="signup-input-wrap">
+                        <div class="signup-input">
+                            <input
+                                class="password-input"
+                                id="password-input"
+                                type="password"
+                                name="password"
+                                placeholder="비밀번호를 입력해주세요"
+                                required
+                            />
+                            <!-- 에러메세지 추가 -->
+                            <span class="error-message" id="password-error"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 비밀번호확인 -->
+                <div class="signup-group">
+                    <div class="signup-label">
+                        <label>비밀번호확인 <span>*</span></label>
+                    </div>
+                    <div class="signup-input-wrap">
+                        <div class="signup-input">
+                            <input
+                                class="confirm-password-input"
+                                id="confirm-password-input"
+                                type="password"
+                                name="confirm-password"
+                                placeholder="비밀번호를 한번 더 입력해주세요"
+                                required
+                            />
+                            <!-- 에러메세지 추가 -->
+                            <span class="error-message" id="confirm-password-error"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 이름 -->
+                <div class="signup-group">
+                    <div class="signup-label">
+                        <label>이름 <span>*</span></label>
+                    </div>
+                    <div class="signup-input-wrap">
+                        <div class="signup-input">
+                            <input
+                                class="name-input"
+                                id="name-input"
+                                type="text"
+                                name="name"
+                                placeholder="이름을 입력해주세요"
+                                required
+                            />
+                            <!-- 에러메세지 추가 -->
+                            <span class="error-message" id="name-error"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 주소 -->
+                <div class="signup-group">
+                    <div class="signup-label">
+                        <label>주소 <span>*</span></label>
+                    </div>
+                    <div class="signup-input-wrap">
+                        <div class="signup-input">
+                            <input
+                                class="address-input"
+                                id="address-input"
+                                type="text"
+                                name="address"
+                                placeholder="도로명, 지번, 건물명 검색"
+                                required
+                            />
+                            <img class="search-icon" src="search.svg" alt="search-icon" />
+                            <span class="address-info">배송지에 따라 상품 정보가 달라질 수 있습니다.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="signup">
+                    <button class="signup-button" type="submit">가입하기</button>
+                </div>
+            </form>
+        </div>
+        <!-- 모듈 타입 추가 -->
+        <script type="module" src="../js/Signup.js"></script>
+    </body>
+</html>

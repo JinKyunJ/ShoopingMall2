@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>카테고리</title>
+    <link rel="stylesheet" href="../css/CategoryStyle.css" />
+    <link rel="stylesheet" href="../css/layout.css" />
+    <link rel="stylesheet" href="../css/reset.css" />
+  </head>
+  <body data-page-id="Category">
+    <header></header>
+
+    <!-- 카테고리 리스트 -->
+    <div class="Category-List">
+      <div class="Category-List-Index">
+        <div class="swiper-wrapper">
+          <!-- 각 제품 슬라이드 샘플
+                <a href="/src/FE/ProductDetails/Productdetails.html" class="swiper-slide">
+                    <div class="Goods-Image">
+                        <img src="../img/main/goods_01.jpeg" alt="제품명1" />
+                        <span class="Goods-Icon"></span>
+                    </div>
+                    <button class="Cart-Btn" type="button">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            height="16px"
+                            viewBox="0 -960 960 960"
+                            width="16px"
+                            fill="#333"
+                        >
+                        </svg>
+                        담기
+                    </button>
+                    <div class="goods-info">
+                        <p class="title">설렁탕</p>
+                        <p class="price">13,000원</p>
+                        <div class="dc-price">
+                            <span class="percent">10%</span>
+                            <div class="price">11,700원</div>
+                        </div>
+                        <p class="review">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                height="16px"
+                                viewBox="0 -960 960 960"
+                                width="16px"
+                                fill="#5f6368"
+                            >
+                            </svg>
+                            100+
+                        </p>
+                    </div>
+                </a>
+            -->
+          <!-- 추가 제품 슬라이드들은 여기 추가 -->
+        </div>
+      </div>
+    </div>
+
+    <!-- 팝업 모달 -->
+    <div class="ButtonModal" id="CartModal">
+      <div class="ButtonModal-content">
+        <div class="modal-product-info">
+          <img src="../img/TextImage/Bg01.jpg" id="ModalProductImage" />
+          <div class="modal-product-details">
+            <p id="ModalProductName">제품 이름 </p>
+            <p id="ModalProductNanoID" style="display: none;">나노 아이디</p> <!-- 나노 아이디를 표시할 요소 -->
+            <hr />
+            <div class="modal-product-pricing">
+              <p id="ModalproductSale">할인율</p>
+              <p id="ModalProductDiscountedPrice">할인 가격</p>
+              <p id="ModalProductPrice">제품 가격</p>
+            </div>
+          </div>
+        </div>
+        <div class="quantity-control">
+          <button id="decreaseQtyBtn" aria-label="수량 내리기" disabled>-</button>
+          <div id="productQuantity">1</div>
+          <button id="increaseQtyBtn" aria-label="수량 올리기">+</button>
+        </div>
+        <button class="ButtonModel-btnClose" id="ButtonModel-btnClose">
+          장바구니에 담기
+        </button>
+      </div>
+    </div>
+
+    <footer></footer>
+    
+    <!-- <script defer type="text/javascript" src="../js/Category/TestInclude.js"></script> 컴포넌트 해더 푸터 연결-->
+
+      <script src="../js/Category/HeaderLayout.js"></script>
+     <script src="../js/Category/GetCategory.js"></script> <!--제품을 서버에서 가져옴-->
+</body>
+</html>

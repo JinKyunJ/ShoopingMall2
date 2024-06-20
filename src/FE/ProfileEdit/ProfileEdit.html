@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>개인정보 수정</title>
+        <link rel="stylesheet" href="../css/ProfileEditStyle.css" />
+        <link rel="stylesheet" href="../css/layout.css" />
+    </head>
+    <body>
+        <header style="display: none"></header>
+        <div class="container">
+            <!-- 상단 제목, back, cart 버튼 -->
+            <div class="head-container">
+                <h1 class="head-title">개인정보 수정</h1>
+                <a href="/src/FE/Cart/AddCartPage.html"
+                    ><svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="30px"
+                        viewBox="0 -960 960 960"
+                        width="30px"
+                        fill="#fff"
+                    >
+                        <path
+                            d="M286.15-97.69q-29.15 0-49.57-20.43-20.42-20.42-20.42-49.57 0-29.16 20.42-49.58 20.42-20.42 49.57-20.42 29.16 0 49.58 20.42 20.42 20.42 20.42 49.58 0 29.15-20.42 49.57-20.42 20.43-49.58 20.43Zm387.7 0q-29.16 0-49.58-20.43-20.42-20.42-20.42-49.57 0-29.16 20.42-49.58 20.42-20.42 49.58-20.42 29.15 0 49.57 20.42t20.42 49.58q0 29.15-20.42 49.57Q703-97.69 673.85-97.69ZM240.61-730 342-517.69h272.69q3.46 0 6.16-1.73 2.69-1.73 4.61-4.81l107.31-195q2.31-4.23.38-7.5-1.92-3.27-6.54-3.27h-486Zm-28.76-60h555.38q24.54 0 37.11 20.89 12.58 20.88 1.2 42.65L677.38-494.31q-9.84 17.31-26.03 26.96-16.2 9.66-35.5 9.66H324l-46.31 84.61q-3.08 4.62-.19 10 2.88 5.39 8.65 5.39h427.7q12.76 0 21.38 8.61 8.61 8.62 8.61 21.39 0 12.77-8.61 21.38-8.62 8.62-21.38 8.62h-427.7q-40 0-60.11-34.5-20.12-34.5-1.42-68.89l57.07-102.61L136.16-810H90q-12.77 0-21.38-8.62Q60-827.23 60-840t8.62-21.38Q77.23-870 90-870h61.15q10.24 0 19.08 5.42 8.85 5.43 13.46 15.27L211.85-790ZM342-517.69h280-280Z"
+                        />
+                    </svg>
+                </a>
+            </div>
+
+            <div class="body-container">
+                <form id="profile-edit-form">
+                    <!-- 아이디(이메일) -->
+                    <div class="form-group">
+                        <div class="form-label">
+                            <label for="email">아이디(이메일)</label>
+                        </div>
+                        <div class="form-input">
+                            <input type="email" id="email" name="email" placeholder="elice09@test.com" readonly />
+                        </div>
+                    </div>
+
+                    <!-- 현재 비밀번호 -->
+                    <div class="form-group">
+                        <div class="form-label">
+                            <label for="current-password">현재 비밀번호</label>
+                        </div>
+                        <div class="form-input">
+                            <input
+                                type="password"
+                                id="current-password"
+                                name="current-password"
+                                placeholder="비밀번호를 입력해 주세요"
+                                required
+                            />
+                            <!-- 에러메세지 추가 -->
+                            <span class="error-message" id="current-password-error"></span>
+                        </div>
+                    </div>
+
+                    <!-- 새 비밀번호 -->
+                    <div class="form-group">
+                        <div class="form-label">
+                            <label for="new-password">새 비밀번호</label>
+                        </div>
+                        <div class="form-input">
+                            <input
+                                type="password"
+                                id="new-password"
+                                name="new-password"
+                                placeholder="새 비밀번호를 입력해 주세요"
+                                required
+                            />
+                            <!-- 에러메세지 추가 -->
+                            <span class="error-message" id="new-password-error"></span>
+                        </div>
+                    </div>
+
+                    <!-- 새 비밀번호 확인 -->
+                    <div class="form-group">
+                        <div class="form-label">
+                            <label for="confirm-new-password">새 비밀번호 확인</label>
+                        </div>
+                        <div class="form-input">
+                            <input
+                                type="password"
+                                id="confirm-new-password"
+                                name="confirm-new-password"
+                                placeholder="새 비밀번호를 다시 입력해 주세요"
+                                required
+                            />
+                            <!-- 에러메세지 추가 -->
+                            <span class="error-message" id="confirm-new-password-error"></span>
+                        </div>
+                    </div>
+
+                    <!-- 이름 -->
+                    <div class="form-group">
+                        <div class="form-label">
+                            <label for="name">이름</label>
+                        </div>
+                        <div class="form-input">
+                            <input type="text" id="name" name="name" placeholder="엘리스" />
+                            <!-- 에러메세지 추가 -->
+                            <span class="error-message" id="name-error"></span>
+                        </div>
+                    </div>
+
+                    <!-- 탈퇴하기 버튼 -->
+                    <div class="delete">
+                        <button type="button" class="delete-button">탈퇴하기</button>
+                    </div>
+
+                    <!-- 탈퇴 여부 확인 모달 창 -->
+                    <div class="delete-modal">
+                        <div class="modal-content">
+                            <h2>회원 탈퇴</h2>
+                            <p>탈퇴하시겠습니까?</p>
+                            <div class="modal-buttons">
+                                <button class="confirm-delete">예</button>
+                                <button class="cancel-delete">아니오</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 수정하기 버튼 -->
+                    <div class="edit">
+                        <button type="submit" class="edit-button">수정하기</button>
+                    </div>
+                </form>
+            </div>
+
+            <footer></footer>
+        </div>
+
+        <!-- 모듈 타입 추가 -->
+        <script type="module" src="../js/ProfileEdit.js"></script>
+        <script defer type="text/javascript" src="../js/include.js"></script>
+    </body>
+</html>
