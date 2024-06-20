@@ -55,6 +55,6 @@ function loadHTML(selector, url) {
 
 // 페이지 로드 시 header와 footer를 불러옴
 document.addEventListener("DOMContentLoaded", () => {
-    loadHTML("header", "./layout/testHeader.html");
-    loadHTML("footer", "./layout/footer.html");
+    loadHTML("header", "../layout/testHeader.html");
+    loadHTML("footer", "../layout/footer.html");
 });

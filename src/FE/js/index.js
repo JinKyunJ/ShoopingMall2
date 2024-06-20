@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   async function fetchProducts(type) {
-    const response = await fetch("http://localhost:3002/products");
+    const response = await fetch("/products");
     const products = Object.values(await response.json());
     let result = [];
 
