@@ -51,7 +51,7 @@ class UserService {
                 user_nanoid: newUser.nanoid,
                 cash: 0
             });
-            return {message: `${bodyData.email} 계정으로 회원가입이 성공하였습니다.`};
+            return {code: 200, message: `${bodyData.email} 계정으로 회원가입이 성공하였습니다.`};
         }
     }
 
@@ -88,7 +88,7 @@ class UserService {
         const text = `이메일 인증 코드 : ${newSecret}`;
         const result = await sendEmail(email, subject, text);
         if(result === 1){
-            return {message: "인증 코드가 정상 발송되었습니다."};
+            return {code:200, message: "인증 코드가 정상 발송되었습니다."};
         }
         else{
             const error = new Error();
@@ -119,8 +119,11 @@ class UserService {
             await Verify.updateOne({data: email, code: code.VERIFYCODE},{
                 is_verified: true
             });
-            return {message: "이메일 인증 코드가 정상적으로 확인되었습니다."}
+            return {code: 200, message: "이메일 인증 코드가 정상적으로 확인되었습니다."}
         } else {
+            await Verify.updateOne({data: email, code: code.VERIFYCODE},{
+                is_verified: false
+            });
             const error = new Error();
             Object.assign(error, {code: 400, message: "이메일 인증 코드를 다시 확인해주세요."});
             throw error;

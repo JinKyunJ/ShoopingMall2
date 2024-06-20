@@ -15,18 +15,31 @@ onCertificationButton.addEventListener('click', async () => {
     const email = emailInput.value;
 
     // 버튼 비활성화
+    onCertificationButton.style.cursor = "none";
+    onCertificationButton.style.color = "black";
+    onCertificationButton.style.border = "1px solid rgb(0, 0, 0)";
     onCertificationButton.disabled = true;
 
-    try {
-        const data = await sendEmailCerification(email);
-        if (data.exists) {
-            alert('이미 사용중인 이메일입니다.');
-        } else {
-            alert('인증번호가 전송되었습니다.');
+    await fetch('/users/verify', {
+        method: 'POST',
+        body: JSON.stringify({ email }),
+        headers: {
+            'Content-Type': 'application/json'
         }
-    } catch (error) {
-        alert(error.message);
-    }
+    })
+    .then(res => res.json())
+    .then(res => {
+        if(res.code === 200){
+            alert(res.message);
+        } 
+        else if(res.code === 401){
+            alert(res.message)
+        } else if(res.code === 400){
+            alert(res.message)
+        } else {
+            alert('이메일 인증에서 오류가 발생했습니다.');
+        }
+    })
 });
 
 /** 이메일 인증 확인 버튼 클릭 시 */
@@ -38,14 +51,24 @@ onConfirmButton.addEventListener('click', async () => {
     const email = emailInput.value;
     const code = confrimEmailInput.value;
 
-    try {
-        const data = await certificationCode(email, code);
-        if (data.valid) {
-            alert('이메일 인증이 완료되었습니다.');
-        } else '인증번호가 유효하지 않습니다.';
-    } catch (error) {
-        alert(error.message);
-    }
+    await fetch('/users/verify/confirm', {
+        method: 'POST',
+        body: JSON.stringify({ email, secret: code }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(res => res.json())
+    .then(res => {
+        if(res.code === 200){
+            alert(res.message);
+        } 
+        else if(res.code === 400){
+            alert(res.message)
+        } else {
+            alert('이메일 인증 확인 과정에서 오류가 발생했습니다.');
+        }
+    })
 });
 
 /** 비밀번호 유효성 검사 */
@@ -146,11 +169,25 @@ onSignupForm.addEventListener('submit', async (event) => {
         return;
     }
 
-    try {
-        await signupUser(email, password, name, address);
-        alert('회원가입이 성공적으로 완료되었습니다.');
-        window.location.href = '../Login/Login.html'; // 회원가입 후 로그인 페이지로 이동
-    } catch (error) {
-        alert(error.message);
-    }
+    await fetch('/users', {
+        method: 'POST',
+        body: JSON.stringify({ email, password, name, address }),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(res => res.json())
+    .then(res => {
+        if(res.code === 200){
+            alert(res.message);
+            window.location.href = '../Login/Login.html'; // 회원가입 후 로그인 페이지로 이동
+        } 
+        else if(res.code === 400){
+            alert(res.message)
+        } else if(res.code === 401){
+            alert(res.message)
+        } else {
+            alert('최종 회원가입 과정에서 오류가 발생했습니다.');
+        }
+    })
 });

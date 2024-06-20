@@ -8,11 +8,12 @@ export async function sendEmailCerification(email) {
                 'Content-Type': 'application/json'
             }
         });
-
+        const data = await response.json();
+        console.log(data)
         if (response.ok) {
-            return await response.json(); // 변수에 할당 하지 않고 데이터 반환
+            return data;
         } else {
-            alert('이메일 인증번호 전송에 실패했습니다. 다시 시도해주세요.');
+            alert('이메일 인증에 오류가 발생했습니다.');
         }
     } catch (error) {
         console.error(error);
