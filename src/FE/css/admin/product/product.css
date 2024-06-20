@@ -21,6 +21,9 @@
   height: 28px;
   color: #fff;
 }
+.product-container button.search {
+  background: none;
+}
 
 .product-list li {
   display: flex;
