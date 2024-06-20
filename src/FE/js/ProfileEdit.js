@@ -7,8 +7,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     try {
         const userInfo = await getUserInfo();
         document.getElementById('email').value = userInfo.email;
-        document.getElementById('name').value = userInfo.name;
-        document.getElementById('address').value = userInfo.address;
+        await fetch('/users/email',{
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: userInfo.email
+            })
+        })
+        .then(res => res.json())
+        .then(res => {
+            document.getElementById('name').value = res.user.name;
+            document.getElementById('address').value = res.user.address;
+        })
     } catch (error) {
         alert(error.message);
     }

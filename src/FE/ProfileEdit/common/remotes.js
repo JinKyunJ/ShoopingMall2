@@ -41,7 +41,7 @@ export async function deleteUser() {
 }
 
 /** 사용자 정보 수정 API 함수 */
-export async function editUserInfo(email, newPassword, name, address) {
+export async function editUserInfo(email, password, name, address) {
     try {
         const response = await fetch('/users', {
             method: 'PUT',
@@ -50,7 +50,7 @@ export async function editUserInfo(email, newPassword, name, address) {
             },
             body: JSON.stringify({
                 email,
-                newPassword,
+                password,
                 name,
                 address
             })

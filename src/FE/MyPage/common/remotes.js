@@ -30,9 +30,21 @@ export async function fetchUserName() {
         });
         if (response.ok) {
             const data = await response.json();
-            const userNameElement = document.getElementById('user-name');
-            userNameElement.textContent = `${data.name}님`; /** 요소의 텍스트 내용을 `${data.name}님`으로 변경 */
-        } else {
+            await fetch('/users/email',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: data.email
+                })
+            })
+            .then(res => res.json())
+            .then(res => {
+                const userNameElement = document.getElementById('user-name');
+                userNameElement.textContent = `${res.user.name}님`; /** 요소의 텍스트 내용을 `${data.name}님`으로 변경 */
+            })
+            } else {
             alert('사용자 정보를 가져오는 데 실패했습니다.');
         }
     } catch (error) {
