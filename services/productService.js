@@ -203,7 +203,7 @@ class ProductService {
             Object.assign(error, {code: 404, message: "조회된 상품이 없습니다."})
             throw error;
         } else {
-            await Product.deleteOne(product);
+            await Product.deleteOne({nanoid});
             return {message: `${nanoid} 상품 삭제 완료`};
         }
     }
