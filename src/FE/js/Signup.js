@@ -14,6 +14,9 @@ const emailInput = document.getElementById('email-input');
 onCertificationButton.addEventListener('click', async () => {
     const email = emailInput.value;
 
+    // 버튼 비활성화
+    onCertificationButton.disabled = true;
+
     try {
         const data = await sendEmailCerification(email);
         if (data.exists) {
