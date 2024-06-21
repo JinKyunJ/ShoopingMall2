@@ -75,8 +75,12 @@ router.get('/orderEnd', (req, res) => {
 router.get('/search', (req, res) => {
     return res.sendFile(path.join(__dirname + "/../src/FE/search/search.html"));
 });
-
-
+router.get('/orderDetail', (req, res) => {
+    return res.sendFile(path.join(__dirname + "/../src/FE/orderDetail/orderDetail.html"));
+});
+router.get('/product-new', (req, res) => {
+    return res.sendFile(path.join(__dirname + "/../src/FE/Admin/product/product-new.html"));
+});
 
 
 
