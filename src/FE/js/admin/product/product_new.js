@@ -1,6 +1,8 @@
 const form = document.getElementById("poductInfoForm");
 const imgInput = document.getElementById("image");
 const detailImgInput = document.getElementsByName("detail_image");
+const ImageAdd = document.getElementById("ImageAdd");
+const ImageDelete = document.getElementById("ImageDelete");
 
 imgInput.addEventListener("change", updateImgInput);
 detailImgInput.forEach((input) => {
@@ -34,6 +36,13 @@ ImageAdd.addEventListener("click", function () {
   input.addEventListener("change", updateImgInput);
 });
 
+ImageDelete.addEventListener("click", function () {
+  const box = this.parentElement.firstElementChild;
+  box.removeChild(box.lastElementChild);
+  box.removeChild(box.lastElementChild);
+  console.log(box);
+});
+
 form.addEventListener("submit", async function (e) {
   e.preventDefault();
   const formData = new FormData(this);
@@ -54,7 +63,7 @@ form.addEventListener("submit", async function (e) {
     const data = await response.json();
 
     alert("상품 등록이 완료되었습니다.");
-    //window.location.href = "/admin/products"; // 관리자 상품리스트 페이지로 이동
+    window.location.href = "/admin/products"; // 관리자 상품리스트 페이지로 이동
   } catch (err) {
     console.log(err);
     alert("상품 등록이 불가합니다. 다시 시도해주세요");
