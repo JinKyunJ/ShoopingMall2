@@ -37,8 +37,12 @@ function CreateMenu(menuItems) {
             if (getPageIdFinder() === "ProductDetails") {
                 // ProductDetails 페이지에서 메뉴 클릭 시 섹션으로 스크롤 이동
                 scrollToSection(item);
+            } else if (getPageIdFinder() === "Category") {
+                // Category 페이지에서 메뉴 클릭 시 카테고리 필터링
+                fetchProducts(category); // Category 페이지에서만 카테고리 필터링 적용
             } else {
-                fetchProducts(category); // 다른 페이지의 경우 필터링 적용
+                console.log(`Category '${category}' clicked on page '${getPageIdFinder()}'`);
+                // 다른 페이지의 경우 기본 동작 또는 추가적인 로직을 처리할 수 있습니다.
             }
         });
     });
