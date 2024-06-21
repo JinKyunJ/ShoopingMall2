@@ -10,10 +10,29 @@ export async function fetchAndNavigate(url) {
         if (response.ok) {
             window.location.href = url;
         } else {
-            // alert('페이지 이동에 실패했습니다. 나중에 다시 시도해주세요.');
+            // console.error('페이지 이동에 실패했습니다.');
         }
     } catch (error) {
         // console.error(error);
+    }
+}
+
+/** 주문내역 페이지 이동 함수 */
+export async function orderDetail() {
+    try {
+        const response = await fetch('/users/orders', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        if (response.ok) {
+            window.location.href = '/orderDetail';
+        } else {
+            alert('페이지 이동에 실패했습니다. 나중에 다시 시도해주세요.');
+        }
+    } catch (error) {
+        console.error(error);
     }
 }
 
@@ -30,7 +49,7 @@ export async function fetchUserName() {
         });
         if (response.ok) {
             const data = await response.json();
-            await fetch('/users/email',{
+            await fetch('/users/email', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -39,12 +58,12 @@ export async function fetchUserName() {
                     email: data.email
                 })
             })
-            .then(res => res.json())
-            .then(res => {
-                const userNameElement = document.getElementById('user-name');
-                userNameElement.textContent = `${res.user.name}님`; /** 요소의 텍스트 내용을 `${data.name}님`으로 변경 */
-            })
-            } else {
+                .then((res) => res.json())
+                .then((res) => {
+                    const userNameElement = document.getElementById('user-name');
+                    userNameElement.textContent = `${res.user.name}님`; /** 요소의 텍스트 내용을 `${data.name}님`으로 변경 */
+                });
+        } else {
             alert('사용자 정보를 가져오는 데 실패했습니다.');
         }
     } catch (error) {
