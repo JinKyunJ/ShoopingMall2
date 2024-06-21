@@ -160,7 +160,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
       // 주문 완료 후 처리
       alert("주문이 완료되었습니다!");
-      //localStorage.removeItem("jwtToken");
+      // localStorage.removeItem("jwtToken");
       window.location.href = "/orderEnd"; // 주문 완료 페이지로 리디렉션
     } catch (error) {
       console.error("Error placing order:", error);
