@@ -21,25 +21,23 @@ router.get('/', asyncHandler(async (req, res) => {
 }));
 
 // findOne
-router.get('/:user_nanoid', asyncHandler(async (req, res) => {
-    const {user_nanoid} = req.params;
+router.get('/find', reqUserCheck, asyncHandler(async (req, res) => {
+    const user_nanoid = req.user.nanoid;
     const result = await cashService.findById({user_nanoid});
     return res.status(200).json(result);
 }));
 
 // update (bodyData : cash)
-router.put('/:user_nanoid', reqUserCheck, isAdmin, asyncHandler(async (req, res) => {
-    const {user_nanoid} = req.params;
-
+router.put('/update', reqUserCheck, asyncHandler(async (req, res) => {
+    const user_nanoid = req.user.nanoid;
     const bodyData = req.body;
     const result = await cashService.updateById({user_nanoid}, bodyData);
     return res.status(200).json(result);
 }));
 
 // delete
-router.delete('/:user_nanoid', reqUserCheck, isAdmin, asyncHandler(async (req,res) => {
-    const {user_nanoid} = req.params;
-
+router.delete('/delete', reqUserCheck, isAdmin, asyncHandler(async (req,res) => {
+    const user_nanoid = req.user.nanoid;
     const result = await cashService.deleteById({user_nanoid});
     return res.status(200).json(result);
 }));

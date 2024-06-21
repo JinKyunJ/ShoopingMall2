@@ -78,5 +78,18 @@ router.post('/deleteByEmail', reqUserCheck, isAdminEmail, asyncHandler(async (re
     return res.status(200).json(result);
 }));
 
+// 회원가입 시 이메일 인증 코드 발급 진행
+router.post('/verify', asyncHandler(async (req, res) => {
+    const {email} = req.body;
+    const result = await userService.joinVerify({email});
+    return res.status(201).json(result);
+}));
+
+// 회원가입 시 이메일 인증 확인 요청 진행
+router.post('/verify/confirm', asyncHandler(async (req, res) => {
+    const {email, secret} = req.body;
+    const result = await userService.joinVerifyConfirm({email, secret});
+    return res.status(200).json(result);
+}));
 
 module.exports = router;

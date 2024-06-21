@@ -1,0 +1,133 @@
+/* main 페이지 공통*/
+main {
+  width: 100%;
+}
+main section {
+  padding: 0px 1.125rem;
+}
+main section.main-slide {
+  padding: 0;
+}
+/* // main 페이지 공통*/
+
+/* 메인 슬라이드 */
+.main-slide .swiper {
+  width: 100%;
+}
+.main-slide .swiper img {
+  width: 100%;
+}
+.main-slide .swiper-pagination {
+  bottom: 10px;
+}
+/* // 메인 슬라이드 */
+
+/* 상품진열 */
+.main-product .title-box {
+  position: relative;
+  padding: 16px 0;
+}
+.main-product .title-box h2 {
+  font-size: 18px;
+}
+.main-product .title-box a {
+  position: absolute;
+  right: 0;
+  top: 14px;
+  font-size: 14px;
+}
+.main-product .product-box {
+  overflow: hidden;
+  width: 100%;
+}
+.main-product .product-box .goods-image {
+  min-height: 37vw;
+}
+.main-product .product-box .goods-image img {
+  width: 100%;
+  border-radius: 4px;
+}
+.main-product .product-box .cart-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background: #fff;
+  border: 1px solid rgb(221, 221, 221);
+  line-height: 32px;
+  border-radius: 4px;
+  margin-top: 8px;
+}
+.main-product .goods-info {
+  padding: 10px 0 20px;
+}
+.main-product .goods-info .title {
+  margin-bottom: 4px;
+}
+.main-product .goods-info .price {
+  font-size: 12px;
+  color: rgb(181, 181, 181);
+  text-decoration: line-through;
+}
+.main-product .goods-info .dc-price {
+  display: flex;
+  font-weight: bold;
+  color: #333;
+  font-size: 14px;
+}
+.main-product .goods-info .percent {
+  color: var(--main-color);
+  margin-right: 6px;
+}
+.main-product .goods-info .dc-price .price {
+  color: #333;
+  font-size: 14px;
+  text-decoration: none;
+}
+.main-product .goods-info .review {
+  font-size: 12px;
+  color: rgb(181, 181, 181);
+}
+.main-product .goods-info .review svg {
+  vertical-align: middle;
+}
+/* //상품진열 */
+
+/* 중간 배너 */
+.Banner {
+  background: rgb(247, 227, 52);
+  min-height: 22vw;
+}
+.Banner img {
+  width: 100%;
+}
+/* //중간 배너 */
+/* CategoryStyle.css에 추가된 내용 */
+/* 메인 페이지에서의 제품 슬라이드 스타일 조정 */
+.main-product-slide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px; /* 필요한 경우 조정 */
+  padding: 0 10px; /* 양쪽 여백 추가 */
+}
+
+.main-product-slide .swiper-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* 제품 간의 간격 */
+  justify-content: center; /* 중앙 정렬 */
+}
+
+.main-product-slide .swiper-slide {
+  width: 100%;
+  max-width: 200px; /* 최대 너비 조정 */
+  margin: 0 auto;
+  padding: 10px;
+  box-sizing: border-box;
+  text-align: center;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}

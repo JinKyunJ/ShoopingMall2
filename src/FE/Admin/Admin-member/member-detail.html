@@ -1,0 +1,86 @@
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>쇼핑몰 관리자</title>
+        <!-- 가져온 css파일 임시로 경로 변경해서 사용중 -->
+        <link rel="stylesheet" href="../../css/admin/admin_reset.css" />
+        <link rel="stylesheet" href="../../css/admin/adminJK.css" />
+        <link rel="stylesheet" href="../../css/member-detail.css" />
+    </head>
+    <body>
+        <header>
+            <button type="button" id="openMenuBtn">
+                <svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 -960 960 960" width="28px" fill="#fff">
+                    <path
+                        d="M170-254.62q-12.75 0-21.37-8.63-8.63-8.62-8.63-21.38 0-12.75 8.63-21.37 8.62-8.61 21.37-8.61h620q12.75 0 21.37 8.62 8.63 8.63 8.63 21.39 0 12.75-8.63 21.37-8.62 8.61-21.37 8.61H170ZM170-450q-12.75 0-21.37-8.63-8.63-8.63-8.63-21.38 0-12.76 8.63-21.37Q157.25-510 170-510h620q12.75 0 21.37 8.63 8.63 8.63 8.63 21.38 0 12.76-8.63 21.37Q802.75-450 790-450H170Zm0-195.39q-12.75 0-21.37-8.62-8.63-8.63-8.63-21.39 0-12.75 8.63-21.37 8.62-8.61 21.37-8.61h620q12.75 0 21.37 8.63 8.63 8.62 8.63 21.38 0 12.75-8.63 21.37-8.62 8.61-21.37 8.61H170Z"
+                    />
+                </svg>
+            </button>
+            <h2>회원관리</h2>
+            <a href="#">
+                <svg xmlns="http://www.w3.org/2000/svg" height="28px" viewBox="0 -960 960 960" width="28px" fill="#fff">
+                    <path
+                        d="M240-200h133.85v-201.54q0-15.36 10.39-25.76 10.4-10.39 25.76-10.39h140q15.36 0 25.76 10.39 10.39 10.4 10.39 25.76V-200H720v-353.85q0-3.07-1.35-5.57-1.34-2.5-3.65-4.43L487.31-735q-3.08-2.69-7.31-2.69-4.23 0-7.31 2.69L245-563.85q-2.31 1.93-3.65 4.43-1.35 2.5-1.35 5.57V-200Zm-60 0v-353.85q0-17.17 7.68-32.53 7.69-15.37 21.24-25.31l227.7-171.54q18.95-14.46 43.32-14.46t43.44 14.46l227.7 171.54q13.55 9.94 21.24 25.31 7.68 15.36 7.68 32.53V-200q0 24.54-17.73 42.27Q744.54-140 720-140H562.31q-15.37 0-25.76-10.4-10.4-10.39-10.4-25.76v-201.53h-92.3v201.53q0 15.37-10.4 25.76-10.39 10.4-25.76 10.4H240q-24.54 0-42.27-17.73Q180-175.46 180-200Zm300-269.23Z"
+                    />
+                </svg>
+            </a>
+        </header>
+        <nav id="menu">
+            <ul class="depth1">
+                <li><a href="#">카테고리</a></li>
+                <li>
+                    <a href="#">상품관리</a>
+                    <ul class="depth2">
+                        <li><a href="#">상품 리스트</a></li>
+                        <li><a href="#">상품 추가</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">주문 리스트</a>
+                    <ul class="depth2">
+                        <li><a href="#">주문 리스트</a></li>
+                        <li><a href="#">주문 취소 리스트</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">회원 관리</a></li>
+            </ul>
+        </nav>
+
+        <!-- 회원 정보-->
+        <div class="member-container">
+            <div class="member-header">
+                <div class="member-name">엘리스</div>
+            </div>
+            <!-- 회원 정보 / 회원 정보 넣기 위해 id 추가  -->
+            <ul class="member-info">
+                <li>
+                    <div class="label">가입</div>
+                    <div class="value" id="date">2024-06-18 12:34</div>
+                </li>
+                <li>
+                    <div class="label">등급</div>
+                    <div class="value" id="grade">일반</div>
+                </li>
+                <li>
+                    <div class="label">아이디(email)</div>
+                    <div class="value" id="email">elice09@test.com</div>
+                </li>
+                <li>
+                    <div class="label">휴대폰</div>
+                    <div class="value" id="phone">010-1234-5678</div>
+                </li>
+                <li>
+                    <div class="label">생일</div>
+                    <div class="value" id="birthday">2024-06-18</div>
+                </li>
+                <li>
+                    <div class="label">주소</div>
+                    <div class="value" id="address">서울</div>
+                </li>
+            </ul>
+        </div>
+        <!-- 모듈 타입 추가 -->
+        <script type="module" src="../../js/member-detail.js"></script>
+    </body>
+</html>

@@ -1,0 +1,89 @@
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>상품 상세 정보</title>
+    <link rel="stylesheet" href="../../css/reset.css" />
+    <link rel="stylesheet" href="../../css/admin/layout.css" />
+    <link rel="stylesheet" href="../../css/admin/product/product.css" />
+  </head>
+  <body>
+    <header></header>
+    <nav id="menu"></nav>
+    <div class="container product-container view-cont">
+      <form id="poductInfoForm">
+        <div class="info_cont">
+          <div class="title_box">
+            <h2>기본정보</h2>
+            <button type="submit">추가</button>
+          </div>
+          <div class="info_box">
+            <table>
+              <tr>
+                <th>상품 이미지</th>
+                <td>
+                  <div class="img_box">
+                    <div class="img"></div>
+                  </div>
+                  <input type="text" name="image" id="image" required />
+                </td>
+              </tr>
+              <tr>
+                <th>상세 이미지</th>
+                <td>
+                  <div class="box">
+                    <div class="img_box">
+                      <div class="img"></div>
+                    </div>
+                    <input type="text" name="detail_image" />
+                  </div>
+                  <button type="button" id="ImageAdd">추가</button>
+                  <button type="button" id="ImageDelete">삭제</button>
+                </td>
+              </tr>
+              <tr>
+                <th>상품명</th>
+                <td><input type="text" name="title" required /></td>
+              </tr>
+              <tr>
+                <th>판매가</th>
+                <td><input type="number" name="price" required /></td>
+              </tr>
+              <tr>
+                <th>할인율</th>
+                <td><input type="number" name="sale" /></td>
+              </tr>
+              <tr>
+                <th>판매자</th>
+                <td><input type="text" name="seller" required /></td>
+              </tr>
+              <tr>
+                <th>짧은설명</th>
+                <td><input type="text" name="ad" required /></td>
+              </tr>
+              <tr>
+                <th>상품설명</th>
+                <td>
+                  <textarea
+                    name="detail_content"
+                    id="detail_content"
+                  ></textarea>
+                </td>
+              </tr>
+              <tr>
+                <th>배송방법</th>
+                <td><input type="text" name="delivery" id="delivery" /></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <script type="text/javascript" src="../../js/admin/include.js"></script>
+    <script
+      type="text/javascript"
+      src="../../js/admin/product/product_new.js"
+    ></script>
+  </body>
+</html>
