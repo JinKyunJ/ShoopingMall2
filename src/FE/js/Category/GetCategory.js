@@ -29,7 +29,9 @@ function fetchProducts(category = 'all') {
         // 카테고리 필터링
         let filteredProducts = products;
         if (category !== 'all') {
-          filteredProducts = products.filter(product => product.category.name === category);
+          filteredProducts = products.filter(product =>
+              product.category && product.category.name === category
+          );
         }
 
         console.log(`Filtered products for category '${category}':`, filteredProducts);
