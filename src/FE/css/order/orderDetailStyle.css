@@ -1,0 +1,126 @@
+header,
+footer {
+    display: none;
+}
+
+.order-container input {
+    height: 34px;
+    width: 100%;
+}
+
+.order-container section {
+    padding: 14px 1.125rem;
+    border-bottom: 8px solid #eee;
+}
+.order-container section:last-child {
+    border-bottom: 0;
+}
+
+.order-container .title-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.order-container .title-box h2 {
+    font-size: 14px;
+}
+
+.order-container .toggle-title + .content-box {
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.4s;
+    padding: 0;
+}
+.order-container .title-box .arrow {
+    transform: rotate(0);
+}
+.order-container .title-box.active .arrow {
+    transform: rotate(180deg);
+}
+.order-container .title-box.active + .content-box {
+    max-height: 50vh;
+    padding-top: 14px;
+}
+.order-container .content-box {
+    padding-top: 14px;
+}
+
+.order-container dl {
+    display: flex;
+}
+
+.order-container textarea {
+    width: 100%;
+    border: 1px solid #d6d6d6;
+    border-radius: 4px;
+    min-height: 50px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.order-list li {
+    display: flex;
+    justify-content: space-between;
+}
+.order-list li + li {
+    margin-top: 12px;
+}
+.order-list li .img-box {
+    width: 50px;
+    height: 50px;
+    background: #eee;
+}
+.order-list li .img-box img {
+    width: 100%;
+}
+.order-list li .info-box {
+    width: calc(100% - 60px);
+    border-bottom: 1px solid #eee;
+    padding-bottom: 20px;
+}
+.order-list li:last-child .info-box {
+    border: 0;
+}
+.order-list li .info-box .price {
+    display: inline-block;
+    margin-right: 5px;
+}
+.order-list li .info-box .fixed-price {
+    text-decoration: line-through;
+    color: #b5b5b5;
+}
+
+.order-container .user-info dl {
+    padding: 2px 0;
+}
+.order-container .user-info dt {
+    width: 30%;
+    color: #727272;
+    font-weight: 500;
+}
+.order-container .user-info dd {
+    width: 70%;
+}
+.order-container .user-info .notice {
+    padding-top: 10px;
+    font-size: 11px;
+    color: #838383;
+}
+
+.order-container .receiver-info dl {
+    padding: 2px 0;
+}
+.order-container .receiver-info dt {
+    width: 30%;
+    color: #727272;
+    font-weight: 500;
+    line-height: 34px;
+}
+.order-container .receiver-info dd {
+    width: 70%;
+}
+
+.order-container .order-price-box dl {
+    justify-content: space-between;
+    padding: 4px 0;
+}
