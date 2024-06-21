@@ -78,7 +78,7 @@ router.get('/search', (req, res) => {
 router.get('/orderDetail', (req, res) => {
     return res.sendFile(path.join(__dirname + "/../src/FE/orderDetail/orderDetail.html"));
 });
-router.get('/product-new', (req, res) => {
+router.get('/admin/product-new', (req, res) => {
     return res.sendFile(path.join(__dirname + "/../src/FE/Admin/product/product-new.html"));
 });
 
