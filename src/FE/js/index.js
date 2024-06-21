@@ -14,8 +14,6 @@ document.addEventListener("DOMContentLoaded", function () {
         sale: parseInt(productElement.querySelector('.percent').textContent.replace(/[^0-9]/g, ''), 10),
         comments: []
       };
-
-      showModal(product);
     }
   });
 
@@ -174,6 +172,11 @@ document.addEventListener("DOMContentLoaded", function () {
     fetchCommentProducts();
     fetchPopularProducts();
     fetchSaladProducts();
+
+    document.querySelectorAll(".cart-btn").forEach(button => {
+      button.addEventListener("click", () => {
+        console.log("Cart button clicked!");
+      });
   });
 });
 

@@ -1,39 +1,44 @@
-// 페이지별 메뉴 항목 정의
+// 메뉴 항목 정의
 const pageMenu = {
     "home": ["안녕하세요. YUMBOX 입니다", "", "", ""],
     "products": ["전자제품", "가구", "의류", "액세서리"],
     "sales": ["오늘의 할인", "주간 특가", "시즌 오퍼", "기획전"],
-    "Category": ["밀키트", "샐러드", "..."],
-    "ProductDetails":["상품설명","상세정보","상품후기","..."]
+    "Category": ["전체","밀키트", "샐러드" ],
+    "ProductDetails": ["상품설명", "상세정보", "상품후기", "..."]
 };
 
-// 현재 페이지 ID를 찾아 반환
+// 현재 페이지 ID를 반환하는 함수
 function getPageIdFinder() {
     return document.body.getAttribute('data-page-id');
 }
 
-// 메뉴 항목을 생성하여 추가하는 함수
+// 메뉴 항목을 생성하는 함수
 function CreateMenu(menuItems) {
     const menuList = document.getElementById("Menu");
-    
-    // 기존 메뉴 항목 제거
+
     while (menuList.firstChild) {
         menuList.removeChild(menuList.firstChild);
     }
 
-    // 새로운 메뉴 항목 생성 및 추가
     menuItems.forEach(item => {
         const li = document.createElement('li');
         const a = document.createElement('a');
-        a.href = "#"; // 여기서 필요한 링크로 변경 가능
+        a.href = "#";
         a.textContent = item;
-        a.style.cursor = "Default";
+        a.style.cursor = "pointer";
         li.appendChild(a);
-        menuList.appendChild(li); // 누락된 부분 추가
+        menuList.appendChild(li);
+
+        // 카테고리 메뉴 클릭 이벤트 추가
+        a.addEventListener('click', (event) => {
+            event.preventDefault();
+            const category = item === "전체" ? 'all' : item;
+            fetchProducts(category); // 필터링 적용
+        });
     });
 }
 
-// 외부 HTML 파일 로드 함수
+// HTML 파일 로드 함수
 function loadHTML(selector, url) {
     fetch(url)
         .then((response) => response.text())
@@ -41,9 +46,7 @@ function loadHTML(selector, url) {
             const element = document.querySelector(selector);
             if (element) {
                 element.innerHTML = data;
-                // 헤더가 로드된 후 카트 카운터 초기화 및 메뉴 생성
                 if (selector === 'header') {
-                    // 헤더 로드 후 페이지 메뉴 생성
                     const currentPage = getPageIdFinder();
                     CreateMenu(pageMenu[currentPage]);
                 }

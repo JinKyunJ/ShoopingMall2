@@ -1,18 +1,19 @@
 const CLOSETIME = 5000; // 5초로 설정
 
 document.addEventListener("DOMContentLoaded", async () => {
-  await fetchProducts(); // 제품 데이터를 가져와서 렌더링
+  await fetchProducts(); // 초기 로드 시 모든 제품을 가져와서 렌더링
   initializeCartCounter(); // 초기 카트 카운터 설정
 
   // storage 이벤트를 통해 다른 탭이나 창에서 localStorage 변경을 감지
   window.addEventListener('storage', updateCartCounter);
 });
 
-function fetchProducts() {
+// 카테고리별 제품 로드 함수
+function fetchProducts(category = 'all') {
   return fetch("/products", {
     method: "GET",
     headers: {
-      "Content-Type": "application/json", // JSON 형태로 데이터 수신을 명시
+      "Content-Type": "application/json",
     },
   })
       .then(response => {
@@ -23,20 +24,32 @@ function fetchProducts() {
       })
       .then(data => {
         const products = Object.values(data).map(prodData => prodData.product);
-        console.log(products);
-        renderProducts(products);
+        console.log("All products:", products);
+
+        // 카테고리 필터링
+        let filteredProducts = products;
+        if (category !== 'all') {
+          filteredProducts = products.filter(product => product.category.name === category);
+        }
+
+        console.log(`Filtered products for category '${category}':`, filteredProducts);
+        renderProducts(filteredProducts);
       })
       .catch(error => {
         console.error("Error fetching products:", error);
       });
 }
 
+// 제품들을 렌더링하는 함수
 function renderProducts(products) {
   const container = document.querySelector(".swiper-wrapper");
   if (!container) {
     console.error("Container element not found");
     return;
   }
+
+  // 기존 제품 요소 제거
+  container.innerHTML = '';
 
   products.forEach(product => {
     const imgPath = `../img/TextImage/${product.image}`;
@@ -52,7 +65,7 @@ function renderProducts(products) {
         담기
       </button>
       <div class="goods-info">
-        <p class="ProductID" style="display: none;">${product.nanoid}</p> <!-- 화면에 안보이게 -->
+        <p class="ProductID" style="display: none;">${product.nanoid}</p>
         <p class="title">${product.title}</p>
         <p class="price">${formatPrice(product.price)}원</p>
         <div class="dc-price">
@@ -67,7 +80,7 @@ function renderProducts(products) {
 
     container.appendChild(productElement);
 
-    // a 태그 클릭 이벤트 추가 - 제품 클릭 시 `localStorage`에 데이터 저장
+    // 제품 클릭 이벤트 추가 - 제품 클릭 시 `localStorage`에 데이터 저장
     productElement.addEventListener("click", function (event) {
       event.preventDefault(); // 기본 링크 동작을 막음
 
