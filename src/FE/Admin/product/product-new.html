@@ -15,40 +15,50 @@
         <div class="info_cont">
           <div class="title_box">
             <h2>기본정보</h2>
-            <button type="submit">수정</button>
+            <button type="submit">추가</button>
           </div>
           <div class="info_box">
             <table>
               <tr>
-                <th>이미지</th>
+                <th>상품 이미지</th>
                 <td>
                   <div class="img_box">
-                    <div id="img" class="img"></div>
+                    <div class="img"></div>
                   </div>
-                  <input type="text" name="image" id="image" />
+                  <input type="text" name="image" id="image" required />
                 </td>
               </tr>
               <tr>
-                <th>상품코드</th>
+                <th>상세 이미지</th>
                 <td>
-                  <input type="text" name="nanoid" id="goodsId" readonly />
+                  <div class="box">
+                    <div class="img_box">
+                      <div class="img"></div>
+                    </div>
+                    <input type="text" name="detail_image" />
+                  </div>
+                  <button type="button" id="ImageAdd">추가</button>
                 </td>
               </tr>
               <tr>
                 <th>상품명</th>
-                <td><input type="text" name="title" id="goodsName" /></td>
+                <td><input type="text" name="title" required /></td>
               </tr>
               <tr>
                 <th>판매가</th>
-                <td><input type="text" name="price" id="goodsPrice" /></td>
+                <td><input type="number" name="price" required /></td>
               </tr>
               <tr>
                 <th>할인율</th>
-                <td><input type="number" name="sale" id="sale" /></td>
+                <td><input type="number" name="sale" /></td>
+              </tr>
+              <tr>
+                <th>판매자</th>
+                <td><input type="text" name="seller" required /></td>
               </tr>
               <tr>
                 <th>짧은설명</th>
-                <td><input type="text" name="ad" id="ad" /></td>
+                <td><input type="text" name="ad" required /></td>
               </tr>
               <tr>
                 <th>상품설명</th>
@@ -72,7 +82,7 @@
     <script type="text/javascript" src="../../js/admin/include.js"></script>
     <script
       type="text/javascript"
-      src="../../js/admin/product/product_view.js"
+      src="../../js/admin/product/product_new.js"
     ></script>
   </body>
 </html>

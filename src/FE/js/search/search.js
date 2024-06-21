@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
   // 검색했을 때 로컬스토리지에 검색어, 주소 저장
   function onSearchFormSubmit(e) {
-    e.preventDefault();
+    //e.preventDefault();
 
     // 검색어가 없을 때
     if (!input.value) {

@@ -73,18 +73,20 @@
 }
 
 .info_box {
-  display: flex;
-  gap: 10px;
   padding-top: 20px;
 }
 .info_box .img_box {
-  height: 120px;
-  width: 90px;
-  background: #ddd;
-  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.info_box .img_box .img {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: #ddd;
+  height: 90px;
+  width: 90px;
+  overflow: hidden;
 }
 .info_box .img_box img {
   width: 100%;
@@ -92,23 +94,27 @@
 
 table {
   border-collapse: collapse;
-  font-size: 14px;
-  width: calc(100% - 100px);
+  width: 100%;
 }
 table th,
 table td {
   border-bottom: 1px solid #ddd;
   text-align: left;
   padding: 10px 0;
+  font-size: 12px;
 }
 table th {
   color: #1a389b;
+}
+table td button {
+  margin-top: 5px;
 }
 
 input[type="text"],
 input[type="number"] {
   height: 34px;
   width: 100%;
+  font-size: 12px;
 }
 input:read-only {
   background: #eee;
@@ -117,4 +123,5 @@ textarea {
   width: 100%;
   min-height: 50px;
   padding: 10px;
+  font-size: 12px;
 }
