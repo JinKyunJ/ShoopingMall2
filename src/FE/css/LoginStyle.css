@@ -1,0 +1,118 @@
+* {
+    /* 공통으로 적용시킬 스타일 */
+    margin: 0;
+    padding: 0;
+    /*box-sizing: bo;*/
+}
+
+body {
+    /* 가로 세로 가운데 정렬 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* 화면 전체 높이를 차지 */
+}
+
+.container {
+    width: 430px;
+    max-width: 100%;
+    min-height: 350px;
+    background: white;
+    border: 1px solid rgb(251, 146, 60);
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 15px 30px;
+    text-align: center;
+}
+
+.head-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+    position: relative; /* 상대 위치 */
+}
+
+.head-x-button {
+    position: absolute; /* 절대 위치 */
+    left: 0; /* 왼쪽 여백 */
+}
+
+.head-x-button button {
+    background: none;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer; /* 포인터 커서 */
+}
+
+.head-title-name {
+    font-size: 12px;
+    text-align: center;
+}
+
+.email-password-container {
+    margin-bottom: 10px;
+}
+
+.email-password-control {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    border: 1px solid rgb(150, 150, 150);
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.email-password-control label {
+    width: 90%;
+}
+
+.email-password-control:focus-within {
+    border: 1px solid rgb(251, 146, 60); /* 포커스 시 테두리 색상 및 두께 */
+    border-radius: 5px; /* 포커스 시 테두리 둥글게 */
+}
+
+.email-password-control input {
+    padding: 0 10px; /* 안쪽 여백 */
+    width: 100%;
+    border: none;
+    outline: none; /* 포커스 효과 제거 */
+}
+
+.checkbox {
+    display: flex;
+    align-items: center;
+    height: 50px;
+    margin-bottom: 20px;
+}
+
+.checkbox label {
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-input {
+    margin-right: 10px; /* 오른쪽 여백 */
+}
+
+.checkbox span {
+    font-size: 14px;
+}
+
+.login-signup {
+    display: flex;
+    flex-direction: column; /* 세로로 나열 */
+    gap: 5px; /* 아이템 간격 */
+}
+
+.login-button,
+.signup-button {
+    width: 100%;
+    padding: 10px; /* 안쪽 여백 */
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer; /* 포인터 커서 */
+    background: rgb(251, 146, 60);
+    color: white;
+}

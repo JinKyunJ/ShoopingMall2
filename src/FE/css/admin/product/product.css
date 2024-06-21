@@ -1,0 +1,127 @@
+.product-container {
+  padding: 10px 15px;
+}
+.product-container .search-box {
+  display: flex;
+}
+.product-container .search-box input {
+  width: 100%;
+  height: 34px;
+}
+
+.product-container .button-cont {
+  border-bottom: 1px solid #c4c4c4;
+  padding: 5px 0;
+  margin-bottom: 2px;
+}
+.product-container button {
+  background: #e96262;
+  border-radius: 4px;
+  padding: 0 14px;
+  height: 28px;
+  color: #fff;
+}
+.product-container button.search {
+  background: none;
+}
+
+.product-list li {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding: 5px 0;
+}
+.product-list li input {
+  margin-right: 8px;
+}
+.product-list li a {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.product-list li .img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ddd;
+  width: 70px;
+  height: 70px;
+}
+.product-list li .img img {
+  width: 100%;
+}
+.product-list li .info {
+  width: calc(100% - 80px);
+  padding: 5px 0;
+}
+.product-list li .info .title {
+  font-size: 14px;
+  padding-bottom: 3px;
+}
+.product-list li .info .price {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.view-cont .title_box {
+  display: flex;
+  justify-content: space-between;
+}
+.view-cont .title_box h2 {
+  font-size: 16px;
+}
+
+.info_box {
+  padding-top: 20px;
+}
+.info_box .img_box {
+  margin-bottom: 10px;
+}
+
+.info_box .img_box .img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ddd;
+  height: 90px;
+  width: 90px;
+  overflow: hidden;
+}
+.info_box .img_box img {
+  width: 100%;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+table th,
+table td {
+  border-bottom: 1px solid #ddd;
+  text-align: left;
+  padding: 10px 0;
+  font-size: 12px;
+}
+table th {
+  color: #1a389b;
+}
+table td button {
+  margin-top: 5px;
+}
+
+input[type="text"],
+input[type="number"] {
+  height: 34px;
+  width: 100%;
+  font-size: 12px;
+}
+input:read-only {
+  background: #eee;
+}
+textarea {
+  width: 100%;
+  min-height: 50px;
+  padding: 10px;
+  font-size: 12px;
+}

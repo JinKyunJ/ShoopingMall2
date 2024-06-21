@@ -28,7 +28,7 @@ router.get('/:nanoid', asyncHandler(async (req, res) => {
 }));
 
 // update (bodyData : address or total_price or delivery_request)
-router.put('/:nanoid', reqUserCheck, isAdmin, asyncHandler(async (req, res) => {
+router.put('/:nanoid', reqUserCheck, asyncHandler(async (req, res) => {
     const {nanoid} = req.params;
 
     const bodyData = req.body;
@@ -38,7 +38,7 @@ router.put('/:nanoid', reqUserCheck, isAdmin, asyncHandler(async (req, res) => {
 
 
 // delete
-router.delete('/:nanoid', reqUserCheck, isAdmin, asyncHandler(async (req,res) => {
+router.delete('/:nanoid', reqUserCheck, asyncHandler(async (req,res) => {
     const {nanoid} = req.params;
 
     const result = await orderService.deleteById({nanoid});

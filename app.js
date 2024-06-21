@@ -12,15 +12,19 @@ const local = require('./strategy/loginStrategy');
 const jwtlocal = require('./strategy/jwtStrategy');
 const loginRouter = require('./routes/loginRouter');
 const errorHandler = require('./middlewares/errorHandler');
+const cors = require('cors');
 // dotenv
 const app = express();
 dotenv.config();
+
+// 모든 도메인에서 cors 허용
+app.use(cors());
 
 // body parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-app.use(express.static('publics'));
+app.use(express.static('src/FE'));
 // cookie parser
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
@@ -34,7 +38,7 @@ app.use(jwtMiddleware);
 mongoose.connect(process.env.MONGO_URI,{
     dbName: process.env.MONGO_DBNAME
 })
-.then( res => console.log("mongoDB eliceShopping collection connected"))
+.then( res => console.log(`mongoDB ${process.env.MONGO_DBNAME} collection connected`))
 .catch( err => console.log(err));
 mongoose.connection.on('err', (err) => {
     console.log("mongoDB err");

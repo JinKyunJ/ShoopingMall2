@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/AddCartPage.css">
+</head>
+<body>
+<header></header>
+<div class="From">
+    <div class="title">
+        <button>✖</button>
+        <p>장바구니</p>
+    </div>
+    <div class="cart-actions">
+        <label class="allcheck">
+            <input type="checkbox" id="allCheck">
+        </label>
+        <div>
+            <p> 전체선택 (<span id="selectNum">0</span>/<span id="TotalNum">0</span>)</p>
+        </div>
+        <div>
+            <button id="deleteSelected">선택삭제</button>
+        </div>
+    </div>
+    <ul id="cart-list"></ul>
+    <div class="price-summary">
+        <div class="summary-item">
+            <p>상품 금액</p>
+            <p id="total-sale-price" class="price">0원</p>
+        </div>
+        <div class="summary-item">
+            <p>상품 할인 금액</p>
+            <p id="total-discount-price" class="price">0원</p>
+        </div>
+        <div class="summary-item">
+            <p>배송비</p>
+            <p id="delivery-price" class="price">0원</p>
+        </div>
+        <div class="summary-item total">
+            <p>결제 예정금액</p>
+            <p id="final-payment-price" class="price">0원</p>
+        </div>
+    </div>
+    <div class="empty-cart">장바구니에 담긴 상품이 없습니다.</div>
+</div>
+<footer>
+    <button id="BuyButton">로그인</button>
+</footer>
+<script src="../js/AddCart.js"></script>
+</body>
+</html>
