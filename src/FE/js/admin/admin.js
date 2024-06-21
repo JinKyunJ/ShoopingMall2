@@ -52,7 +52,7 @@ async function logoutUser() {
 const onLogoutButton = document.querySelector(".logout-button");
 onLogoutButton.addEventListener("click", async (event) => {
   try {
-    await logoutUser(event);
+    await logoutUser();
   } catch (error) {
     alert(error.message);
   }
