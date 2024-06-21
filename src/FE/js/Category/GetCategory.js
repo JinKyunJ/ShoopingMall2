@@ -90,7 +90,9 @@ function renderProducts(products) {
         image: product.image,
         price: product.price,
         sale: product.sale,
-        comments: product.comments
+        comments: product.comments,
+        detailImages: product.detail_image,  // 상세 이미지 추가
+        detailContent: product.detail_content // 상세 정보 추가
       };
       localStorage.setItem("selectedProduct", JSON.stringify(productDetails));
       window.location.href = productElement.href;
