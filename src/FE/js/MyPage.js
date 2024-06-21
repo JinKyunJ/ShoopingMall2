@@ -1,4 +1,4 @@
-import { fetchAndNavigate, fetchUserName, logoutUser } from '../MyPage/common/remotes.js';
+import { fetchAndNavigate, orderDetail, fetchUserName, logoutUser } from '../MyPage/common/remotes.js';
 
 /** 사용자 이름 가져오기 함수 호출 */
 fetchUserName();
@@ -7,6 +7,16 @@ fetchUserName();
 const onGradeButton = document.querySelector('.grade-button');
 onGradeButton.addEventListener('click', () => {
     window.location.href = '#';
+});
+
+/** 주문내역 버튼 클릭 시 */
+const onOrderDetail = document.getElementById('order-detial-button');
+onOrderDetail.addEventListener('click', async (event) => {
+    try {
+        await orderDetail(event);
+    } catch (error) {
+        console.error(error);
+    }
 });
 
 /** 대시보드 버튼 클릭 시 */
